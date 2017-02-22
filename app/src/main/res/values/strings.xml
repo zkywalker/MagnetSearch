@@ -3,7 +3,7 @@
 
     <string name="key_theme">key_theme</string>
 
-    <string name="activity_not_found_error" >未发现可以打开磁力连接的app，如115、迅雷等</string>
+    <string name="activity_not_found_error" >没有发现打开磁力链接的程序</string>
     <string name="add_to_clipboard">已复制到剪切板</string>
     <string name="communicate">交流</string>
     <string name="action_settings">设置</string>
@@ -15,4 +15,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="email">zhan9kun@gmail.com</string>
+    <string name="email_subject">MagnetSearch反馈</string>
+    <string name="no_email_app">没有发现发送邮件的程序</string>
+    <string name="share_content" />
+    <string name="i_know">知道了</string>
 </resources>

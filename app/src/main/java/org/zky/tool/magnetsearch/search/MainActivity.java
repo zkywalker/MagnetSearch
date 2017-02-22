@@ -1,11 +1,13 @@
 package org.zky.tool.magnetsearch.search;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -106,40 +109,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             }
         });
 
-        recyclerView.setAdapter(adapter = new MyAdapter<SearchEntity>(this, list, R.layout.item_recycler_view) {
-            @Override
-            public void convert(ViewHolder var1, SearchEntity var2) {
-                String[] split = var2.getHref().split("/");
-                String hash = split[split.length - 1];
-                final String magnet = "magnet:?xt=urn:btih:" + hash;
-                var1.setText(R.id.tv_magnet, "hash:" + hash);
-                var1.setText(R.id.tv_title, var2.getTitle().trim());
-                var1.setText(R.id.tv_size, var2.getSize());
-                var1.setText(R.id.tv_date, var2.getDate());
-
-                var1.setOnClickListener(R.id.ll_item, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(magnet));
-                            intent.addCategory("android.intent.category.DEFAULT");
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            if (e instanceof ActivityNotFoundException) {
-
-                                Toast.makeText(MainActivity.this, GetRes.getString(R.string.activity_not_found_error), Toast.LENGTH_SHORT).show();
-                            }
-                            e.printStackTrace();
-                        } finally {
-                            GetRes.setClipboard(magnet);
-                            Toast.makeText(MainActivity.this, GetRes.getString(R.string.add_to_clipboard), Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                });
-
-            }
-        });
+        recyclerView.setAdapter(adapter = new SearchAdapter(this, list, R.layout.item_recycler_view));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -161,7 +131,10 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                     public void onStart() {
                         list.clear();
                         adapter.notifyDataSetChanged();
+
                         pbLoading.setVisibility(View.VISIBLE);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     }
 
                     @Override
@@ -184,7 +157,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     }
 
     public static OkHttpClient genericClient() {
-        OkHttpClient httpClient = new OkHttpClient.Builder()
+
+        return new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -199,12 +173,51 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
                 })
                 .build();
-
-        return httpClient;
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        int itemId = item.getItemId();
+        Intent intent;
+        switch (itemId){
+            case R.id.nav_favorites:
+
+                break;
+            case R.id.nav_history:
+
+                break;
+            case R.id.nav_settings:
+
+                break;
+            case R.id.nav_share:
+                intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain"); //纯文本
+                intent.putExtra(Intent.EXTRA_SUBJECT, GetRes.getString(R.string.share));
+                intent.putExtra(Intent.EXTRA_TEXT, GetRes.getString(R.string.share_content));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent.createChooser(intent, GetRes.getString(R.string.share)));
+
+                break;
+            case R.id.nav_send:
+                try {
+                    intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:" + GetRes.getString(R.string.email)));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, GetRes.getString(R.string.email_subject));
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+
+                    Snackbar.make(findViewById(R.id.activity_main), GetRes.getString(R.string.no_email_app), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    }).show();
+
+                }
+
+                break;
+
+        }
+        drawerLayout.closeDrawer(Gravity.LEFT);
+        return true;
     }
 }
