@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MagnetSearch</string>
+
+    <string name="key_theme">key_theme</string>
+
+    <string name="activity_not_found_error" >未发现可以打开磁力连接的app，如115、迅雷等</string>
+    <string name="add_to_clipboard">已复制到剪切板</string>
+    <string name="communicate">交流</string>
+    <string name="action_settings">设置</string>
+    <string name="other">其他</string>
+    <string name="send">反馈</string>
+    <string name="share">分享</string>
+    <string name="action_history">历史记录</string>
+    <string name="action_favorites">收藏夹</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

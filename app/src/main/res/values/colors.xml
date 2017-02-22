@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#8BC34A</color>
+    <color name="colorPrimaryLight">#C8E6C9</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="text">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+
+    <!-- CARD COLORS -->
+
+    <color name="one">#689F38</color>
+
+    <color name="two">#FFA000</color>
+
+    <color name="three">#EC407A</color>
+
+    <color name="four">#03A9F4</color>
+
+    <color name="five">#FF5722</color>
+
+    <color name="six">#00ACC1</color>
+
+
+    <color name="black">#000</color>
+</resources>
