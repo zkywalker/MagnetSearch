@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -128,6 +129,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
         recyclerView.setAdapter(adapter = new SearchAdapter(this, list, R.layout.item_recycler_view));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void query(String key) {
