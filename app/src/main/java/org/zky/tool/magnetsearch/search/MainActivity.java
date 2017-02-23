@@ -1,7 +1,6 @@
 package org.zky.tool.magnetsearch.search;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,12 +14,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.BaseThemeActivity;
@@ -28,7 +29,6 @@ import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
-import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,15 +48,12 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends BaseThemeActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseThemeActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static final String TAG = "MainActivity";
 
     @BindView(R.id.iv_menu)
     ImageView ivMenu;
-    @BindView(R.id.sv_keyword)
-    SearchView svKeyword;
 
-    Retrofit retrofit;
     @BindView(R.id.card)
     CardView card;
     @BindView(R.id.recycler_view)
@@ -67,6 +64,13 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @BindView(R.id.pb_loading)
     ProgressBar pbLoading;
+    @BindView(R.id.et_search)
+    EditText etSearch;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+
+
+    private Retrofit retrofit;
 
     private List<SearchEntity> list = new ArrayList<>();
 
@@ -83,31 +87,44 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     }
 
     private void initView() {
+        //drawer
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navView.setNavigationItemSelectedListener(this);
 
-        ivMenu.setOnClickListener(new View.OnClickListener() {
+        ivMenu.setOnClickListener(this);
+        ivDelete.setOnClickListener(this);
+
+        etSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    ivDelete.setVisibility(View.VISIBLE);
+                    ivMenu.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+
+                } else {
+                    ivDelete.setVisibility(View.GONE);
+                    GetRes.inputMethodToggle(false);
+                }
+
             }
         });
 
-        svKeyword.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                query(s);
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+                    query(v.getText().toString());
+                }
                 return true;
             }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
         });
+
 
         recyclerView.setAdapter(adapter = new SearchAdapter(this, list, R.layout.item_recycler_view));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -133,8 +150,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                         adapter.notifyDataSetChanged();
 
                         pbLoading.setVisibility(View.VISIBLE);
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                        ivMenu.callOnClick();
                     }
 
                     @Override
@@ -179,7 +195,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         Intent intent;
-        switch (itemId){
+        switch (itemId) {
             case R.id.nav_favorites:
 
                 break;
@@ -219,5 +235,24 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(Gravity.LEFT);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_delete:
+                etSearch.setText("");
+                break;
+            case R.id.iv_menu:
+                if (etSearch.isFocused()) {
+                    ivMenu.setImageResource(R.drawable.ic_menu_black_24dp);
+                    recyclerView.requestFocus();
+                } else {
+                    drawerLayout.openDrawer(Gravity.LEFT);
+                }
+
+                break;
+
+        }
     }
 }

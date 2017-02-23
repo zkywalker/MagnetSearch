@@ -9,6 +9,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * get resources simply
@@ -48,5 +49,22 @@ public class GetRes {
     public static void setClipboard(String s){
         ClipboardManager manager = (ClipboardManager) sContext.getSystemService(Context.CLIPBOARD_SERVICE);
         manager.setText(s);
+    }
+
+    public static void inputMethodToggle(){
+        InputMethodManager imm = (InputMethodManager) sContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+    public static void inputMethodToggle(boolean toggle){
+        InputMethodManager imm = (InputMethodManager) sContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        //打开软键盘
+        if (toggle&&!imm.isActive()){
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        //关闭软键盘
+        if (!toggle&&imm.isActive()){
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
     }
 }

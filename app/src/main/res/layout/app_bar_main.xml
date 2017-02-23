@@ -17,27 +17,27 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
             >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
-                <ImageView
-                    android:padding="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_menu_black_24dp"
-                    android:id="@+id/iv_menu"
-                    />
-                <SearchView
-                    android:id="@+id/sv_keyword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:layout_editor_absoluteY="-3dp"
-                    tools:layout_editor_absoluteX="8dp">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="horizontal"-->
+                <!--&gt;-->
+                <!--<ImageView-->
+                    <!--android:padding="10dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:src="@drawable/ic_menu_black_24dp"-->
+                    <!--android:id="@+id/iv_menu"-->
+                    <!--/>-->
+                <!--<SearchView-->
+                    <!--android:id="@+id/sv_keyword"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:queryHint="搜索结果源自爬虫">-->
 
-                </SearchView>
-            </LinearLayout>
+                <!--</SearchView>-->
+            <!--</LinearLayout>-->
+            <include layout="@layout/search_layout"/>
 
         </android.support.v7.widget.CardView>
     </android.support.design.widget.AppBarLayout>
@@ -49,7 +49,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-
+        <requestFocus />
     </android.support.v7.widget.RecyclerView>
 
     <ProgressBar
