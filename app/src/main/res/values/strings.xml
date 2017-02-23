@@ -23,4 +23,6 @@
     <string name="key_intro">key_introduction</string>
     <string name="skip">跳过</string>
     <string name="done">完成</string>
+    <string name="keyword_empty">关键词不能为空</string>
+    <string name="invalid_keyword">关键词包含无效字符</string>
 </resources>

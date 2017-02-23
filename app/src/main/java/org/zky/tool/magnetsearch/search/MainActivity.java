@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -29,6 +30,7 @@ import org.zky.tool.magnetsearch.BaseThemeActivity;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.utils.GetRes;
+import org.zky.tool.magnetsearch.utils.MessageUtils;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 
 import java.io.IOException;
@@ -120,7 +122,11 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                 if (actionId == EditorInfo.IME_ACTION_SEND
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-                    query(v.getText().toString());
+                    String keyword = v.getText().toString();
+                    if (validate(keyword))
+                        query(keyword);
+                    else
+                        ivMenu.callOnClick();
                 }
                 return true;
             }
@@ -130,6 +136,18 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         recyclerView.setAdapter(adapter = new SearchAdapter(this, list, R.layout.item_recycler_view));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private boolean validate(String key){
+        if (TextUtils.isEmpty(key)){
+            MessageUtils.snack(findViewById(R.id.activity_main),R.string.keyword_empty);
+            return false;
+        }
+        if (key.contains("/")){
+            MessageUtils.snack(findViewById(R.id.activity_main),R.string.invalid_keyword);
+            return false;
+        }
+        return true;
     }
 
     private void query(String key) {
