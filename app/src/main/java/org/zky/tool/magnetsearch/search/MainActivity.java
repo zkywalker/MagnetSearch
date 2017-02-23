@@ -75,10 +75,15 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     private Retrofit retrofit;
 
-    private List<SearchEntity> list = new ArrayList<>();
-
     private MyAdapter<SearchEntity> adapter;
 
+    private List<SearchEntity> list = new ArrayList<>();
+
+    private int lastRecyclerItem;
+
+    private String currentKeyword;
+
+    private int currentPage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,7 +129,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
                     String keyword = v.getText().toString();
                     if (validate(keyword))
-                        query(keyword);
+                        query(keyword, 1);
                     else
                         ivMenu.callOnClick();
                 }
@@ -136,45 +141,64 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         recyclerView.setAdapter(adapter = new SearchAdapter(this, list, R.layout.item_recycler_view));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastRecyclerItem + 1 == adapter.getItemCount()) {
+                    query(currentKeyword,currentPage+1);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                lastRecyclerItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+            }
+        });
     }
 
-    private boolean validate(String key){
-        if (TextUtils.isEmpty(key)){
-            MessageUtils.snack(findViewById(R.id.activity_main),R.string.keyword_empty);
+    private boolean validate(String key) {
+        if (TextUtils.isEmpty(key)) {
+            MessageUtils.snack(findViewById(R.id.activity_main), R.string.keyword_empty);
             return false;
         }
-        if (key.contains("/")){
-            MessageUtils.snack(findViewById(R.id.activity_main),R.string.invalid_keyword);
+        if (key.contains("/")) {
+            MessageUtils.snack(findViewById(R.id.activity_main), R.string.invalid_keyword);
             return false;
         }
         return true;
     }
 
-    private void query(String key) {
+    private void query(String key, final int page) {
+        currentKeyword = key;
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .client(genericClient())
+                    .client(getClient())
                     .baseUrl(UrlConstants.BTSO_SEARCH_URL)
                     .addConverterFactory(SearchConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
         }
-
+        if (page > 1)
+            key = key + "/page/" + page;
         Observable<List<SearchEntity>> observable = retrofit.create(SearchSerivce.class).getHtml(key);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<SearchEntity>>() {
                     @Override
                     public void onStart() {
-                        list.clear();
-                        adapter.notifyDataSetChanged();
+                        //page=1时候加载显示progress bar
+                        if (page == 1) {
+                            list.clear();
+                            adapter.notifyDataSetChanged();
+                            pbLoading.setVisibility(View.VISIBLE);
+                            ivMenu.callOnClick();
+                        }
 
-                        pbLoading.setVisibility(View.VISIBLE);
-                        ivMenu.callOnClick();
                     }
 
                     @Override
                     public void onCompleted() {
+                        currentPage = page;
                         pbLoading.setVisibility(View.GONE);
                     }
 
@@ -192,8 +216,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                 });
     }
 
-    public static OkHttpClient genericClient() {
-
+    public static OkHttpClient getClient() {
         return new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(new Interceptor() {

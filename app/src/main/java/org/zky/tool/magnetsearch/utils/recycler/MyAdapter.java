@@ -15,6 +15,9 @@ import java.util.List;
  */
 
 public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
+    public static final int TYPE_FOOTER = 2;
+    public static final int TYPE_ITEM = 1;
+    protected   int mFooterLayoutId;
     protected Context mContext;
     protected int mLayoutId;
     protected List<T> mDatas;
@@ -37,8 +40,18 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         this.mLayoutId = layoutId;
         this.mDatas = datas;
     }
+    public MyAdapter(Context context, List<T> datas, int layoutId,int footerId) {
+        this.mContext = context;
+        this.mInflater = LayoutInflater.from(context);
+        this.mLayoutId = layoutId;
+        this.mDatas = datas;
+        this.mFooterLayoutId = footerId;
+    }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType ==TYPE_FOOTER){
+            return ViewHolder.get(mContext,null,parent, this.mFooterLayoutId);
+        }
         ViewHolder viewHolder = ViewHolder.get(this.mContext, (View)null, parent, this.mLayoutId);
         if(null == this.mRv) {
             this.mRv = parent;
@@ -52,6 +65,8 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     }
 
     protected boolean isEnabled(int viewType) {
+        if (viewType==TYPE_FOOTER)
+            return false;
         return true;
     }
 
@@ -83,7 +98,7 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         this.setListener(position, holder);
-        this.convert(holder, this.mDatas.get(position));
+        this.convert(holder, this.mDatas.get(position),getItemViewType(position));
     }
 
     protected void setListener(final int position, final ViewHolder viewHolder) {
@@ -109,7 +124,15 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         }
     }
 
-    public abstract void convert(ViewHolder var1, T var2);
+    @Override
+    public int getItemViewType(int position) {
+        if (position+1==getItemCount())
+            return TYPE_FOOTER;
+        else
+            return TYPE_ITEM;
+    }
+
+    public abstract void convert(ViewHolder var1, T var2,int type);
 
     public int getItemCount() {
         return this.mDatas != null?this.mDatas.size():0;
