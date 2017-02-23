@@ -1,11 +1,14 @@
 package org.zky.tool.magnetsearch.introduction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.search.MainActivity;
+import org.zky.tool.magnetsearch.utils.GetRes;
 
 
 /**
@@ -15,38 +18,25 @@ import org.zky.tool.magnetsearch.search.MainActivity;
 
 public class DefaultIntroActivity extends IntroductionActivity {
     @Override
+    void onIntroCreate() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String key = GetRes.getString(R.string.key_intro);
+        boolean showIntro = sp.getBoolean(key, true);
+        if (!showIntro) {
+            loadMainActivity();
+        }else{
+            sp.edit().putBoolean(key, false).apply();
+        }
+
+    }
+
+    @Override
     void init(Bundle saveInstanceState) {
         addSlide(SampleSlide.newInstance(R.layout.introduction_1));
         addSlide(SampleSlide.newInstance(R.layout.introduction_2));
         addSlide(SampleSlide.newInstance(R.layout.introduction_3));
         addSlide(SampleSlide.newInstance(R.layout.introduction_4));
 
-//        setShowButton(false);
-        //自定义indicator，比如说丢进去个进度条什么的
-//        setCustomIndicator(new IndicatorController() {
-//            private TextView textView;
-//            private int slideCount;
-//
-//            @Override
-//            public View newInstance(@NonNull Context context) {
-//                textView = new TextView(context);
-//                textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                textView.setTextColor(Color.WHITE);
-//                textView.setGravity(Gravity.CENTER);
-//                return textView;
-//            }
-//
-//            @Override
-//            public void initialize(int count) {
-//                slideCount = count;
-//                selectPosition(0);
-//            }
-//
-//            @Override
-//            public void selectPosition(int position) {
-//                textView.setText(String.format("%d/%d", position + 1, slideCount));
-//            }
-//        });
     }
 
     @Override

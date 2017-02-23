@@ -14,6 +14,9 @@
         <activity android:name=".search.MainActivity"
             android:windowSoftInputMode="adjustPan"
             >
+
+        </activity>
+        <activity android:name=".introduction.DefaultIntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

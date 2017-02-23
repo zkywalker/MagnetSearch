@@ -39,6 +39,7 @@ public abstract class IntroductionActivity extends AppCompatActivity implements 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        onIntroCreate();
         //请求窗口特色没有actionbar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -141,11 +142,17 @@ public abstract class IntroductionActivity extends AppCompatActivity implements 
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * onCreate时调用，判断是否加载介绍页面
+     */
+    abstract void onIntroCreate();
+
     abstract void init(Bundle saveInstanceState);
 
     abstract void onSkip();
 
     abstract void onDone();
+
 
 
     @Override

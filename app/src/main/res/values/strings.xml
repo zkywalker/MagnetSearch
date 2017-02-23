@@ -20,4 +20,7 @@
     <string name="no_email_app">没有发现发送邮件的程序</string>
     <string name="share_content" />
     <string name="i_know">知道了</string>
+    <string name="key_intro">key_introduction</string>
+    <string name="skip">跳过</string>
+    <string name="done">完成</string>
 </resources>

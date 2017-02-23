@@ -39,7 +39,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="8dp"
             style="?attr/borderlessButtonStyle"
-            android:src="@drawable/ic_navigate_next_white"
+            android:src="@mipmap/ic_navigate_next_white"
             />
         <Button
             android:id="@+id/btn_done"
