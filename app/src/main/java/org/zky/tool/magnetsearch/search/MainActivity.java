@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,16 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -68,7 +72,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     @BindView(R.id.pb_loading)
     ProgressBar pbLoading;
     @BindView(R.id.et_search)
-    EditText etSearch;
+    AutoCompleteTextView etSearch;
     @BindView(R.id.iv_delete)
     ImageView ivDelete;
 
@@ -81,9 +85,21 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     private int lastRecyclerItem;
 
+    private static final  String CURRENT_KEYWORD = "currentKeyword";
+
+    private static final  String CURRENT_PAGE = "currentPage";
+
+
     private String currentKeyword;
 
     private int currentPage;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString(CURRENT_KEYWORD,currentKeyword);
+        outState.putInt(CURRENT_PAGE,currentPage);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +107,11 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+
+        if (savedInstanceState!=null){
+            currentKeyword = savedInstanceState.getString(CURRENT_KEYWORD);
+            currentPage = savedInstanceState.getInt(CURRENT_PAGE,1);
+        }
 
     }
 
@@ -154,6 +175,23 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                 lastRecyclerItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
             }
         });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etSearch.setCompletionHint(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private boolean validate(String key) {
@@ -189,6 +227,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                         //page=1时候加载显示progress bar
                         if (page == 1) {
                             list.clear();
+                            adapter.setCurrentItemcount(0);
                             adapter.notifyDataSetChanged();
                             pbLoading.setVisibility(View.VISIBLE);
                             ivMenu.callOnClick();

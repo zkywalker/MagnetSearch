@@ -24,6 +24,16 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     protected LayoutInflater mInflater;
     protected ViewGroup mRv;
     private OnItemClickListener mOnItemClickListener;
+    private int currentItemcount;
+    private int maxPageItemCount = 30;
+
+    public int getCurrentItemcount() {
+        return currentItemcount;
+    }
+
+    public void setCurrentItemcount(int currentItemcount) {
+        this.currentItemcount = currentItemcount;
+    }
 
     public MyAdapter setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
@@ -135,7 +145,13 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     public abstract void convert(ViewHolder var1, T var2,int type);
 
     public int getItemCount() {
-        return this.mDatas != null?this.mDatas.size():0;
+        if (mDatas ==null){
+            return 0;
+        }else if (mDatas.size()<maxPageItemCount){
+            return mDatas.size();
+        }else{
+            return mDatas.size()+1;
+        }
     }
 
     public void setDatas(List<T> list) {
@@ -151,13 +167,14 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         } else {
             this.mDatas = list;
         }
-
+        setCurrentItemcount(mDatas.size());
         this.notifyDataSetChanged();
     }
 
     public void remove(int i) {
         if(null != this.mDatas && this.mDatas.size() > i && i > -1) {
             this.mDatas.remove(i);
+            setCurrentItemcount(mDatas.size());
             this.notifyDataSetChanged();
         }
 
@@ -172,7 +189,7 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
             } else {
                 this.mDatas = temp;
             }
-
+            setCurrentItemcount(mDatas.size());
             this.notifyDataSetChanged();
         }
 
