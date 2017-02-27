@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.utils.GetRes;
@@ -68,7 +67,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
     }
 
     private void snack(String s) {
-        Snackbar.make(((Activity) mContext).findViewById(R.id.activity_main), s, Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
+        Snackbar.make(((Activity) mContext).findViewById(R.id.activity_content), s, Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }

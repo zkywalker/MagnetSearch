@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.zky.tool.magnetsearch.MagnetSearchApp;
+import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +23,9 @@ import retrofit2.Converter;
 
 public class SearchResponseBodyConverter implements Converter<ResponseBody, List<SearchEntity>> {
     private static final String TAG = "StringResponseBodyConve";
+
+    private SearchEntityDao searchEntityDao;
+
     @Override
     public List<SearchEntity> convert(ResponseBody value) throws IOException {
         try {
@@ -45,7 +50,15 @@ public class SearchResponseBodyConverter implements Converter<ResponseBody, List
                 Elements divDate = row.getElementsByClass("date");
                 String convertDate = divDate.get(0).text();
 
-                list.add(new SearchEntity(href, title, size, convertDate));
+                SearchEntity searchEntity = new SearchEntity(href, title, size, convertDate);
+
+                list.add(searchEntity);
+
+                if (searchEntityDao==null){
+                    searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
+                }
+
+                searchEntityDao.insertOrReplace(searchEntity);
             }
 
         }

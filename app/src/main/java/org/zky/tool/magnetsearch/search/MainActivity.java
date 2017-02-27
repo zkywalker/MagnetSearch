@@ -1,6 +1,5 @@
 package org.zky.tool.magnetsearch.search;
 
-import android.animation.ObjectAnimator;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.BaseThemeActivity;
+import org.zky.tool.magnetsearch.HistoryActivity;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.utils.AnimUtils;
@@ -137,7 +137,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
                 } else {
                     AnimUtils.zoomOut(ivDelete);
-                    GetRes.inputMethodToggle(false);
+                    GetRes.hideSoftKeyboard(etSearch);
                 }
 
             }
@@ -198,11 +198,11 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     private boolean validate(String key) {
         if (TextUtils.isEmpty(key)) {
-            MessageUtils.snack(findViewById(R.id.activity_main), R.string.keyword_empty);
+            MessageUtils.snack(findViewById(R.id.activity_content), R.string.keyword_empty);
             return false;
         }
         if (key.contains("/")) {
-            MessageUtils.snack(findViewById(R.id.activity_main), R.string.invalid_keyword);
+            MessageUtils.snack(findViewById(R.id.activity_content), R.string.invalid_keyword);
             return false;
         }
         return true;
@@ -284,7 +284,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
                 break;
             case R.id.nav_history:
-
+                intent = new Intent(this, HistoryActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_settings:
 
@@ -306,7 +307,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                     startActivity(intent);
                 } catch (ActivityNotFoundException e) {
 
-                    Snackbar.make(findViewById(R.id.activity_main), GetRes.getString(R.string.no_email_app), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
+                    Snackbar.make(findViewById(R.id.activity_content), GetRes.getString(R.string.no_email_app), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                         }
@@ -330,10 +331,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             case R.id.iv_menu:
                 if (etSearch.isFocused()) {
                     ivMenu.setImageResource(R.drawable.ic_menu_black_24dp);
-                    ObjectAnimator//
-                            .ofFloat(ivMenu, "rotationX", 0.0F, 360.0F)//
-                            .setDuration(500)//
-                            .start();
+                    AnimUtils.zoomIn(ivMenu);
                     recyclerView.requestFocus();
                 } else {
                     drawerLayout.openDrawer(Gravity.LEFT);

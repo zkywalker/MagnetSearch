@@ -3,7 +3,7 @@
 
     <string name="key_theme">key_theme</string>
 
-    <string name="activity_not_found_error" >没有发现打开磁力链接的程序</string>
+    <string name="activity_not_found_error">没有发现打开磁力链接的程序</string>
     <string name="add_to_clipboard">已复制到剪切板</string>
     <string name="communicate">交流</string>
     <string name="action_settings">设置</string>
@@ -25,4 +25,5 @@
     <string name="done">完成</string>
     <string name="keyword_empty">关键词不能为空</string>
     <string name="invalid_keyword">关键词包含无效字符</string>
+    <string name="history_activity">历史记录</string>
 </resources>
