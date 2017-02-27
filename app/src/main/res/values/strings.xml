@@ -26,4 +26,5 @@
     <string name="keyword_empty">关键词不能为空</string>
     <string name="invalid_keyword">关键词包含无效字符</string>
     <string name="history_activity">历史记录</string>
+    <string name="favorites_activity">收藏夹</string>
 </resources>

@@ -5,6 +5,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import org.zky.tool.magnetsearch.search.SearchAdapter;
 import org.zky.tool.magnetsearch.search.SearchEntity;
@@ -17,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HistoryActivity extends BaseThemeActivity {
+    private static final String TAG = "HistoryActivity";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,6 +41,7 @@ public class HistoryActivity extends BaseThemeActivity {
 
     private void initData() {
         List<SearchEntity> searchEntities = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao().loadAll();
+        Log.i(TAG, "initData: "+searchEntities);
         if (searchEntities.size() > 0)
             adapter.addDatas(searchEntities);
     }

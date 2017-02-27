@@ -18,12 +18,22 @@ public class SearchEntity {
 
     private boolean opened;
 
+    private boolean isFavorite;
+
     public boolean isOpened() {
         return opened;
     }
 
     public void setOpened(boolean opened) {
         this.opened = opened;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     public SearchEntity(String href, String title, String size, String date) {
@@ -33,11 +43,12 @@ public class SearchEntity {
         this.date = date;
     }
 
-    @Generated(hash = 1882901940)
-    public SearchEntity(Long id, boolean opened, String href, String title, String size,
-            String date) {
+    @Generated(hash = 1855191706)
+    public SearchEntity(Long id, boolean opened, boolean isFavorite, String href,
+            String title, String size, String date) {
         this.id = id;
         this.opened = opened;
+        this.isFavorite = isFavorite;
         this.href = href;
         this.title = title;
         this.size = size;
@@ -106,6 +117,7 @@ public class SearchEntity {
                 ", size='" + size + '\'' +
                 ", date='" + date + '\'' +
                 ", opened='" + opened + '\'' +
+                ", isFavorite='" + isFavorite + '\'' +
                 '}';
     }
 
@@ -119,5 +131,13 @@ public class SearchEntity {
 
     public boolean getOpened() {
         return this.opened;
+    }
+
+    public boolean getIsFavorite() {
+        return this.isFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 }

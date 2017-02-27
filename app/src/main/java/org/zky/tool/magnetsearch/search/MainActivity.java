@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.BaseThemeActivity;
+import org.zky.tool.magnetsearch.FavoriteActivity;
 import org.zky.tool.magnetsearch.HistoryActivity;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
@@ -281,7 +283,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         Intent intent;
         switch (itemId) {
             case R.id.nav_favorites:
-
+                intent = new Intent(this, FavoriteActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_history:
                 intent = new Intent(this, HistoryActivity.class);

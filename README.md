@@ -2,18 +2,19 @@
 
 ✔上拉加载更多
 
-search keyword检查
+✔search keyword检查
 
 ✔search view 修改
 
-收藏夹
+recycler view(点击事件，收藏，二维码，分享链接)
 
-历史记录
+历史记录(所有历史 浏览历史 分页)
+
+收藏夹
 
 设置
 
-✔分享，反馈
+分享，反馈
 
-recycler view(动画，点击事件，收藏，二维码，分享链接)
 
 外链搜索

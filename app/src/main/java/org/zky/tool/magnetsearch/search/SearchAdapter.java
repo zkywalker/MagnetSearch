@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
+import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
@@ -22,23 +24,27 @@ import java.util.List;
 
 public class SearchAdapter extends MyAdapter<SearchEntity> {
     private Context mContext;
+    private SearchEntityDao searchEntityDao;
 
     public SearchAdapter(Context context, List<SearchEntity> datas, int layoutId) {
         super(context, datas, layoutId,R.layout.recycler_view_footer);
         mContext = context;
+        searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
+
     }
 
     @Override
-    public void convert(ViewHolder var1, SearchEntity var2, int type) {
+    public void convert(final ViewHolder var1, final SearchEntity var2, int type) {
         if (type == TYPE_ITEM) {
 
             String[] split = var2.getHref().split("/");
             String hash = split[split.length - 1];
             final String magnet = "magnet:?xt=urn:btih:" + hash;
-            var1.setText(R.id.tv_magnet, "Distributed Hash Table:" + hash);
+            var1.setText(R.id.tv_magnet, "Hash:" + hash);
             var1.setText(R.id.tv_title, var2.getTitle().trim());
             var1.setText(R.id.tv_size, var2.getSize());
             var1.setText(R.id.tv_date, var2.getDate());
+            setFavorite(var1,var2.getIsFavorite());
 
             var1.setOnClickListener(R.id.ll_item, new View.OnClickListener() {
                 @Override
@@ -61,9 +67,26 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
 
                 }
             });
+            var1.setOnClickListener(R.id.iv_favorite, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    var2.setFavorite(!var2.getIsFavorite());
+                    searchEntityDao.update(var2);
+                    setFavorite(var1,var2.getIsFavorite());
+                }
+            });
         }
 
 
+    }
+
+    private void setFavorite(ViewHolder var1,boolean favorite){
+        if (favorite){
+            var1.setImageResource(R.id.iv_favorite,R.drawable.ic_favorite_red_24dp);
+        }else {
+            var1.setImageResource(R.id.iv_favorite,R.drawable.ic_favorite_border_black_24dp);
+
+        }
     }
 
     private void snack(String s) {

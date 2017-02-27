@@ -26,10 +26,11 @@ public class SearchEntityDao extends AbstractDao<SearchEntity, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Opened = new Property(1, boolean.class, "opened", false, "OPENED");
-        public final static Property Href = new Property(2, String.class, "href", false, "HREF");
-        public final static Property Title = new Property(3, String.class, "title", false, "TITLE");
-        public final static Property Size = new Property(4, String.class, "size", false, "SIZE");
-        public final static Property Date = new Property(5, String.class, "date", false, "DATE");
+        public final static Property IsFavorite = new Property(2, boolean.class, "isFavorite", false, "IS_FAVORITE");
+        public final static Property Href = new Property(3, String.class, "href", false, "HREF");
+        public final static Property Title = new Property(4, String.class, "title", false, "TITLE");
+        public final static Property Size = new Property(5, String.class, "size", false, "SIZE");
+        public final static Property Date = new Property(6, String.class, "date", false, "DATE");
     };
 
 
@@ -47,10 +48,11 @@ public class SearchEntityDao extends AbstractDao<SearchEntity, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"SEARCH_ENTITY\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"OPENED\" INTEGER NOT NULL ," + // 1: opened
-                "\"HREF\" TEXT UNIQUE ," + // 2: href
-                "\"TITLE\" TEXT," + // 3: title
-                "\"SIZE\" TEXT," + // 4: size
-                "\"DATE\" TEXT);"); // 5: date
+                "\"IS_FAVORITE\" INTEGER NOT NULL ," + // 2: isFavorite
+                "\"HREF\" TEXT UNIQUE ," + // 3: href
+                "\"TITLE\" TEXT," + // 4: title
+                "\"SIZE\" TEXT," + // 5: size
+                "\"DATE\" TEXT);"); // 6: date
     }
 
     /** Drops the underlying database table. */
@@ -68,25 +70,26 @@ public class SearchEntityDao extends AbstractDao<SearchEntity, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindLong(2, entity.getOpened() ? 1L: 0L);
+        stmt.bindLong(3, entity.getIsFavorite() ? 1L: 0L);
  
         String href = entity.getHref();
         if (href != null) {
-            stmt.bindString(3, href);
+            stmt.bindString(4, href);
         }
  
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(4, title);
+            stmt.bindString(5, title);
         }
  
         String size = entity.getSize();
         if (size != null) {
-            stmt.bindString(5, size);
+            stmt.bindString(6, size);
         }
  
         String date = entity.getDate();
         if (date != null) {
-            stmt.bindString(6, date);
+            stmt.bindString(7, date);
         }
     }
 
@@ -99,25 +102,26 @@ public class SearchEntityDao extends AbstractDao<SearchEntity, Long> {
             stmt.bindLong(1, id);
         }
         stmt.bindLong(2, entity.getOpened() ? 1L: 0L);
+        stmt.bindLong(3, entity.getIsFavorite() ? 1L: 0L);
  
         String href = entity.getHref();
         if (href != null) {
-            stmt.bindString(3, href);
+            stmt.bindString(4, href);
         }
  
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(4, title);
+            stmt.bindString(5, title);
         }
  
         String size = entity.getSize();
         if (size != null) {
-            stmt.bindString(5, size);
+            stmt.bindString(6, size);
         }
  
         String date = entity.getDate();
         if (date != null) {
-            stmt.bindString(6, date);
+            stmt.bindString(7, date);
         }
     }
 
@@ -131,10 +135,11 @@ public class SearchEntityDao extends AbstractDao<SearchEntity, Long> {
         SearchEntity entity = new SearchEntity( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getShort(offset + 1) != 0, // opened
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // href
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // title
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // size
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // date
+            cursor.getShort(offset + 2) != 0, // isFavorite
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // href
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // title
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // size
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // date
         );
         return entity;
     }
@@ -143,10 +148,11 @@ public class SearchEntityDao extends AbstractDao<SearchEntity, Long> {
     public void readEntity(Cursor cursor, SearchEntity entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setOpened(cursor.getShort(offset + 1) != 0);
-        entity.setHref(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTitle(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setSize(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setDate(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setIsFavorite(cursor.getShort(offset + 2) != 0);
+        entity.setHref(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setTitle(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setSize(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setDate(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

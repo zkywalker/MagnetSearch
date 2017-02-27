@@ -1,6 +1,5 @@
 package org.zky.tool.magnetsearch.search;
 
-import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
