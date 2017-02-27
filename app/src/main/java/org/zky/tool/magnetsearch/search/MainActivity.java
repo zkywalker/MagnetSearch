@@ -1,5 +1,6 @@
 package org.zky.tool.magnetsearch.search;
 
+import android.animation.ObjectAnimator;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -24,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,6 +33,7 @@ import android.widget.Toast;
 import org.zky.tool.magnetsearch.BaseThemeActivity;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
+import org.zky.tool.magnetsearch.utils.AnimUtils;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.MessageUtils;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
@@ -130,11 +131,12 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    ivDelete.setVisibility(View.VISIBLE);
+                    AnimUtils.zoomIn(ivDelete);
                     ivMenu.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+                    AnimUtils.zoomIn(ivMenu);
 
                 } else {
-                    ivDelete.setVisibility(View.GONE);
+                    AnimUtils.zoomOut(ivDelete);
                     GetRes.inputMethodToggle(false);
                 }
 
@@ -227,7 +229,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                         //page=1时候加载显示progress bar
                         if (page == 1) {
                             list.clear();
-                            adapter.setCurrentItemcount(0);
+                            adapter.setCurrentItemCount(0);
                             adapter.notifyDataSetChanged();
                             pbLoading.setVisibility(View.VISIBLE);
                             ivMenu.callOnClick();
@@ -328,6 +330,10 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             case R.id.iv_menu:
                 if (etSearch.isFocused()) {
                     ivMenu.setImageResource(R.drawable.ic_menu_black_24dp);
+                    ObjectAnimator//
+                            .ofFloat(ivMenu, "rotationX", 0.0F, 360.0F)//
+                            .setDuration(500)//
+                            .start();
                     recyclerView.requestFocus();
                 } else {
                     drawerLayout.openDrawer(Gravity.LEFT);

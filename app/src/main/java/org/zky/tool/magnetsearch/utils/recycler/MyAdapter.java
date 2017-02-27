@@ -16,23 +16,33 @@ import java.util.List;
 
 public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     public static final int TYPE_FOOTER = 2;
+
     public static final int TYPE_ITEM = 1;
-    protected   int mFooterLayoutId;
-    protected Context mContext;
-    protected int mLayoutId;
-    protected List<T> mDatas;
-    protected LayoutInflater mInflater;
-    protected ViewGroup mRv;
+
+    private int mFooterLayoutId;
+
+    private Context mContext;
+
+    private int mLayoutId;
+
+    private List<T> mDatas;
+
+    private LayoutInflater mInflater;
+
+    private ViewGroup mRv;
+
     private OnItemClickListener mOnItemClickListener;
-    private int currentItemcount;
+
+    private int currentItemCount = 0;
+
     private int maxPageItemCount = 30;
 
-    public int getCurrentItemcount() {
-        return currentItemcount;
+    public int getCurrentItemCount() {
+        return currentItemCount;
     }
 
-    public void setCurrentItemcount(int currentItemcount) {
-        this.currentItemcount = currentItemcount;
+    public void setCurrentItemCount(int currentItemCount) {
+        this.currentItemCount = currentItemCount;
     }
 
     public MyAdapter setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -50,7 +60,8 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         this.mLayoutId = layoutId;
         this.mDatas = datas;
     }
-    public MyAdapter(Context context, List<T> datas, int layoutId,int footerId) {
+
+    public MyAdapter(Context context, List<T> datas, int layoutId, int footerId) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mLayoutId = layoutId;
@@ -59,11 +70,11 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType ==TYPE_FOOTER){
-            return ViewHolder.get(mContext,null,parent, this.mFooterLayoutId);
+        if (viewType == TYPE_FOOTER) {
+            return ViewHolder.get(mContext, null, parent, this.mFooterLayoutId);
         }
-        ViewHolder viewHolder = ViewHolder.get(this.mContext, (View)null, parent, this.mLayoutId);
-        if(null == this.mRv) {
+        ViewHolder viewHolder = ViewHolder.get(this.mContext, (View) null, parent, this.mLayoutId);
+        if (null == this.mRv) {
             this.mRv = parent;
         }
 
@@ -75,18 +86,20 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     }
 
     protected boolean isEnabled(int viewType) {
-        if (viewType==TYPE_FOOTER)
+        if (viewType == TYPE_FOOTER)
             return false;
         return true;
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     protected void setListener(final ViewGroup parent, final ViewHolder viewHolder, int viewType) {
-        if(this.isEnabled(viewType)) {
+        if (this.isEnabled(viewType)) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if(MyAdapter.this.mOnItemClickListener != null) {
+                    if (MyAdapter.this.mOnItemClickListener != null) {
                         int position = MyAdapter.this.getPosition(viewHolder);
                         MyAdapter.this.mOnItemClickListener.onItemClick(parent, v, MyAdapter.this.mDatas.get(position), position);
                     }
@@ -95,7 +108,7 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
             });
             viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    if(MyAdapter.this.mOnItemClickListener != null) {
+                    if (MyAdapter.this.mOnItemClickListener != null) {
                         int position = MyAdapter.this.getPosition(viewHolder);
                         return MyAdapter.this.mOnItemClickListener.onItemLongClick(parent, v, MyAdapter.this.mDatas.get(position), position);
                     } else {
@@ -108,14 +121,19 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         this.setListener(position, holder);
-        this.convert(holder, this.mDatas.get(position),getItemViewType(position));
+        if (position == mDatas.size()) {
+            this.convert(holder, this.mDatas.get(position - 1), getItemViewType(position));
+        } else{
+            this.convert(holder, this.mDatas.get(position), getItemViewType(position));
+        }
+
     }
 
     protected void setListener(final int position, final ViewHolder viewHolder) {
-        if(this.isEnabled(this.getItemViewType(position))) {
+        if (this.isEnabled(this.getItemViewType(position))) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if(MyAdapter.this.mOnItemClickListener != null) {
+                    if (MyAdapter.this.mOnItemClickListener != null) {
                         MyAdapter.this.mOnItemClickListener.onItemClick(MyAdapter.this.mRv, v, MyAdapter.this.mDatas.get(position), position);
                     }
 
@@ -123,7 +141,7 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
             });
             viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    if(MyAdapter.this.mOnItemClickListener != null) {
+                    if (MyAdapter.this.mOnItemClickListener != null) {
                         int position = MyAdapter.this.getPosition(viewHolder);
                         return MyAdapter.this.mOnItemClickListener.onItemLongClick(MyAdapter.this.mRv, v, MyAdapter.this.mDatas.get(position), position);
                     } else {
@@ -136,27 +154,28 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (position+1==getItemCount())
+        //当前item是最后一项并且数据量足够
+        if (position + 1 == getItemCount() && currentItemCount != getItemCount())
             return TYPE_FOOTER;
         else
             return TYPE_ITEM;
     }
 
-    public abstract void convert(ViewHolder var1, T var2,int type);
+    public abstract void convert(ViewHolder var1, T var2, int type);
 
     public int getItemCount() {
-        if (mDatas ==null){
+        if (mDatas == null) {
             return 0;
-        }else if (mDatas.size()<maxPageItemCount){
+        } else if (mDatas.size() < maxPageItemCount) {
             return mDatas.size();
-        }else{
-            return mDatas.size()+1;
+        } else {
+            return mDatas.size() + 1;
         }
     }
 
     public void setDatas(List<T> list) {
-        if(this.mDatas != null) {
-            if(null != list) {
+        if (this.mDatas != null) {
+            if (null != list) {
                 ArrayList temp = new ArrayList();
                 temp.addAll(list);
                 this.mDatas.clear();
@@ -167,29 +186,29 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         } else {
             this.mDatas = list;
         }
-        setCurrentItemcount(mDatas.size());
+        setCurrentItemCount(mDatas.size());
         this.notifyDataSetChanged();
     }
 
     public void remove(int i) {
-        if(null != this.mDatas && this.mDatas.size() > i && i > -1) {
+        if (null != this.mDatas && this.mDatas.size() > i && i > -1) {
             this.mDatas.remove(i);
-            setCurrentItemcount(mDatas.size());
+            setCurrentItemCount(mDatas.size());
             this.notifyDataSetChanged();
         }
 
     }
 
     public void addDatas(List<T> list) {
-        if(null != list) {
+        if (null != list) {
             ArrayList temp = new ArrayList();
             temp.addAll(list);
-            if(this.mDatas != null) {
+            if (this.mDatas != null) {
                 this.mDatas.addAll(temp);
             } else {
                 this.mDatas = temp;
             }
-            setCurrentItemcount(mDatas.size());
+            setCurrentItemCount(mDatas.size());
             this.notifyDataSetChanged();
         }
 
@@ -200,7 +219,7 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     }
 
     public T getItem(int position) {
-        return position > -1 && null != this.mDatas && this.mDatas.size() > position?this.mDatas.get(position):null;
+        return position > -1 && null != this.mDatas && this.mDatas.size() > position ? this.mDatas.get(position) : null;
     }
 
 
