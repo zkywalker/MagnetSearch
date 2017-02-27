@@ -66,9 +66,9 @@ public class SearchEntity {
      * date : 2017-1-1
      */
 
-    @Unique
     private String href;
 
+    @Unique
     private String title;
 
     private String size;
@@ -119,6 +119,15 @@ public class SearchEntity {
                 ", opened='" + opened + '\'' +
                 ", isFavorite='" + isFavorite + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SearchEntity){
+           return this.title.equals(((SearchEntity)obj).getTitle());
+        }else {
+            return false;
+        }
     }
 
     public Long getId() {

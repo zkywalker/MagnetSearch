@@ -49,8 +49,8 @@ public class SearchEntityDao extends AbstractDao<SearchEntity, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"OPENED\" INTEGER NOT NULL ," + // 1: opened
                 "\"IS_FAVORITE\" INTEGER NOT NULL ," + // 2: isFavorite
-                "\"HREF\" TEXT UNIQUE ," + // 3: href
-                "\"TITLE\" TEXT," + // 4: title
+                "\"HREF\" TEXT," + // 3: href
+                "\"TITLE\" TEXT UNIQUE ," + // 4: title
                 "\"SIZE\" TEXT," + // 5: size
                 "\"DATE\" TEXT);"); // 6: date
     }

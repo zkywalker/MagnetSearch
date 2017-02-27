@@ -25,12 +25,13 @@ import java.util.List;
 public class SearchAdapter extends MyAdapter<SearchEntity> {
     private Context mContext;
     private SearchEntityDao searchEntityDao;
+    private List<SearchEntity> list;
 
     public SearchAdapter(Context context, List<SearchEntity> datas, int layoutId) {
         super(context, datas, layoutId,R.layout.recycler_view_footer);
         mContext = context;
         searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
-
+        list = searchEntityDao.loadAll();
     }
 
     @Override
@@ -71,7 +72,11 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                 @Override
                 public void onClick(View v) {
                     var2.setFavorite(!var2.getIsFavorite());
-                    searchEntityDao.update(var2);
+                    List<SearchEntity> list = searchEntityDao.queryBuilder().where(SearchEntityDao.Properties.Title.eq(var2.getTitle())).list();
+                    if (list.size()!=0){
+                        list.get(0).setFavorite(var2.getIsFavorite());
+                        searchEntityDao.update(list.get(0));
+                    }
                     setFavorite(var1,var2.getIsFavorite());
                 }
             });
