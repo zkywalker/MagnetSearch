@@ -19,6 +19,8 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     public static final int TYPE_ITEM = 1;
 
+    private boolean hasFooter = true;
+
     private int mFooterLayoutId;
 
     private Context mContext;
@@ -227,5 +229,14 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         void onItemClick(ViewGroup var1, View var2, T var3, int var4);
 
         boolean onItemLongClick(ViewGroup var1, View var2, T var3, int var4);
+    }
+
+
+    public boolean isHasFooter() {
+        return hasFooter;
+    }
+
+    public void setHasFooter(boolean hasFooter) {
+        this.hasFooter = hasFooter;
     }
 }

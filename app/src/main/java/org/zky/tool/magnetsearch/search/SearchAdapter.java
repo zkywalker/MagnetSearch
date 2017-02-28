@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
@@ -12,6 +14,7 @@ import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;
+import org.zky.tool.magnetsearch.utils.PreferenceUtils;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
 
@@ -27,11 +30,16 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
     private SearchEntityDao searchEntityDao;
     private List<SearchEntity> list;
 
+    private SharedPreferences preferences;
+
+
     public SearchAdapter(Context context, List<SearchEntity> datas, int layoutId) {
         super(context, datas, layoutId,R.layout.recycler_view_footer);
         mContext = context;
         searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
         list = searchEntityDao.loadAll();
+        preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+
     }
 
     @Override
@@ -52,9 +60,11 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                 public void onClick(View view) {
                     String message = GetRes.getString(R.string.add_to_clipboard);
                     try {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(magnet));
-                        intent.addCategory("android.intent.category.DEFAULT");
-                        mContext.startActivity(intent);
+                        if (preferences.getBoolean(GetRes.getString(R.string.key_fast_open),true)){
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(magnet));
+                            intent.addCategory("android.intent.category.DEFAULT");
+                            mContext.startActivity(intent);
+                        }
                     } catch (Exception e) {
                         if (e instanceof ActivityNotFoundException) {
                             message = GetRes.getString(R.string.activity_not_found_error) + "," + message;
@@ -63,7 +73,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                     } finally {
                         GetRes.setClipboard(magnet);
                         snack(message);
-//                    Toast.makeText(mContext, GetRes.getString(R.string.add_to_clipboard), Toast.LENGTH_LONG).show();
+                        setOpened(var2);
                     }
 
                 }
@@ -82,6 +92,15 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
             });
         }
 
+
+    }
+    private void setOpened(SearchEntity searchEntity){
+        List<SearchEntity> list = searchEntityDao.queryBuilder().where(SearchEntityDao.Properties.Title.eq(searchEntity.getTitle())).list();
+        if (list.size()>0){
+            SearchEntity entity = list.get(0);
+            entity.setOpened(true);
+            searchEntityDao.update(entity);
+        }
 
     }
 

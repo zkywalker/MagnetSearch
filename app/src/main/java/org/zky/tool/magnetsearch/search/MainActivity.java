@@ -34,6 +34,7 @@ import org.zky.tool.magnetsearch.BaseThemeActivity;
 import org.zky.tool.magnetsearch.FavoriteActivity;
 import org.zky.tool.magnetsearch.HistoryActivity;
 import org.zky.tool.magnetsearch.R;
+import org.zky.tool.magnetsearch.SettingsActivity;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.utils.AnimUtils;
 import org.zky.tool.magnetsearch.utils.GetRes;
@@ -88,9 +89,9 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     private int lastRecyclerItem;
 
-    private static final  String CURRENT_KEYWORD = "currentKeyword";
+    private static final String CURRENT_KEYWORD = "currentKeyword";
 
-    private static final  String CURRENT_PAGE = "currentPage";
+    private static final String CURRENT_PAGE = "currentPage";
 
 
     private String currentKeyword;
@@ -100,8 +101,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        outState.putString(CURRENT_KEYWORD,currentKeyword);
-        outState.putInt(CURRENT_PAGE,currentPage);
+        outState.putString(CURRENT_KEYWORD, currentKeyword);
+        outState.putInt(CURRENT_PAGE, currentPage);
     }
 
     @Override
@@ -111,9 +112,9 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         ButterKnife.bind(this);
         initView();
 
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null) {
             currentKeyword = savedInstanceState.getString(CURRENT_KEYWORD);
-            currentPage = savedInstanceState.getInt(CURRENT_PAGE,1);
+            currentPage = savedInstanceState.getInt(CURRENT_PAGE, 1);
         }
 
     }
@@ -170,7 +171,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastRecyclerItem + 1 == adapter.getItemCount()) {
-                    query(currentKeyword,currentPage+1);
+                    query(currentKeyword, currentPage + 1);
                 }
             }
 
@@ -248,7 +249,15 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                     @Override
                     public void onError(Throwable e) {
                         pbLoading.setVisibility(View.GONE);
-                        Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        if (e instanceof IndexOutOfBoundsException) {
+                            Snackbar.make(findViewById(R.id.activity_content), GetRes.getString(R.string.no_data), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                }
+                            }).show();
+                        } else
+
+                            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -291,7 +300,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_settings:
-
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_share:
                 intent = new Intent(Intent.ACTION_SEND);

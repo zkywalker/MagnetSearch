@@ -2,11 +2,13 @@ package org.zky.tool.magnetsearch;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchAdapter;
 import org.zky.tool.magnetsearch.search.SearchEntity;
 import org.zky.tool.magnetsearch.utils.GetRes;
@@ -26,6 +28,8 @@ public class HistoryActivity extends BaseThemeActivity {
     AppBarLayout appbar;
     @BindView(R.id.rv_history)
     RecyclerView rvHistory;
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
 
     private List<SearchEntity> list = new ArrayList<>();
     private SearchAdapter adapter;
@@ -36,14 +40,20 @@ public class HistoryActivity extends BaseThemeActivity {
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
         initView();
-        initData();
+        loadOpened();
     }
 
-    private void initData() {
+    private void loadAllData() {
         List<SearchEntity> searchEntities = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao().loadAll();
-        Log.i(TAG, "initData: "+searchEntities);
-        if (searchEntities.size() > 0)
-            adapter.addDatas(searchEntities);
+        if (searchEntities!= null)
+            adapter.setDatas(searchEntities);
+    }
+
+    private void loadOpened(){
+        QueryBuilder<SearchEntity> searchEntityQueryBuilder = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao().queryBuilder();
+        List<SearchEntity> list = searchEntityQueryBuilder.where(SearchEntityDao.Properties.Opened.eq(true)).list();
+        if (list!=null)
+            adapter.setDatas(list);
     }
 
     private void initView() {
@@ -52,5 +62,35 @@ public class HistoryActivity extends BaseThemeActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rvHistory.setAdapter(adapter = new SearchAdapter(this, list, R.layout.item_recycler_view));
         rvHistory.setLayoutManager(new LinearLayoutManager(this));
+
+        TabLayout.Tab tab = tabLayout.newTab();
+        tab.setText(GetRes.getString(R.string.opened));
+        tab.setTag(GetRes.getString(R.string.opened));
+        TabLayout.Tab tab2 = tabLayout.newTab();
+        tab2.setText(GetRes.getString(R.string.all));
+        tab2.setTag(GetRes.getString(R.string.all));
+        tabLayout.addTab(tab);
+        tabLayout.addTab(tab2);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getTag().equals(GetRes.getString(R.string.opened))){
+                    loadOpened();
+                }else if (tab.getTag().equals(GetRes.getString(R.string.all))){
+                    loadAllData();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        tab.select();
     }
 }

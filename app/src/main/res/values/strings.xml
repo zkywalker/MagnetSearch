@@ -1,7 +1,44 @@
 <resources>
     <string name="app_name">MagnetSearch</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="email">keral.dev.cn@gmail.com</string>
 
     <string name="key_theme">key_theme</string>
+    <string name="key_intro">key_introduction</string>
+
+    <string name="color_default">默认</string>
+    <string name="color_blue">蓝色</string>
+    <string name="color_red">红色</string>
+    <string name="color_green">绿色</string>
+    <string name="color_cyan">蓝绿色</string>
+    <string name="color_purple">紫色</string>
+    <string name="color_orange">橙色</string>
+    <string name="color_pink">粉红色</string>
+    <string name="color_teal">青色</string>
+
+    <string-array name="pref_theme_titles">
+        <item>@string/color_default</item>
+        <item>@string/color_blue</item>
+        <item>@string/color_red</item>
+        <item>@string/color_green</item>
+        <item>@string/color_cyan</item>
+        <item>@string/color_purple</item>
+        <item>@string/color_orange</item>
+        <item>@string/color_pink</item>
+        <item>@string/color_teal</item>
+    </string-array>
+    <string-array name="pref_theme_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
 
     <string name="activity_not_found_error">没有发现打开磁力链接的程序</string>
     <string name="add_to_clipboard">已复制到剪切板</string>
@@ -13,18 +50,22 @@
     <string name="action_history">历史记录</string>
     <string name="action_favorites">收藏夹</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="email">zhan9kun@gmail.com</string>
+
     <string name="email_subject">MagnetSearch反馈</string>
     <string name="no_email_app">没有发现发送邮件的程序</string>
-    <string name="share_content" />
+    <string name="share_content" >https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch</string>
     <string name="i_know">知道了</string>
-    <string name="key_intro">key_introduction</string>
     <string name="skip">跳过</string>
     <string name="done">完成</string>
     <string name="keyword_empty">关键词不能为空</string>
     <string name="invalid_keyword">关键词包含无效字符</string>
     <string name="history_activity">历史记录</string>
     <string name="favorites_activity">收藏夹</string>
+    <string name="pref_title_theme">主题颜色</string>
+    <string name="key_fast_open">key_fast_open</string>
+    <string name="pref_title_fast_open">快速打开磁力链接</string>
+    <string name="opened">浏览历史</string>
+    <string name="all">所有历史</string>
+    <string name="no_data">没有数据，换个关键词试试？</string>
+
 </resources>

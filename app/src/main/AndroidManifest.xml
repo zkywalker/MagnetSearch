@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".search.MainActivity"
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".introduction.DefaultIntroActivity">
             <intent-filter>
@@ -23,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".HistoryActivity" />
-        <activity android:name=".FavoriteActivity"></activity>
+        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
