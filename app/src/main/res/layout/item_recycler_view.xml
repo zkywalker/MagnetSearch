@@ -56,6 +56,12 @@
                 android:layout_marginStart="10dp"
                 android:text="2017-1-1"
                 android:textSize="12sp" />
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_share"
+                />
 
             <ImageView
                 android:id="@+id/iv_favorite"

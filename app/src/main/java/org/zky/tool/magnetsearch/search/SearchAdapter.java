@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ImageView;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
@@ -33,6 +35,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
     private SharedPreferences preferences;
 
 
+
     public SearchAdapter(Context context, List<SearchEntity> datas, int layoutId) {
         super(context, datas, layoutId,R.layout.recycler_view_footer);
         mContext = context;
@@ -54,6 +57,13 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
             var1.setText(R.id.tv_size, var2.getSize());
             var1.setText(R.id.tv_date, var2.getDate());
             setFavorite(var1,var2.getIsFavorite());
+
+            var1.setOnClickListener(R.id.iv_share, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
             var1.setOnClickListener(R.id.ll_item, new View.OnClickListener() {
                 @Override
