@@ -18,7 +18,7 @@
         android:textColor="#ffffff"
         android:paddingRight="32dp"
         android:textSize="28sp"
-        android:text="Slide 4 title" />
+        android:text="Magnet Search" />
 
     <LinearLayout
         android:layout_width="fill_parent"

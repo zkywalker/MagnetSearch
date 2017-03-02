@@ -62,6 +62,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.google.zxing:core:3.3.0'
-    compile 'com.google.zxing:javase:3.3.0'
     compile 'org.jsoup:jsoup:1.10.2'
+
+    compile 'com.google.firebase:firebase-core:9.6.1'
+    compile 'com.google.firebase:firebase-ads:9.6.1'
+    compile 'com.google.android.gms:play-services:10.2.0'
 }

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "600511838885",
+    "firebase_url": "https://magnet-search.firebaseio.com",
+    "project_id": "magnet-search",
+    "storage_bucket": "magnet-search.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600511838885:android:f18382a084367fbe",
+        "android_client_info": {
+          "package_name": "org.zky.tool.magnetsearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600511838885-pc8irqc7d6oeeot40a837e44lbhct9dr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.zky.tool.magnetsearch",
+            "certificate_hash": "d1f2c58b6a63ecdf8427c99e858015d914a2cb5b"
+          }
+        },
+        {
+          "client_id": "600511838885-nafh38l3pgie0a124mhsgf9oobaivh9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRtMZEB1QhFKad7_9ZQHXgUaVVneFYomc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600511838885-nafh38l3pgie0a124mhsgf9oobaivh9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

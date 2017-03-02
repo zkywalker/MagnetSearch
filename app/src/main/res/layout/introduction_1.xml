@@ -18,7 +18,7 @@
         android:textColor="#ffffff"
         android:paddingRight="32dp"
         android:textSize="28sp"
-        android:text="Slide 1 title" />
+        android:text="搜索" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -46,7 +46,7 @@
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
         android:textSize="16sp"
-        android:text="Your description of application" />
+        android:text="输入你想找的电影、音乐、资源" />
 
     <TextView
         android:layout_width="match_parent"

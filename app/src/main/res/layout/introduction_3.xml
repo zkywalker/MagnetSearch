@@ -18,7 +18,7 @@
         android:textColor="#ffffff"
         android:paddingRight="32dp"
         android:textSize="28sp"
-        android:text="Slide 3 title" />
+        android:text="分享" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -46,7 +46,7 @@
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
         android:textSize="16sp"
-        android:text="Your description of application" />
+        android:text="生成二维码，分享更方便" />
 
     <TextView
         android:layout_width="fill_parent"

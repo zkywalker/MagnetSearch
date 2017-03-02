@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -29,6 +28,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.zky.tool.magnetsearch.BaseThemeActivity;
 import org.zky.tool.magnetsearch.FavoriteActivity;
@@ -62,6 +65,9 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends BaseThemeActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static final String TAG = "MainActivity";
 
+
+    private FirebaseAnalytics analytics;
+
     @BindView(R.id.iv_menu)
     ImageView ivMenu;
 
@@ -79,6 +85,9 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     AutoCompleteTextView etSearch;
     @BindView(R.id.iv_delete)
     ImageView ivDelete;
+
+    @BindView(R.id.adView)
+    AdView adView;
 
 
     private Retrofit retrofit;
@@ -111,6 +120,10 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        analytics = FirebaseAnalytics.getInstance(this);
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        adView.loadAd(request);
 
         if (savedInstanceState != null) {
             currentKeyword = savedInstanceState.getString(CURRENT_KEYWORD);

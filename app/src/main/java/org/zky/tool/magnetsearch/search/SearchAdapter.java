@@ -17,9 +17,11 @@ import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
+import org.zky.tool.magnetsearch.utils.QrUtils;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -50,7 +52,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
         if (type == TYPE_ITEM) {
 
             String[] split = var2.getHref().split("/");
-            String hash = split[split.length - 1];
+            final String hash = split[split.length - 1];
             final String magnet = "magnet:?xt=urn:btih:" + hash;
             var1.setText(R.id.tv_magnet, "Hash:" + hash);
             var1.setText(R.id.tv_title, var2.getTitle().trim());
