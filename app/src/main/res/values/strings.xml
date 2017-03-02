@@ -49,6 +49,7 @@
     <string name="other">其他</string>
     <string name="send">反馈</string>
     <string name="share">分享</string>
+    <string name="share_to">分享到</string>
     <string name="action_history">历史记录</string>
     <string name="action_favorites">收藏夹</string>
 
@@ -69,5 +70,9 @@
     <string name="opened">使用</string>
     <string name="all">所有</string>
     <string name="no_data">没有数据，换个关键词试试？</string>
+    <string name="key_share_qr">key_share_qr</string>
+    <string name="open">打开</string>
+    <string name="loading_qr">生成二维码中</string>
+    <string name="pref_title_share_qr">分享时生成二维码</string>
 
 </resources>

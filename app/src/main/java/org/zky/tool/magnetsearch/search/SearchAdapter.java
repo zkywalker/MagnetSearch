@@ -17,6 +17,7 @@ import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
+import org.zky.tool.magnetsearch.utils.QrDialogManager;
 import org.zky.tool.magnetsearch.utils.QrUtils;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
@@ -36,6 +37,8 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
 
     private SharedPreferences preferences;
 
+    private QrDialogManager manager;
+
 
 
     public SearchAdapter(Context context, List<SearchEntity> datas, int layoutId) {
@@ -44,6 +47,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
         searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
         list = searchEntityDao.loadAll();
         preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        manager = new QrDialogManager(mContext);
 
     }
 
@@ -63,7 +67,12 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
             var1.setOnClickListener(R.id.iv_share, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (preferences.getBoolean(GetRes.getString(R.string.key_share_qr),true)){
+                        manager.show();
+                        manager.createQR(magnet,var2.getTitle(),hash);
+                    }else {
+                        manager.shareText(magnet);
+                    }
                 }
             });
 
