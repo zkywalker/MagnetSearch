@@ -3,6 +3,7 @@
     package="org.zky.tool.magnetsearch">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
 
     <application
         android:name=".MagnetSearchApp"

@@ -2,6 +2,7 @@ package org.zky.tool.magnetsearch;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -11,9 +12,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import org.zky.tool.magnetsearch.constants.StorageConstants;
 import org.zky.tool.magnetsearch.search.MainActivity;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
+import org.zky.tool.magnetsearch.utils.StorageUtils;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,12 +50,23 @@ public class SettingsActivity extends BaseThemeActivity {
             preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Log.e(TAG, "onPreferenceChange: newvalue:" + newValue.toString());
                     PreferenceUtils.setTheme(getActivity(), (String) newValue);
                     ((SettingsActivity) getActivity()).recreateActivity();
                     return false;
                 }
             });
+
+            Preference preCache = findPreference(GetRes.getString(R.string.key_clean));
+            preCache.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    StorageUtils.cleanData();
+                    return true;
+                }
+            });
+            long qr = StorageUtils.getFolderSize(new File(StorageConstants.QR_DIR));
+            long cache = StorageUtils.getFolderSize(MagnetSearchApp.getInstanse().getCacheDir());
+            preCache.setSummary(StorageUtils.getFormatSize(qr+cache));
         }
 
         public void setListPreferenceSummary(ListPreference preference) {
@@ -99,5 +115,6 @@ public class SettingsActivity extends BaseThemeActivity {
         startActivity(intent);
         finish();
     }
+
 
 }

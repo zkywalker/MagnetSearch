@@ -11,6 +11,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
+import org.zky.tool.magnetsearch.constants.StorageConstants;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -56,7 +57,7 @@ public class QrUtils {
     }
 
     public static File qrBitmap2file(Bitmap bitmap,String hash) throws Exception {
-        File file = new File(MagnetSearchApp.getInstanse().getExternalCacheDir() + File.separator + hash + ".png");
+        File file = new File(StorageConstants.QR_DIR+ hash + ".png");
         if (!file.exists()){
             file.createNewFile();
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));

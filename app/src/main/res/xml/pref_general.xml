@@ -23,6 +23,14 @@
         android:defaultValue="true"
         android:key="@string/key_share_qr"
         android:title="@string/pref_title_share_qr" />
+    <Preference
+        android:key="@string/key_clean"
+        android:title="@string/pref_title_clean_history"
+        />
+    <Preference
+        android:key="@string/key_score"
+        android:title="@string/pref_title_score"
+        />
 
 
 

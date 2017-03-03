@@ -74,5 +74,10 @@
     <string name="open">打开</string>
     <string name="loading_qr">生成二维码中</string>
     <string name="pref_title_share_qr">分享时生成二维码</string>
+    <string name="pref_title_score">评分鼓励</string>
+    <string name="key_score">key_score</string>
+    <string name="pref_title_clean_history">清除缓存</string>
+    <string name="key_clean">key_clean</string>
+    <string name="clean_success">清理完毕</string>
 
 </resources>
