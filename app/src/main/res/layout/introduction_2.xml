@@ -33,6 +33,7 @@
             android:layout_gravity="center"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:src="@drawable/intro_img_2"
              />
     </LinearLayout>
 

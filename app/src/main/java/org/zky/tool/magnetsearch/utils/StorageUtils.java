@@ -86,7 +86,7 @@ public class StorageUtils {
 
         double kiloByte = size/1024;
         if(kiloByte < 1) {
-            return size + "Byte(s)";
+            return size + "Byte";
         }
 
         double megaByte = kiloByte/1024;

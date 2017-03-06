@@ -2,6 +2,7 @@ package org.zky.tool.magnetsearch;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -11,6 +12,7 @@ import android.support.v4.content.IntentCompat;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.constants.StorageConstants;
 import org.zky.tool.magnetsearch.search.MainActivity;
@@ -40,6 +42,19 @@ public class SettingsActivity extends BaseThemeActivity {
     }
 
     public static class MyPreferenceFragment extends PreferenceFragment {
+
+        private void market(){
+            try {
+                String str = "market://details?id=org.zky.tool.magnetsearch";
+                Intent localIntent = new Intent(Intent.ACTION_VIEW);
+                localIntent.setData(Uri.parse(str));
+                startActivity(localIntent);
+            } catch (Exception e) {
+                // 打开应用商店失败 可能是没有手机没有安装应用市场
+                e.printStackTrace();
+            }
+        }
+
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -56,17 +71,29 @@ public class SettingsActivity extends BaseThemeActivity {
                 }
             });
 
-            Preference preCache = findPreference(GetRes.getString(R.string.key_clean));
+            final Preference preCache = findPreference(GetRes.getString(R.string.key_clean));
             preCache.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     StorageUtils.cleanData();
+                    long qr = StorageUtils.getFolderSize(new File(StorageConstants.QR_DIR));
+                    preCache.setSummary(StorageUtils.getFormatSize(qr));
                     return true;
                 }
             });
             long qr = StorageUtils.getFolderSize(new File(StorageConstants.QR_DIR));
-            long cache = StorageUtils.getFolderSize(MagnetSearchApp.getInstanse().getCacheDir());
-            preCache.setSummary(StorageUtils.getFormatSize(qr+cache));
+            preCache.setSummary(StorageUtils.getFormatSize(qr));
+
+            Preference preScore = findPreference(GetRes.getString(R.string.key_score));
+            preScore.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    market();
+                    return true;
+                }
+            });
+
+
         }
 
         public void setListPreferenceSummary(ListPreference preference) {
@@ -115,6 +142,8 @@ public class SettingsActivity extends BaseThemeActivity {
         startActivity(intent);
         finish();
     }
+
+
 
 
 }

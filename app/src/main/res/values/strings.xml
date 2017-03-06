@@ -79,5 +79,7 @@
     <string name="pref_title_clean_history">清除缓存</string>
     <string name="key_clean">key_clean</string>
     <string name="clean_success">清理完毕</string>
+    <string name="search">搜索</string>
+    <string name="intro_string_1">输入你想找的电影、音乐、资源</string>
 
 </resources>
