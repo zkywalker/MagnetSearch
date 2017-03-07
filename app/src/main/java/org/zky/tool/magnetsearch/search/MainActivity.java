@@ -89,7 +89,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     @BindView(R.id.adView)
     AdView adView;
 
-
     private Retrofit retrofit;
 
     private MyAdapter<SearchEntity> adapter;
@@ -194,22 +193,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             }
         });
 
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                etSearch.setCompletionHint(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
     private boolean validate(String key) {
@@ -279,6 +262,11 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                         adapter.addDatas(searchEntities);
                     }
                 });
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, key);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, page + "");
+        analytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 
     public static OkHttpClient getClient() {
