@@ -18,7 +18,7 @@
         android:textColor="#ffffff"
         android:paddingRight="32dp"
         android:textSize="28sp"
-        android:text="分享" />
+        android:text="@string/share" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -47,7 +47,7 @@
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
         android:textSize="16sp"
-        android:text="生成二维码，分享更方便" />
+        android:text="@string/intro_string_3" />
 
     <TextView
         android:layout_width="fill_parent"

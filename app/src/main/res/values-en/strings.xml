@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">MagnetSearch</string>
+
+
+    <string name="color_default">default</string>
+    <string name="color_blue">blue</string>
+    <string name="color_red">red</string>
+    <string name="color_green">green</string>
+    <string name="color_cyan">cyan</string>
+    <string name="color_purple">purple</string>
+    <string name="color_orange">orange</string>
+    <string name="color_pink">pink</string>
+    <string name="color_teal">teal</string>
+
+
+    <string name="activity_not_found_error">do not find app to open the url</string>
+    <string name="add_to_clipboard">copy to the clipboard</string>
+    <string name="communicate">communicate</string>
+    <string name="action_settings">settings</string>
+    <string name="other">other</string>
+    <string name="send">feedback</string>
+    <string name="share">share</string>
+    <string name="share_to">share to</string>
+    <string name="action_history">history</string>
+    <string name="action_favorites">favorites</string>
+
+
+    <string name="email_subject">Magnet Search feedback</string>
+    <string name="no_email_app">do not find app to send the email</string>
+    <string name="share_content" >https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch</string>
+    <string name="i_know">i know</string>
+    <string name="skip">skip</string>
+    <string name="done">done</string>
+    <string name="keyword_empty">keyword can\'t be empty </string>
+    <string name="invalid_keyword">invalid keyword</string>
+    <string name="history_activity">history</string>
+    <string name="favorites_activity">avorites</string>
+    <string name="pref_title_theme">theme\'s color</string>
+    <string name="pref_title_fast_open">open url by local app</string>
+    <string name="opened">opened</string>
+    <string name="all">all</string>
+    <string name="no_data">there is no data,plz change a keyword</string>
+    <string name="open">open</string>
+    <string name="loading_qr">creating qr code</string>
+    <string name="pref_title_share_qr">share with qr code</string>
+    <string name="pref_title_score">score me</string>
+    <string name="key_score">key_score</string>
+    <string name="pref_title_clean_history">clean cache</string>
+    <string name="clean_success">clean success</string>
+    <string name="search">search</string>
+    <string name="favorite">favorite</string>
+    <string name="intro_string_1">input movie,music or other resource</string>
+    <string name="intro_string_2">easy to share and open</string>
+    <string name="intro_string_3">share your qr code to other</string>
+
+</resources>

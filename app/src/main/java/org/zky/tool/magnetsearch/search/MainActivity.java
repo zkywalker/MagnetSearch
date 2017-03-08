@@ -265,7 +265,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, key);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, page + "");
         analytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 
