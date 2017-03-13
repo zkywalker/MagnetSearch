@@ -1,6 +1,40 @@
 <resources>
     <string name="app_name">MagnetSearch</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="email">keral.dev.cn@gmail.com</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-6577204380833634/4833689907</string>
+
+    <string name="key_theme">key_theme</string>
+    <string name="key_intro">key_introduction</string>
+    <string name="key_share_qr">key_share_qr</string>
+    <string name="key_fast_open">key_fast_open</string>
+    <string name="key_clean">key_clean</string>
+
+
+    <string-array name="pref_theme_titles">
+        <item>@string/color_default</item>
+        <item>@string/color_blue</item>
+        <item>@string/color_red</item>
+        <item>@string/color_green</item>
+        <item>@string/color_cyan</item>
+        <item>@string/color_purple</item>
+        <item>@string/color_orange</item>
+        <item>@string/color_pink</item>
+        <item>@string/color_teal</item>
+    </string-array>
+    <string-array name="pref_theme_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
 
     <string name="color_default">default</string>
     <string name="color_blue">blue</string>

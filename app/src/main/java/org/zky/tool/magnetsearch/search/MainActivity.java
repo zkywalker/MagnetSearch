@@ -86,8 +86,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     @BindView(R.id.iv_delete)
     ImageView ivDelete;
 
-    @BindView(R.id.adView)
-    AdView adView;
 
     private Retrofit retrofit;
 
@@ -120,9 +118,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         ButterKnife.bind(this);
         initView();
         analytics = FirebaseAnalytics.getInstance(this);
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        adView.loadAd(request);
+
 
         if (savedInstanceState != null) {
             currentKeyword = savedInstanceState.getString(CURRENT_KEYWORD);

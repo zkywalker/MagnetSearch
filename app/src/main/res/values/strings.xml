@@ -8,6 +8,11 @@
 
     <string name="key_theme">key_theme</string>
     <string name="key_intro">key_introduction</string>
+    <string name="key_score">key_score</string>
+    <string name="key_share_qr">key_share_qr</string>
+    <string name="key_fast_open">key_fast_open</string>
+    <string name="key_clean">key_clean</string>
+
 
     <string name="color_default">默认</string>
     <string name="color_blue">蓝色</string>
@@ -65,19 +70,15 @@
     <string name="history_activity">历史记录</string>
     <string name="favorites_activity">收藏夹</string>
     <string name="pref_title_theme">主题颜色</string>
-    <string name="key_fast_open">key_fast_open</string>
     <string name="pref_title_fast_open">快速打开磁力链接</string>
     <string name="opened">使用</string>
     <string name="all">所有</string>
     <string name="no_data">没有数据，换个关键词试试？</string>
-    <string name="key_share_qr">key_share_qr</string>
     <string name="open">打开</string>
     <string name="loading_qr">生成二维码中</string>
     <string name="pref_title_share_qr">分享时生成二维码</string>
     <string name="pref_title_score">评分鼓励</string>
-    <string name="key_score">key_score</string>
     <string name="pref_title_clean_history">清除缓存</string>
-    <string name="key_clean">key_clean</string>
     <string name="clean_success">清理完毕</string>
     <string name="search">搜索</string>
     <string name="intro_string_1">输入你想找的电影、音乐、资源</string>

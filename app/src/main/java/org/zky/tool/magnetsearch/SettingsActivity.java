@@ -14,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.zky.tool.magnetsearch.constants.StorageConstants;
 import org.zky.tool.magnetsearch.search.MainActivity;
 import org.zky.tool.magnetsearch.utils.GetRes;
@@ -29,6 +32,8 @@ public class SettingsActivity extends BaseThemeActivity {
     private static final String TAG = "SettingsActivity";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.adView)
+    AdView adView;
 
 
     @Override
@@ -39,6 +44,10 @@ public class SettingsActivity extends BaseThemeActivity {
         toolbar.setTitle(GetRes.getString(R.string.action_settings));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        adView.loadAd(request);
     }
 
     public static class MyPreferenceFragment extends PreferenceFragment {
