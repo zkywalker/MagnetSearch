@@ -87,4 +87,6 @@
     <string name="intro_string_2">easy to share and open</string>
     <string name="intro_string_3">share your qr code to other</string>
 
+    <string name="searchHint">search MS url</string>
+
 </resources>

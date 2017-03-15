@@ -85,5 +85,6 @@
     <string name="intro_string_3">生成二维码，分享更方便</string>
     <string name="favorite">收藏</string>
     <string name="intro_string_2">方便下次打开或分享</string>
+    <string name="searchHint">搜磁力链接</string>
 
 </resources>

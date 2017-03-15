@@ -68,6 +68,7 @@ dependencies {
 
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-ads:9.6.1'
+    compile 'com.google.firebase:firebase-crash:9.6.1'
     compile 'com.google.android.gms:play-services:9.6.1'
 }
 

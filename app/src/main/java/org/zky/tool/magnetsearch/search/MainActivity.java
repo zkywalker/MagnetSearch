@@ -29,8 +29,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.zky.tool.magnetsearch.BaseThemeActivity;
@@ -123,6 +121,24 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         if (savedInstanceState != null) {
             currentKeyword = savedInstanceState.getString(CURRENT_KEYWORD);
             currentPage = savedInstanceState.getInt(CURRENT_PAGE, 1);
+        }
+
+        CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+        if (!TextUtils.isEmpty(text)){
+            etSearch.setText(text);
+            etSearch.requestFocus();
+        }
+
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        if (intent != null){
+            CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+            if (!TextUtils.isEmpty(text)) {
+                etSearch.setText(text);
+                query(text.toString(), 1);
+            }
         }
 
     }
