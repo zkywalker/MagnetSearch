@@ -69,7 +69,7 @@
     <string name="keyword_empty">keyword can\'t be empty </string>
     <string name="invalid_keyword">invalid keyword</string>
     <string name="history_activity">history</string>
-    <string name="favorites_activity">avorites</string>
+    <string name="favorites_activity">favorites</string>
     <string name="pref_title_theme">theme\'s color</string>
     <string name="pref_title_fast_open">open url by local app</string>
     <string name="opened">opened</string>

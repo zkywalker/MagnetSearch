@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
@@ -40,6 +41,7 @@ import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.utils.AnimUtils;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.MessageUtils;
+import org.zky.tool.magnetsearch.utils.http.RetrofitClient;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 
 import java.io.IOException;
@@ -83,9 +85,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     AutoCompleteTextView etSearch;
     @BindView(R.id.iv_delete)
     ImageView ivDelete;
-
-
-    private Retrofit retrofit;
 
     private MyAdapter<SearchEntity> adapter;
 
@@ -210,81 +209,47 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     private void query(String key, final int page) {
         currentKeyword = key;
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .client(getClient())
-                    .baseUrl(UrlConstants.BTSO_SEARCH_URL)
-                    .addConverterFactory(SearchConverterFactory.create())
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .build();
-        }
         if (page > 1)
             key = key + "/page/" + page;
-        Observable<List<SearchEntity>> observable = retrofit.create(SearchSerivce.class).getHtml(key);
-        observable.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<SearchEntity>>() {
-                    @Override
-                    public void onStart() {
-                        //page=1时候加载显示progress bar
-                        if (page == 1) {
-                            list.clear();
-                            adapter.setCurrentItemCount(0);
-                            adapter.notifyDataSetChanged();
-                            pbLoading.setVisibility(View.VISIBLE);
-                            ivMenu.callOnClick();
-                        }
 
-                    }
+        RetrofitClient.getInstance().getData(new Subscriber<List<SearchEntity>>() {
+            @Override
+            public void onStart() {
+                //page=1时候加载显示progress bar
+                if (page == 1) {
+                    list.clear();
+                    adapter.setCurrentItemCount(0);
+                    adapter.notifyDataSetChanged();
+                    pbLoading.setVisibility(View.VISIBLE);
+                    ivMenu.callOnClick();
+                }
 
-                    @Override
-                    public void onCompleted() {
-                        currentPage = page;
-                        pbLoading.setVisibility(View.GONE);
-                    }
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        pbLoading.setVisibility(View.GONE);
-                        if (e instanceof IndexOutOfBoundsException) {
-                            Snackbar.make(findViewById(R.id.activity_content), GetRes.getString(R.string.no_data), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                }
-                            }).show();
-                        } else
+            @Override
+            public void onCompleted() {
+                currentPage = page;
+                pbLoading.setVisibility(View.GONE);
+            }
 
-                            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                    }
+            @Override
+            public void onError(Throwable e) {
+                pbLoading.setVisibility(View.GONE);
+                if (e instanceof IndexOutOfBoundsException) {
+                    snack(R.string.no_data);
+                } else
+                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+            }
 
-                    @Override
-                    public void onNext(List<SearchEntity> searchEntities) {
-                        Log.i(TAG, "onNext: data\n" + searchEntities);
-                        adapter.addDatas(searchEntities);
-                    }
-                });
+            @Override
+            public void onNext(List<SearchEntity> searchEntities) {
+                adapter.addDatas(searchEntities);
+            }
+        }, key);
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, key);
         analytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
-    }
-
-    public static OkHttpClient getClient() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request()
-                                .newBuilder()
-                                .addHeader("host", "btso.pw")
-                                .addHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3")
-                                .build();
-                        return chain.proceed(request);
-                    }
-
-                })
-                .build();
     }
 
     @Override
@@ -320,13 +285,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                     intent.putExtra(Intent.EXTRA_SUBJECT, GetRes.getString(R.string.email_subject));
                     startActivity(intent);
                 } catch (ActivityNotFoundException e) {
-
-                    Snackbar.make(findViewById(R.id.activity_content), GetRes.getString(R.string.no_email_app), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                        }
-                    }).show();
-
+                    snack(R.string.no_email_app);
                 }
 
                 break;
@@ -354,5 +313,13 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                 break;
 
         }
+    }
+
+    private void snack(@StringRes int s){
+        Snackbar.make(findViewById(R.id.activity_content), GetRes.getString(s), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        }).show();
     }
 }
