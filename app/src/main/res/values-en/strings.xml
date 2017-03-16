@@ -11,6 +11,7 @@
     <string name="key_share_qr">key_share_qr</string>
     <string name="key_fast_open">key_fast_open</string>
     <string name="key_clean">key_clean</string>
+    <string name="key_todo_list">key_todo_list</string>
 
 
     <string-array name="pref_theme_titles">
@@ -88,5 +89,9 @@
     <string name="intro_string_3">share your qr code to other</string>
 
     <string name="searchHint">search MS url</string>
+    <string name="pref_title_todo">todo list</string>
+    <string name="todo_1">Improve the favorites, history</string>
+    <string name="todo_2">Modify the icon</string>
+    <string name="todo_3">Email me ,if you have advice(๑•̀ㅂ•́)و✧</string>
 
 </resources>

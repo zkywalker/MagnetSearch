@@ -131,17 +131,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     }
 
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
-        if (intent != null){
-            CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
-            if (!TextUtils.isEmpty(text)) {
-                etSearch.setText(text);
-                query(text.toString(), 1);
-            }
-        }
-
-    }
 
     private void initView() {
         //drawer

@@ -28,9 +28,15 @@
         android:title="@string/pref_title_clean_history"
         />
     <Preference
+        android:key="@string/key_todo_list"
+        android:title="@string/pref_title_todo"
+        />
+    <Preference
         android:key="@string/key_score"
         android:title="@string/pref_title_score"
         />
+
+
 
 
 
