@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.zky.tool.magnetsearch.BuildConfig;
 import org.zky.tool.magnetsearch.R;
 
 import java.io.File;
@@ -63,12 +66,18 @@ public class QrDialogManager implements View.OnClickListener {
     }
 
     public void openFile() {
-        Intent intent = new Intent("android.intent.action.VIEW");
-        intent.addCategory("android.intent.category.DEFAULT");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Uri uri = Uri.fromFile(file);
-        intent.setDataAndType(uri, "image/*");
-        mContext.startActivity(intent);
+        //TODO 7.0权限修改，不能直接读取私有目录文件 待解决
+        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.N){
+            Intent intent = new Intent("android.intent.action.VIEW");
+            intent.addCategory("android.intent.category.DEFAULT");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Uri uri =
+                    Uri.fromFile(file);
+
+            intent.setDataAndType(uri, "image/*");
+            mContext.startActivity(intent);
+        }
+
     }
     public void shareText(String text){
         Intent intent = new Intent(Intent.ACTION_SEND);
