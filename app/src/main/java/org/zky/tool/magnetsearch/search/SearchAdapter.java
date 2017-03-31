@@ -1,6 +1,8 @@
 package org.zky.tool.magnetsearch.search;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +11,10 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
@@ -19,11 +24,16 @@ import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
 import org.zky.tool.magnetsearch.utils.QrDialogManager;
 import org.zky.tool.magnetsearch.utils.QrUtils;
+import org.zky.tool.magnetsearch.utils.http.RetrofitClient;
+import org.zky.tool.magnetsearch.utils.http.VideoDataEntity;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
 
 import java.io.File;
 import java.util.List;
+
+import rx.Subscriber;
+
 
 /**
  * search adapter
@@ -31,6 +41,7 @@ import java.util.List;
  */
 
 public class SearchAdapter extends MyAdapter<SearchEntity> {
+    private static final String TAG = "SearchAdapter";
     private Context mContext;
     private SearchEntityDao searchEntityDao;
     private List<SearchEntity> list;
@@ -38,6 +49,8 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
     private SharedPreferences preferences;
 
     private QrDialogManager manager;
+
+    private ProgressDialog dialog;
 
 
 
@@ -111,10 +124,83 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                     setFavorite(var1,var2.getIsFavorite());
                 }
             });
+
+            var1.setOnLongClickListener(R.id.ll_item, new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (preferences.getBoolean(GetRes.getString(R.string.key_open_video),false)){
+                        getVideo(hash);
+                    }
+                    return true;
+                }
+            });
         }
 
 
     }
+
+    private void getVideo(final String hash){
+        if (dialog==null){
+            dialog = new ProgressDialog(mContext);
+            dialog.setCancelable(false);
+        }
+        dialog.setTitle("尝试获取视频地址");
+        dialog.show();
+        RetrofitClient.getInstance().getMagnetInfo(new Subscriber<List<VideoDataEntity>>() {
+            @Override
+            public void onStart() {
+                dialog.setMessage("（1/3）获取视频列表中...");
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dialog.dismiss();
+                snack(e.getMessage());
+            }
+
+            @Override
+            public void onNext(List<VideoDataEntity> videoDataEntities) {
+                final String name = videoDataEntities.get(0).getName();
+                RetrofitClient.getInstance().parseXFMagnet(new Subscriber<VideoDataEntity>() {
+                    @Override
+                    public void onStart() {
+                        dialog.setMessage("(2/3)获取列表成功，解析地址...");
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        dialog.setMessage("(3/3)获取地址成功");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dialog.dismiss();
+                       snack(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(VideoDataEntity entity) {
+
+                        Uri uri = Uri.parse(entity.getPlay_url()+"/"+name);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        Log.v("URI:::::::::", uri.toString());
+                        String[] header = new String[]{"Cookie", entity.getPlay_url_cookie()};
+                        intent.putExtra("headers",header);
+                        intent.setDataAndType(uri, "video/mp4");
+
+                        dialog.dismiss();
+                        mContext.startActivity(intent);
+                    }
+                },videoDataEntities.get(0).getData());
+            }
+        },hash);
+    }
+
     private void setOpened(SearchEntity searchEntity){
         List<SearchEntity> list = searchEntityDao.queryBuilder().where(SearchEntityDao.Properties.Title.eq(searchEntity.getTitle())).list();
         if (list.size()>0){

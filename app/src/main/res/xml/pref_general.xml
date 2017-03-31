@@ -23,6 +23,13 @@
         android:defaultValue="true"
         android:key="@string/key_share_qr"
         android:title="@string/pref_title_share_qr" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/key_open_video"
+        android:title="@string/pref_title_open_video"
+        android:summaryOn="@string/pref_summary_close_video"
+        android:summaryOff="@string/pref_summary_open_video"
+        />
     <Preference
         android:key="@string/key_clean"
         android:title="@string/pref_title_clean_history"

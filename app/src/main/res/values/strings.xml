@@ -87,8 +87,12 @@
     <string name="intro_string_2">方便下次打开或分享</string>
     <string name="searchHint">搜磁力链接</string>
     <string name="pref_title_todo">todo list</string>
-    <string name="todo_1">完善收藏夹、历史</string>
-    <string name="todo_2">图标修改</string>
-    <string name="todo_3">有啥建议email我(๑•̀ㅂ•́)و✧</string>
+    <string name="todo_1">修改收藏夹、历史</string>
+    <string name="todo_2">适配7.0文件权限</string>
+    <string name="todo_3">增加其他搜索源,有啥建议email我(๑•̀ㅂ•́)و✧</string>
+    <string name="key_open_video">key_open_video</string>
+    <string name="pref_title_open_video">长按播放视频</string>
+    <string name="pref_summary_open_video">尝试播放视频(需mxplayer)</string>
+    <string name="pref_summary_close_video">该功能不稳定并消耗大量带宽，建议用下载器</string>
 
 </resources>

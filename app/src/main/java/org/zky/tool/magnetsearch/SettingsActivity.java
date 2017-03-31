@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.IntentCompat;
@@ -55,8 +56,9 @@ public class SettingsActivity extends BaseThemeActivity {
     }
 
     public static class MyPreferenceFragment extends PreferenceFragment {
+        private AlertDialog dialog;
 
-        private void market(){
+        private void market() {
             try {
                 String str = "market://details?id=org.zky.tool.magnetsearch";
                 Intent localIntent = new Intent(Intent.ACTION_VIEW);
@@ -71,7 +73,9 @@ public class SettingsActivity extends BaseThemeActivity {
         public void showList() {
             final String[] list = new String[]{GetRes.getString(R.string.todo_1),
                     GetRes.getString(R.string.todo_2),
-                    GetRes.getString(R.string.todo_3)};
+                    GetRes.getString(R.string.todo_3)
+
+            };
             AlertDialog.Builder builder =
                     new AlertDialog.Builder(getActivity());
             builder.setTitle(GetRes.getString(R.string.pref_title_todo));
@@ -131,6 +135,28 @@ public class SettingsActivity extends BaseThemeActivity {
                 }
             });
 
+//            final SwitchPreference preOpenVideo = (SwitchPreference) findPreference(GetRes.getString(R.string.key_open_video));
+//            preOpenVideo.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+//                @Override
+//                public boolean onPreferenceChange(final Preference preference, Object newValue) {
+//                    if (newValue == true) {
+//                        if (dialog == null)
+//                            dialog = new AlertDialog.Builder(getActivity())
+//                                    .setTitle("FBI WARNING")
+//                                    .setMessage("该功能仅供测试，不稳定，慎用")
+//                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//
+//                                            dialog.dismiss();
+//                                        }
+//                                    })
+//                                    .create();
+//                    }
+//                    return false;
+//                }
+//            });
+
         }
 
         public void setListPreferenceSummary(ListPreference preference) {
@@ -179,7 +205,6 @@ public class SettingsActivity extends BaseThemeActivity {
         startActivity(intent);
         finish();
     }
-
 
 
 }
