@@ -1,7 +1,6 @@
 package org.zky.tool.magnetsearch.search;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -10,26 +9,19 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
-import android.widget.ImageView;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;
-import org.zky.tool.magnetsearch.utils.PreferenceUtils;
 import org.zky.tool.magnetsearch.utils.QrDialogManager;
-import org.zky.tool.magnetsearch.utils.QrUtils;
 import org.zky.tool.magnetsearch.utils.http.RetrofitClient;
 import org.zky.tool.magnetsearch.utils.http.VideoDataEntity;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
 
-import java.io.File;
 import java.util.List;
 
 import rx.Subscriber;
@@ -144,12 +136,12 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
             dialog = new ProgressDialog(mContext);
             dialog.setCancelable(false);
         }
-        dialog.setTitle("尝试获取视频地址");
+        dialog.setTitle(GetRes.getString(R.string.dialog_title_get_video));
         dialog.show();
         RetrofitClient.getInstance().getMagnetInfo(new Subscriber<List<VideoDataEntity>>() {
             @Override
             public void onStart() {
-                dialog.setMessage("（1/3）获取视频列表中...");
+                dialog.setMessage(GetRes.getString(R.string.dialog_message_1));
             }
 
             @Override
@@ -169,12 +161,12 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                 RetrofitClient.getInstance().parseXFMagnet(new Subscriber<VideoDataEntity>() {
                     @Override
                     public void onStart() {
-                        dialog.setMessage("(2/3)获取列表成功，解析地址...");
+                        dialog.setMessage(GetRes.getString(R.string.dialog_message_2));
                     }
 
                     @Override
                     public void onCompleted() {
-                        dialog.setMessage("(3/3)获取地址成功");
+                        dialog.setMessage(GetRes.getString(R.string.dialog_message_3));
                     }
 
                     @Override
@@ -188,7 +180,6 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
 
                         Uri uri = Uri.parse(entity.getPlay_url()+"/"+name);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        Log.v("URI:::::::::", uri.toString());
                         String[] header = new String[]{"Cookie", entity.getPlay_url_cookie()};
                         intent.putExtra("headers",header);
                         intent.setDataAndType(uri, "video/mp4");

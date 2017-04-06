@@ -39,7 +39,6 @@ public class StorageUtils {
                 }
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //return size/1048576;

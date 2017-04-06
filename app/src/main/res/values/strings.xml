@@ -13,6 +13,7 @@
     <string name="key_fast_open">key_fast_open</string>
     <string name="key_clean">key_clean</string>
     <string name="key_todo_list">key_todo_list</string>
+    <string name="key_open_video">key_open_video</string>
 
     <string name="color_default">默认</string>
     <string name="color_blue">蓝色</string>
@@ -47,6 +48,29 @@
         <item>7</item>
     </string-array>
 
+    <string name="intro_string_1">输入你想找的电影、音乐、资源</string>
+    <string name="intro_string_2">方便下次打开或分享</string>
+    <string name="intro_string_3">生成二维码，分享更方便</string>
+
+    <string name="todo_1">修改收藏夹、历史</string>
+    <string name="todo_2">适配7.0文件权限</string>
+    <string name="todo_3">增加搜索源,有啥建议email我(๑•̀ㅂ•́)و✧</string>
+
+    <string name="dialog_title_get_video">尝试获取视频地址</string>
+    <string name="dialog_message_1">（1/3）获取视频列表中...</string>
+    <string name="dialog_message_2">(2/3)获取列表成功，解析地址...</string>
+    <string name="dialog_message_3">(3/3)获取地址成功</string>
+
+    <string name="pref_title_theme">主题颜色</string>
+    <string name="pref_title_fast_open">快速打开磁力链接</string>
+    <string name="pref_title_share_qr">分享时生成二维码</string>
+    <string name="pref_title_score">评分鼓励(⬇点个广告?|・ω・`))</string>
+    <string name="pref_title_clean_history">清除缓存</string>
+    <string name="pref_title_todo">todo list</string>
+    <string name="pref_title_open_video">长按播放视频</string>
+    <string name="pref_summary_open_video">尝试播放视频(需mxplayer)</string>
+    <string name="pref_summary_close_video">该功能不稳定并消耗大量带宽，建议用下载器</string>
+
     <string name="activity_not_found_error">没有发现打开磁力链接的程序</string>
     <string name="add_to_clipboard">已复制到剪切板</string>
     <string name="communicate">交流</string>
@@ -57,8 +81,6 @@
     <string name="share_to">分享到</string>
     <string name="action_history">历史记录</string>
     <string name="action_favorites">收藏夹</string>
-
-
     <string name="email_subject">MagnetSearch反馈</string>
     <string name="no_email_app">没有发现发送邮件的程序</string>
     <string name="share_content" >https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch</string>
@@ -69,30 +91,17 @@
     <string name="invalid_keyword">关键词包含无效字符</string>
     <string name="history_activity">历史记录</string>
     <string name="favorites_activity">收藏夹</string>
-    <string name="pref_title_theme">主题颜色</string>
-    <string name="pref_title_fast_open">快速打开磁力链接</string>
     <string name="opened">使用</string>
     <string name="all">所有</string>
     <string name="no_data">没有数据，换个关键词试试？</string>
     <string name="open">打开</string>
     <string name="loading_qr">生成二维码中</string>
-    <string name="pref_title_share_qr">分享时生成二维码</string>
-    <string name="pref_title_score">评分鼓励(⬇点个广告?|・ω・`))</string>
-    <string name="pref_title_clean_history">清除缓存</string>
     <string name="clean_success">清理完毕</string>
     <string name="search">搜索</string>
-    <string name="intro_string_1">输入你想找的电影、音乐、资源</string>
-    <string name="intro_string_3">生成二维码，分享更方便</string>
     <string name="favorite">收藏</string>
-    <string name="intro_string_2">方便下次打开或分享</string>
     <string name="searchHint">搜磁力链接</string>
-    <string name="pref_title_todo">todo list</string>
-    <string name="todo_1">修改收藏夹、历史</string>
-    <string name="todo_2">适配7.0文件权限</string>
-    <string name="todo_3">增加其他搜索源,有啥建议email我(๑•̀ㅂ•́)و✧</string>
-    <string name="key_open_video">key_open_video</string>
-    <string name="pref_title_open_video">长按播放视频</string>
-    <string name="pref_summary_open_video">尝试播放视频(需mxplayer)</string>
-    <string name="pref_summary_close_video">该功能不稳定并消耗大量带宽，建议用下载器</string>
+
+
+
 
 </resources>

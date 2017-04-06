@@ -6,18 +6,45 @@ android {
         applicationId "org.zky.tool.magnetsearch"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 6
-        versionName "1.12"
+        versionCode 8
+        versionName "1.20play"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'magnet'
+            keyPassword 'magnetsearch123'
+            storeFile file('/Users/zhangkun/AndroidStudioProjects/magnetsearch.jks')
+            storePassword 'magnetsearch123'
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
+
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources false
+
+            proguardFile 'proguard-rules.pro'
+
+            applicationVariants.all {
+                variant ->
+                    variant.outputs.each {
+                        output ->
+                            def outputFile = output.outputFile
+                            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                                def fileName = "MagnetSearch_v${defaultConfig.versionName}${defaultConfig.versionCode}.apk"
+                                output.outputFile = new File('/Users/zhangkun/Documents/apk', fileName)
+                            }
+
+                    }
+            }
         }
+
     }
     packagingOptions {
         exclude 'META-INF/NOTICE' // will not include NOTICE file

@@ -8,11 +8,22 @@
 
     <string name="key_theme">key_theme</string>
     <string name="key_intro">key_introduction</string>
+    <string name="key_score">key_score</string>
     <string name="key_share_qr">key_share_qr</string>
     <string name="key_fast_open">key_fast_open</string>
     <string name="key_clean">key_clean</string>
     <string name="key_todo_list">key_todo_list</string>
+    <string name="key_open_video">key_open_video</string>
 
+    <string name="color_default">default</string>
+    <string name="color_blue">blue</string>
+    <string name="color_red">red</string>
+    <string name="color_green">green</string>
+    <string name="color_cyan">cyan</string>
+    <string name="color_purple">purple</string>
+    <string name="color_orange">orange</string>
+    <string name="color_pink">pink</string>
+    <string name="color_teal">teal</string>
 
     <string-array name="pref_theme_titles">
         <item>@string/color_default</item>
@@ -37,16 +48,28 @@
         <item>7</item>
     </string-array>
 
-    <string name="color_default">default</string>
-    <string name="color_blue">blue</string>
-    <string name="color_red">red</string>
-    <string name="color_green">green</string>
-    <string name="color_cyan">cyan</string>
-    <string name="color_purple">purple</string>
-    <string name="color_orange">orange</string>
-    <string name="color_pink">pink</string>
-    <string name="color_teal">teal</string>
+    <string name="intro_string_1">input movie,music or other resource</string>
+    <string name="intro_string_2">easy to share and open</string>
+    <string name="intro_string_3">share your qr code to other</string>
 
+    <string name="todo_1">Improve the favorites, history</string>
+    <string name="todo_2">Adaptive 7.0</string>
+    <string name="todo_3">Email me ,if you have advice(๑•̀ㅂ•́)و✧</string>
+
+    <string name="dialog_title_get_video">Try to get the video address</string>
+    <string name="dialog_message_1">(1/3)Get the videos list…</string>
+    <string name="dialog_message_2">(2/3)Get the list successfully, resolve the address…</string>
+    <string name="dialog_message_3">(3/3)Get the video address successfully</string>
+
+    <string name="pref_title_theme">theme\'s color</string>
+    <string name="pref_title_fast_open">open url by local app</string>
+    <string name="pref_title_share_qr">share with qr code</string>
+    <string name="pref_title_score">score me</string>
+    <string name="pref_title_clean_history">clean cache</string>
+    <string name="pref_title_todo">todo list</string>
+    <string name="pref_title_open_video">Long press to play the video</string>
+    <string name="pref_summary_open_video">try to play the video(need mxplayer)</string>
+    <string name="pref_summary_close_video">This feature is unstable and consumes a lot of bandwidth</string>
 
     <string name="activity_not_found_error">do not find app to open the url</string>
     <string name="add_to_clipboard">copy to the clipboard</string>
@@ -58,8 +81,6 @@
     <string name="share_to">share to</string>
     <string name="action_history">history</string>
     <string name="action_favorites">favorites</string>
-
-
     <string name="email_subject">Magnet Search feedback</string>
     <string name="no_email_app">do not find app to send the email</string>
     <string name="share_content" >https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch</string>
@@ -70,28 +91,17 @@
     <string name="invalid_keyword">invalid keyword</string>
     <string name="history_activity">history</string>
     <string name="favorites_activity">favorites</string>
-    <string name="pref_title_theme">theme\'s color</string>
-    <string name="pref_title_fast_open">open url by local app</string>
     <string name="opened">opened</string>
     <string name="all">all</string>
     <string name="no_data">there is no data,plz change a keyword</string>
     <string name="open">open</string>
     <string name="loading_qr">creating qr code</string>
-    <string name="pref_title_share_qr">share with qr code</string>
-    <string name="pref_title_score">score me</string>
-    <string name="key_score">key_score</string>
-    <string name="pref_title_clean_history">clean cache</string>
     <string name="clean_success">clean success</string>
     <string name="search">search</string>
     <string name="favorite">favorite</string>
-    <string name="intro_string_1">input movie,music or other resource</string>
-    <string name="intro_string_2">easy to share and open</string>
-    <string name="intro_string_3">share your qr code to other</string>
-
     <string name="searchHint">search MS url</string>
-    <string name="pref_title_todo">todo list</string>
-    <string name="todo_1">Improve the favorites, history</string>
-    <string name="todo_2">Modify the icon</string>
-    <string name="todo_3">Email me ,if you have advice(๑•̀ㅂ•́)و✧</string>
+
+
+
 
 </resources>
