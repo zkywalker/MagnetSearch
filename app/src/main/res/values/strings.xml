@@ -68,7 +68,7 @@
     <string name="pref_title_clean_history">清除缓存</string>
     <string name="pref_title_todo">todo list</string>
     <string name="pref_title_open_video">长按播放视频</string>
-    <string name="pref_summary_open_video">尝试播放视频(需mxplayer)</string>
+    <string name="pref_summary_open_video">尝试播放视频(不稳定，且需mxplayer)</string>
     <string name="pref_summary_close_video">该功能不稳定并消耗大量带宽，建议用下载器</string>
 
     <string name="activity_not_found_error">没有发现打开磁力链接的程序</string>

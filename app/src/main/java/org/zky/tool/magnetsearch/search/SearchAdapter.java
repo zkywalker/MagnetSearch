@@ -182,6 +182,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         String[] header = new String[]{"Cookie", entity.getPlay_url_cookie()};
                         intent.putExtra("headers",header);
+                        intent.setPackage("com.mxtech.videoplayer.ad");
                         intent.setDataAndType(uri, "video/mp4");
 
                         dialog.dismiss();

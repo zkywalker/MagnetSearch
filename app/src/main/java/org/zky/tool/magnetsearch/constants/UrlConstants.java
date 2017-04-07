@@ -8,6 +8,8 @@ package org.zky.tool.magnetsearch.constants;
 public class UrlConstants {
     public static final String BTSO_SEARCH_URL = "https://btso.pw/search/";
 
-    public static final String GET_XF_SERVER_URL = "http://www.100yiwang.com:8001/";
+//    public static final String GET_XF_SERVER_URL = "http://www.100yiwang.com:8001/";
+
+    public static final String GET_XF_SERVER_URL = "http://www.51gdj.com/jiexi/yunbo/";
 
 }

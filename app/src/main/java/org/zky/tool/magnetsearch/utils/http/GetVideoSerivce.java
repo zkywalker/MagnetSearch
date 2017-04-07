@@ -7,15 +7,15 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- *
+ *            "api_btvda.php?do=get_magnet_info&hash=E4A8FFD932C9EA23D59626C7349CD755B378475D"
  * Created by zhangkun on 2017/3/31.
  */
 
 public interface GetVideoSerivce {
 
-    @GET("api.php")
-    rx.Observable<GetVideoResponseState<List<VideoDataEntity>>> getMagnetInfo(@Query("do") String var1,@Query("hash") String var2,@Query("s") String var3 );
+    @GET("api_btvda.php")
+    rx.Observable<GetVideoResponseState<List<VideoDataEntity>>> getMagnetInfo(@Query("do") String var1,@Query("hash") String var2 );
 
-    @GET("api.php")
-    rx.Observable<GetVideoResponseState<VideoDataEntity>> parseXFMagnet(@Query("do") String var1,@Query("data") String var2,@Query("s") String var3 );
+    @GET("api_btvda.php")
+    rx.Observable<GetVideoResponseState<VideoDataEntity>> parseXFMagnet(@Query("do") String var1,@Query("data") String var2 );
 }

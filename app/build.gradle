@@ -6,8 +6,8 @@ android {
         applicationId "org.zky.tool.magnetsearch"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 8
-        versionName "1.20play"
+        versionCode 9
+        versionName "1.21kuan"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -46,6 +46,7 @@ android {
         }
 
     }
+
     packagingOptions {
         exclude 'META-INF/NOTICE' // will not include NOTICE file
         exclude 'META-INF/LICENSE' // will not include LICENSE file

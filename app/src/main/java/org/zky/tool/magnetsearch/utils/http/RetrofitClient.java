@@ -74,7 +74,9 @@ public class RetrofitClient {
 
     //?do=get_magnet_info&hash={hash}&s=d4da0ccb451650405903afcab318bd55
     public void getMagnetInfo(Subscriber<List<VideoDataEntity>> subscriber, String hash) {
-        getVideoRetrofit.create(GetVideoSerivce.class).getMagnetInfo("get_magnet_info",hash,"d4da0ccb451650405903afcab318bd55")
+        getVideoRetrofit.create(GetVideoSerivce.class).getMagnetInfo("get_magnet_info",hash
+//                ,"d4da0ccb451650405903afcab318bd55"
+        )
                 .map(new HttpResultFunc<List<VideoDataEntity>>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -84,7 +86,9 @@ public class RetrofitClient {
 
     //api.php?do=parse_xf_magnet&data={data}&s=2f8ac6532a4a07e3d68043d536ff2bfb
     public void parseXFMagnet(Subscriber<VideoDataEntity> subscriber, String data) {
-        getVideoRetrofit.create(GetVideoSerivce.class).parseXFMagnet("parse_xf_magnet",data,"d4da0ccb451650405903afcab318bd55")
+        getVideoRetrofit.create(GetVideoSerivce.class).parseXFMagnet("parse_xf_magnet",data
+//                , "d4da0ccb451650405903afcab318bd55"
+        )
                 .map(new HttpResultFunc<VideoDataEntity>())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
