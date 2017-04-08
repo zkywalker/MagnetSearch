@@ -7,7 +7,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 9
-        versionName "1.21kuan"
+        versionName "1.21play"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
