@@ -1,5 +1,6 @@
 package org.zky.tool.magnetsearch.search;
 
+import org.zky.tool.magnetsearch.search.factory.SearchSource;
 import org.zky.tool.magnetsearch.utils.http.StringConverterFactory;
 import org.zky.tool.magnetsearch.utils.http.StringRequestBodyConverter;
 import org.zky.tool.magnetsearch.utils.http.StringResponseBodyConverter;
@@ -18,18 +19,21 @@ import retrofit2.Retrofit;
  */
 
 public class SearchConverterFactory extends Converter.Factory {
-    public static SearchConverterFactory create() {
-        return new SearchConverterFactory();
+
+    private SearchSource mSearchSource;
+
+    public static SearchConverterFactory create(SearchSource searchSource) {
+        return new SearchConverterFactory(searchSource);
     }
 
-    private SearchConverterFactory() {
-
+    private SearchConverterFactory(SearchSource searchSource) {
+        mSearchSource =searchSource;
     }
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
                                                             Retrofit retrofit) {
-        return new SearchResponseBodyConverter();
+        return new SearchResponseBodyConverter(mSearchSource);
     }
 
     @Override

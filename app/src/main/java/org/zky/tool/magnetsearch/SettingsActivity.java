@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.zky.tool.magnetsearch.constants.StorageConstants;
 import org.zky.tool.magnetsearch.search.MainActivity;
@@ -40,6 +42,8 @@ public class SettingsActivity extends BaseThemeActivity {
     @BindView(R.id.adView)
     AdView adView;
 
+    private FirebaseAnalytics analytics;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,10 +57,11 @@ public class SettingsActivity extends BaseThemeActivity {
         AdRequest request = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         adView.loadAd(request);
+        analytics = FirebaseAnalytics.getInstance(this);
+        analytics.logEvent("sittings",new Bundle());
     }
 
     public static class MyPreferenceFragment extends PreferenceFragment {
-        private AlertDialog dialog;
 
         private void market() {
             try {

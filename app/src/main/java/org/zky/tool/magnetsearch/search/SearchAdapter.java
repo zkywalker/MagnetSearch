@@ -138,7 +138,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
         }
         dialog.setTitle(GetRes.getString(R.string.dialog_title_get_video));
         dialog.show();
-        RetrofitClient.getInstance().getMagnetInfo(new Subscriber<List<VideoDataEntity>>() {
+        RetrofitClient.getInstance(mContext).getMagnetInfo(new Subscriber<List<VideoDataEntity>>() {
             @Override
             public void onStart() {
                 dialog.setMessage(GetRes.getString(R.string.dialog_message_1));
@@ -158,7 +158,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
             @Override
             public void onNext(List<VideoDataEntity> videoDataEntities) {
                 final String name = videoDataEntities.get(0).getName();
-                RetrofitClient.getInstance().parseXFMagnet(new Subscriber<VideoDataEntity>() {
+                RetrofitClient.getInstance(mContext).parseXFMagnet(new Subscriber<VideoDataEntity>() {
                     @Override
                     public void onStart() {
                         dialog.setMessage(GetRes.getString(R.string.dialog_message_2));

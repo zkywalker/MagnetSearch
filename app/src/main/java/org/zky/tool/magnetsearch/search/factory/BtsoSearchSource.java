@@ -1,5 +1,4 @@
-package org.zky.tool.magnetsearch.search;
-
+package org.zky.tool.magnetsearch.search.factory;
 
 import android.util.Log;
 
@@ -8,42 +7,29 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.zky.tool.magnetsearch.MagnetSearchApp;
+import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
-import org.zky.tool.magnetsearch.search.factory.SearchSource;
+import org.zky.tool.magnetsearch.search.SearchEntity;
+import org.zky.tool.magnetsearch.search.SearchSerivce;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
-import retrofit2.Converter;
-
 /**
- * 解析 数据源 的转换器
- * Created by zhangkun on 2017/2/21.
+ *  https://btso.tw
+ * Created by zhangkun on 2017/4/8.
  */
 
-public class SearchResponseBodyConverter implements Converter<ResponseBody, List<SearchEntity>> {
-    private static final String TAG = "StringResponseBodyConve";
+public class BtsoSearchSource implements SearchSource {
+
+    private static final String url= UrlConstants.BTSO_SEARCH_URL;
+
+    private static final String name = "btso";
 
     private SearchEntityDao searchEntityDao;
 
-    private SearchSource mSearchSource;
-
-    public SearchResponseBodyConverter(SearchSource searchSource){
-        mSearchSource =searchSource;
-    }
-
     @Override
-    public List<SearchEntity> convert(ResponseBody value) throws IOException {
-        try {
-            return mSearchSource.parse(new String(value.bytes()));
-        } finally {
-            value.close();
-        }
-    }
-
-    private List<SearchEntity> parse(String html) {
+    public List<SearchEntity> parse(String html) {
         Document document = Jsoup.parse(html);
         Element element = document.getElementsByClass("data-list").get(0);
         Elements rows = element.getElementsByClass("row");
@@ -60,7 +46,7 @@ public class SearchResponseBodyConverter implements Converter<ResponseBody, List
 
                 SearchEntity searchEntity = new SearchEntity(href, title, size, convertDate);
 
-
+                //TODO 这里把数据加入到了数据库 不应该这么做
                 if (searchEntityDao == null) {
                     searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
                 }
@@ -69,7 +55,6 @@ public class SearchResponseBodyConverter implements Converter<ResponseBody, List
                     list.add(searchEntity);
                     boolean contains = false;
                     for (SearchEntity s : searchEntities) {
-                        Log.i(TAG, "parse: s" + s);
                         if (s.equals(searchEntity)) {
                             list.remove(searchEntity);
                             list.add(s);
@@ -87,5 +72,13 @@ public class SearchResponseBodyConverter implements Converter<ResponseBody, List
         return list;
     }
 
+    @Override
+    public String getBaseUrl() {
+        return url;
+    }
 
+    @Override
+    public String getName() {
+        return name;
+    }
 }

@@ -214,7 +214,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         if (page > 1)
             key = key + "/page/" + page;
 
-        RetrofitClient.getInstance().getData(new Subscriber<List<SearchEntity>>() {
+        RetrofitClient.getInstance(this).getData(new Subscriber<List<SearchEntity>>() {
             @Override
             public void onStart() {
                 //page=1时候加载显示progress bar

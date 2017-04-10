@@ -12,6 +12,16 @@
         android:positiveButtonText="@null"
         android:title="@string/pref_title_theme" />
 
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/pref_search_source_titles"
+        android:entryValues="@array/pref_search_source_values"
+        android:key="@string/key_search_source"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_search_source"
+        android:summary="@string/pref_summary_search_source"
+        />
 
     <!-- A 'parent' preference, which enables/disables child preferences (below)
      when checked/unchecked. -->

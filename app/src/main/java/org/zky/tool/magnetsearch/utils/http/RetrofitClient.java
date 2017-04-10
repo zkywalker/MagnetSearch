@@ -1,5 +1,6 @@
 package org.zky.tool.magnetsearch.utils.http;
 
+import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,8 @@ import org.zky.tool.magnetsearch.search.MainActivity;
 import org.zky.tool.magnetsearch.search.SearchConverterFactory;
 import org.zky.tool.magnetsearch.search.SearchEntity;
 import org.zky.tool.magnetsearch.search.SearchSerivce;
+import org.zky.tool.magnetsearch.search.factory.SearchSource;
+import org.zky.tool.magnetsearch.search.factory.SearchSourceFactory;
 import org.zky.tool.magnetsearch.utils.GetRes;
 
 import java.io.IOException;
@@ -39,15 +42,19 @@ import rx.schedulers.Schedulers;
 public class RetrofitClient {
     private static RetrofitClient instance;
 
+    private static SearchSource mSearchSource;
+
     private Retrofit retrofit;
 
     private Retrofit getVideoRetrofit;
 
-    private RetrofitClient(){
+    private RetrofitClient(Context context){
+        mSearchSource = SearchSourceFactory.getInstance(context);
+
         retrofit = new Retrofit.Builder()
                 .client(getClient())
-                .baseUrl(UrlConstants.BTSO_SEARCH_URL)
-                .addConverterFactory(SearchConverterFactory.create())
+                .baseUrl(mSearchSource.getBaseUrl())
+                .addConverterFactory(SearchConverterFactory.create(mSearchSource))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
@@ -59,9 +66,9 @@ public class RetrofitClient {
                 .build();
     }
 
-    public static RetrofitClient getInstance(){
+    public static RetrofitClient getInstance(Context context){
         if (instance ==null)
-            instance =new RetrofitClient();
+            instance =new RetrofitClient(context);
         return instance;
     }
 
@@ -106,6 +113,7 @@ public class RetrofitClient {
                         Request request = chain.request()
                                 .newBuilder()
 //                                .addHeader("host", "btso.pw")
+                                .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
                                 .addHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3")
                                 .build();
                         return chain.proceed(request);

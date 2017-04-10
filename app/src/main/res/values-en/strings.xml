@@ -47,6 +47,14 @@
         <item>6</item>
         <item>7</item>
     </string-array>
+    <string-array name="pref_search_source_titles" >
+        <item>Btso</item>
+        <item>torrent kitty</item>
+    </string-array>
+    <string-array name="pref_search_source_values" >
+        <item>org.zky.tool.magnetsearch.search.factory.BtsoSearchSource</item>
+        <item>org.zky.tool.magnetsearch.search.factory.TorrentKittySearchSource</item>
+    </string-array>
 
     <string name="intro_string_1">input movie,music or other resource</string>
     <string name="intro_string_2">easy to share and open</string>
@@ -100,8 +108,9 @@
     <string name="search">search</string>
     <string name="favorite">favorite</string>
     <string name="searchHint">search MS url</string>
-
-
+    <string name="key_search_source">key_search_source</string>
+    <string name="pref_title_search_source">搜索源</string>
+    <string name="pref_summary_search_source">重启生效</string>
 
 
 </resources>
