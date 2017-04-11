@@ -211,8 +211,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     private void query(String key, final int page) {
         currentKeyword = key;
-        if (page > 1)
-            key = key + "/page/" + page;
 
         RetrofitClient.getInstance(this).getData(new Subscriber<List<SearchEntity>>() {
             @Override
@@ -247,7 +245,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             public void onNext(List<SearchEntity> searchEntities) {
                 adapter.addDatas(searchEntities);
             }
-        }, key);
+        }, key,page);
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, key);

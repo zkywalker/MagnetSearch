@@ -1,7 +1,5 @@
 package org.zky.tool.magnetsearch.search.factory;
 
-import android.util.Log;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,19 +8,18 @@ import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchEntity;
-import org.zky.tool.magnetsearch.search.SearchSerivce;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  https://btso.tw
+ * https://btso.pw/search/rio/page/2
  * Created by zhangkun on 2017/4/8.
  */
 
 public class BtsoSearchSource implements SearchSource {
 
-    private static final String url= UrlConstants.BTSO_SEARCH_URL;
+    private static final String url = UrlConstants.BTSO_SEARCH_URL;
 
     private static final String name = "btso";
 
@@ -80,5 +77,10 @@ public class BtsoSearchSource implements SearchSource {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getPage(int page) {
+        return "page/"+page;
     }
 }

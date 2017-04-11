@@ -16,15 +16,18 @@ import org.zky.tool.magnetsearch.utils.GetRes;
 public class SearchSourceFactory {
     private static final String TAG = "SearchSourceFactory";
 
-    public static SearchSource getInstance(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String source = preferences.getString(GetRes.getString(R.string.key_search_source), BtsoSearchSource.class.getName());
+    /**
+     * @param name the fully qualified name of the desired class.
+     * @return instance
+     */
+    public static SearchSource getInstance(String name) {
+
         try {
-            return (SearchSource) Class.forName(source).newInstance();
+            return (SearchSource) Class.forName(name).newInstance();
         } catch (Exception e) {
             e.printStackTrace();
+            return new BtsoSearchSource();
         }
-        //TODO 否则返回一个默认的搜索源？
-        return null;
+
     }
 }

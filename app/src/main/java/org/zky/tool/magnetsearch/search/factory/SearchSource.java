@@ -17,4 +17,11 @@ public interface SearchSource {
 
     String getName();
 
+    /**
+     * 获取restful url页
+     * @param page 第page页
+     * @return url页
+     */
+    String getPage(int page);
+
 }

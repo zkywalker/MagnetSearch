@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * https://www.torrentkitty.tv/search/KIRD-061/
+ * https://www.torrentkitty.tv/search/KIRD-061/1
  * Created by zhangkun on 2017/4/8.
  */
 
@@ -77,5 +77,10 @@ public class TorrentKittySearchSource implements SearchSource {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getPage(int page) {
+        return page+"";
     }
 }

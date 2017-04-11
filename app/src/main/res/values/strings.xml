@@ -111,7 +111,7 @@
     <string name="searchHint">搜磁力链接</string>
     <string name="key_search_source">key_search_source</string>
     <string name="pref_title_search_source">搜索源</string>
-    <string name="pref_summary_search_source">重启生效</string>
+    <string name="pref_summary_search_source">选择搜索源</string>
 
 
 </resources>

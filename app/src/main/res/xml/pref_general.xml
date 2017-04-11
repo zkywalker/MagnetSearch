@@ -4,6 +4,7 @@
       dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
+        android:icon="@drawable/ic_color_lens_black_24dp"
         android:defaultValue="-1"
         android:entries="@array/pref_theme_titles"
         android:entryValues="@array/pref_theme_values"
@@ -13,6 +14,7 @@
         android:title="@string/pref_title_theme" />
 
     <ListPreference
+        android:icon="@drawable/ic_search_black_24dp"
         android:defaultValue="-1"
         android:entries="@array/pref_search_source_titles"
         android:entryValues="@array/pref_search_source_values"
@@ -26,14 +28,17 @@
     <!-- A 'parent' preference, which enables/disables child preferences (below)
      when checked/unchecked. -->
     <SwitchPreference
+        android:icon="@drawable/ic_open_in_browser_black_24dp"
         android:defaultValue="true"
         android:key="@string/key_fast_open"
         android:title="@string/pref_title_fast_open" />
     <SwitchPreference
+        android:icon="@drawable/ic_border_clear_black_24dp"
         android:defaultValue="true"
         android:key="@string/key_share_qr"
         android:title="@string/pref_title_share_qr" />
     <SwitchPreference
+        android:icon="@drawable/ic_ondemand_video_black_24dp"
         android:defaultValue="false"
         android:key="@string/key_open_video"
         android:title="@string/pref_title_open_video"
@@ -41,14 +46,13 @@
         android:summaryOff="@string/pref_summary_open_video"
         />
     <Preference
+        android:icon="@drawable/ic_delete_black_24dp"
         android:key="@string/key_clean"
         android:title="@string/pref_title_clean_history"
         />
+
     <Preference
-        android:key="@string/key_todo_list"
-        android:title="@string/pref_title_todo"
-        />
-    <Preference
+        android:icon="@drawable/ic_favorite_black_24dp"
         android:key="@string/key_score"
         android:title="@string/pref_title_score"
         />

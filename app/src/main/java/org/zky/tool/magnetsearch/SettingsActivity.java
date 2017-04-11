@@ -75,6 +75,9 @@ public class SettingsActivity extends BaseThemeActivity {
             }
         }
 
+        /**
+         * @deprecated 废弃
+         */
         public void showList() {
             final String[] list = new String[]{GetRes.getString(R.string.todo_1),
                     GetRes.getString(R.string.todo_2),
@@ -114,13 +117,13 @@ public class SettingsActivity extends BaseThemeActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     StorageUtils.cleanData();
-                    long qr = StorageUtils.getFolderSize(new File(StorageConstants.QR_DIR));
-                    preCache.setSummary(StorageUtils.getFormatSize(qr));
+                    StorageUtils.cleanDatabaseByName("history-db");
+//                    preCache.setSummary(StorageUtils.getSize(MagnetSearchApp.getInstanse()));
+                    Snackbar.make(getView(),GetRes.getString(R.string.clean_success),Snackbar.LENGTH_LONG).show();
                     return true;
                 }
             });
-            long qr = StorageUtils.getFolderSize(new File(StorageConstants.QR_DIR));
-            preCache.setSummary(StorageUtils.getFormatSize(qr));
+//            preCache.setSummary(StorageUtils.getSize(MagnetSearchApp.getInstanse()));
 
             Preference preScore = findPreference(GetRes.getString(R.string.key_score));
             preScore.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -131,14 +134,14 @@ public class SettingsActivity extends BaseThemeActivity {
                 }
             });
 
-            Preference preTodo = findPreference(GetRes.getString(R.string.key_todo_list));
-            preTodo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    showList();
-                    return true;
-                }
-            });
+//            Preference preTodo = findPreference(GetRes.getString(R.string.key_todo_list));
+//            preTodo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(Preference preference) {
+//                    showList();
+//                    return true;
+//                }
+//            });
 
 //            final SwitchPreference preOpenVideo = (SwitchPreference) findPreference(GetRes.getString(R.string.key_open_video));
 //            preOpenVideo.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

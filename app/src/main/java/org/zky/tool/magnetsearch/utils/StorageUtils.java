@@ -3,10 +3,12 @@ package org.zky.tool.magnetsearch.utils;
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
+import org.zky.tool.magnetsearch.constants.StorageConstants;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -17,12 +19,22 @@ import java.math.BigDecimal;
  */
 
 public class StorageUtils {
+
+    public static String getSize(Context context){
+        long qr = StorageUtils.getFolderSize(new File(StorageConstants.QR_DIR))
+                +StorageUtils.getFolderSize(context.getDatabasePath("history-db"));
+        Log.i("size", "getSize: "+qr);
+        return getFormatSize(qr);
+    }
     /**
      * 获取文件夹大小
      * @param file File实例
      * @return long
      */
     public static long getFolderSize(java.io.File file){
+        if (file==null){
+            return 0;
+        }
 
         long size = 0;
         try {

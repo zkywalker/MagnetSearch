@@ -11,10 +11,10 @@ import retrofit2.http.Path;
  * Created by zhangkun on 2017/2/21.
  */
 
-public interface SearchSerivce {
+public interface SearchService {
 
-    @GET("{keyword}")
-    rx.Observable<List<SearchEntity>> getHtml(@Path("keyword") String keyword);
+    @GET("{keyword}/{page}/")
+    rx.Observable<List<SearchEntity>> getHtml(@Path("keyword") String keyword ,@Path("page") String page);
 
 
 }
