@@ -152,6 +152,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
             @Override
             public void onError(Throwable e) {
                 dialog.dismiss();
+                Log.e(TAG, "onError: ", e);
                 snack(e.getMessage());
             }
 
@@ -172,6 +173,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
+                        Log.e(TAG, "onError: ", e);
                        snack(e.getMessage());
                     }
 

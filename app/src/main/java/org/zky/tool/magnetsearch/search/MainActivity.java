@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
@@ -72,6 +73,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     @BindView(R.id.iv_menu)
     ImageView ivMenu;
 
+    @BindView(R.id.appbar)
+    AppBarLayout appBarLayout;
     @BindView(R.id.card)
     CardView card;
     @BindView(R.id.recycler_view)
@@ -230,6 +233,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             public void onCompleted() {
                 currentPage = page;
                 pbLoading.setVisibility(View.GONE);
+
+                recyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -244,6 +249,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             @Override
             public void onNext(List<SearchEntity> searchEntities) {
                 adapter.addDatas(searchEntities);
+
+
             }
         }, key,page);
 

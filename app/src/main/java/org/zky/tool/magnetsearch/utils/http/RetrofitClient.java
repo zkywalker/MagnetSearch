@@ -58,7 +58,7 @@ public class RetrofitClient {
                 .build();
 
         getVideoRetrofit = new Retrofit.Builder()
-                .client(getClient())
+                .client(getClient2())
                 .baseUrl(UrlConstants.GET_XF_SERVER_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -135,6 +135,26 @@ public class RetrofitClient {
 //                                .addHeader("host", "btso.pw")
                                 .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
                                 .addHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3")
+                                .build();
+                        return chain.proceed(request);
+                    }
+
+                })
+                .build();
+    }
+
+    public static OkHttpClient getClient2() {
+        return new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request()
+                                .newBuilder()
+                                .addHeader("Host", "www.51gdj.com")
+                                .addHeader("Connection","Keep-Alive")
+                                .addHeader("Accept-Encoding", "gzip")
+                                .addHeader("User-Agent", "okhttp/3.6.0")
                                 .build();
                         return chain.proceed(request);
                     }
