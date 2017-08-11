@@ -1,1 +1,1 @@
-include ':app', ':yoghourt'
+include ':app'

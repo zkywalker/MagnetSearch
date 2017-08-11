@@ -1,17 +1,17 @@
 # Magnet Search
 
 [![Apache License 2.0][1]][2]
-[![Platform](https://img.shields.io/badge/platform-Android-blue.svg)](https://www.android.com/)
-[![Release](https://img.shields.io/badge/release-0.1.0-blue.svg)]()
+[![Platform][3]][4]
+[![Release][100]]()
 
 ## Introduce 简介
-
+Magnet Search 是一个搜索磁力链接的爬虫应用
 ## Features 特性
 * 1、基本遵循Google Material Design设计风格。
 * 2、Jsoup爬虫爬取DHT网站信息。
 
 ## Issues 反馈
-如果有任何问题，请到github的[issue处][21]提交issues。
+如果有任何问题，请到提交[issues][21]。
 
 If you have any questions, please write to [the issue][21] .
 
@@ -38,17 +38,17 @@ If you have any questions, please write to [the issue][21] .
 
 ```
 eg:
-0.1.2.170630-play
+0.1.2.17063011-play
 ```
-
 
 ## Screenshots 截屏
 ![]()
 ![]()
 ## 下载
+[Google Play][20]
 ## 日志
 
-# Build
+# Build 构建
 
 Windows
 
@@ -65,7 +65,7 @@ Linux
 生成的 apk 文件在 app\build\outputs\apk 目录下
 
 
-## dependencies
+## Dependencies 依赖
 
 
     $ ./gradlew allDeps
@@ -89,5 +89,11 @@ limitations under the License.
 
 [1]:https://img.shields.io/:license-apache-blue.svg
 [2]:https://www.apache.org/licenses/LICENSE-2.0.html
+[3]:https://img.shields.io/badge/platform-Android-blue.svg
+[4]:https://www.android.com/
+
+[100]:https://img.shields.io/badge/release-1.3.2-blue.svg
+
+[20]:https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch
 
 [21]:https://github.com/zkywalker/MagnetSearch/issues
