@@ -1,48 +1,93 @@
-#TODO LIST
+# Magnet Search
 
-✔上拉加载更多
+[![Apache License 2.0][1]][2]
+[![Platform](https://img.shields.io/badge/platform-Android-blue.svg)](https://www.android.com/)
+[![Release](https://img.shields.io/badge/release-0.1.0-blue.svg)]()
 
-✔search keyword检查
+## Introduce 简介
 
-✔search view 修改
+## Features 特性
+* 1、基本遵循Google Material Design设计风格。
+* 2、Jsoup爬虫爬取DHT网站信息。
 
-✔历史记录(所有历史 浏览历史 分页)
+## Issues 反馈
+如果有任何问题，请到github的[issue处][21]提交issues。
 
-✔收藏夹
-(//TODO 设计缺陷，网络数据是爬来的，收藏则存于本地，需要先检查本地数据,降低性能)
+If you have any questions, please write to [the issue][21] .
 
-✔设置
+## Structure 项目结构
+```
 
-✔分享，反馈
+```
 
-✔外链搜索
+### Version 版本号
 
-✔英文适配
+<主版本>.<次版本>.<修复版本>.<日期版本><versionCode版本> [-dev]
 
-## 1.229
+*主版本* 大版本更新，如功能大改、ui界面大改
 
-✔添加设置图标
+*次版本* 小版本更新，增加小功能，ui小修改
 
-✔增加爬虫源
+*修复版本* 修复bug更新
 
-解析磁力链接 - 调用第三方播放器mxplayer（完善 多个视频选择）
+*日期版本* 发布日期，发布渠道等
 
-✔清除缓存 清除数据库
+*-dev* 开发版
 
-7.0 二维码存储缓存里读取权限
+*versionCode* 根据git commit次数生成
 
-## 以后再说
-
-数据库修改，增加网络存储
-
-优化 数据库和网络请求异常的提示
-
-开源引用
-
-增加amd和aria2下载
-
-recycler view(点击事件，收藏，二维码，分享链接) 完善
-
-图标修改
+```
+eg:
+0.1.2.170630-play
+```
 
 
+## Screenshots 截屏
+![]()
+![]()
+## 下载
+## 日志
+
+# Build
+
+Windows
+
+    > git clone https://github.com/zkywalker/MagnetSearch.git
+    > cd MagnetSearch.git
+    > gradlew app:assembleDebug
+
+Linux
+
+    $ git clone https://github.com/zkywalker/MagnetSearch.git
+    $ cd MagnetSearch.git
+    $ ./gradlew app:assembleDebug
+
+生成的 apk 文件在 app\build\outputs\apk 目录下
+
+
+## dependencies
+
+
+    $ ./gradlew allDeps
+
+## License 许可
+```
+Copyright (C) 2017 Keral
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+[1]:https://img.shields.io/:license-apache-blue.svg
+[2]:https://www.apache.org/licenses/LICENSE-2.0.html
+
+[21]:https://github.com/zkywalker/MagnetSearch/issues

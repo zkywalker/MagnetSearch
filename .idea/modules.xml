@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MagnetSearch.iml" filepath="$PROJECT_DIR$/MagnetSearch.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yoghourt/yoghourt.iml" filepath="$PROJECT_DIR$/yoghourt/yoghourt.iml" />
     </modules>
   </component>
 </project>

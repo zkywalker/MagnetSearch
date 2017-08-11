@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -44,6 +45,7 @@ public class SettingsActivity extends BaseThemeActivity {
 
     private FirebaseAnalytics analytics;
 
+    private static final Handler handler = new Handler();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,9 +56,17 @@ public class SettingsActivity extends BaseThemeActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        adView.loadAd(request);
+        //加载广告是个耗时操作，延迟加载提高用户体验
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AdRequest request = new AdRequest.Builder()
+                        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+                adView.loadAd(request);
+            }
+        },1000);
+
+
         analytics = FirebaseAnalytics.getInstance(this);
         analytics.logEvent("sittings",new Bundle());
     }

@@ -6,8 +6,8 @@ android {
         applicationId "org.zky.tool.magnetsearch"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 9
-        versionName "1.21play"
+        versionCode 10
+        versionName "1.31play"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -31,18 +31,18 @@ android {
 
             proguardFile 'proguard-rules.pro'
 
-            applicationVariants.all {
-                variant ->
-                    variant.outputs.each {
-                        output ->
-                            def outputFile = output.outputFile
-                            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                                def fileName = "MagnetSearch_v${defaultConfig.versionName}${defaultConfig.versionCode}.apk"
-                                output.outputFile = new File('/Users/zhangkun/Documents/apk', fileName)
-                            }
-
-                    }
-            }
+//            applicationVariants.all {
+//                variant ->
+//                    variant.outputs.each {
+//                        output ->
+//                            def outputFile = output.outputFile
+//                            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                                def fileName = "MagnetSearch_v${defaultConfig.versionName}${defaultConfig.versionCode}.apk"
+//                                output.outputFile = new File('/Users/zhangkun/Documents/apk', fileName)
+//                            }
+//
+//                    }
+//            }
         }
 
     }

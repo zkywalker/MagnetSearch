@@ -127,10 +127,11 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         }
 
         CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
-        if (!TextUtils.isEmpty(text)){
+        if (!TextUtils.isEmpty(text)) {
             etSearch.setText(text);
             etSearch.requestFocus();
         }
+
 
     }
 
@@ -166,8 +167,8 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND
-                        || actionId == EditorInfo.IME_ACTION_DONE
+                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_SEND
+                        || actionId == EditorInfo.IME_ACTION_DONE||actionId ==EditorInfo.IME_ACTION_SEARCH
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
                     String keyword = v.getText().toString();
                     if (validate(keyword))
@@ -252,7 +253,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
 
             }
-        }, key,page);
+        }, key, page);
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, key);
@@ -322,7 +323,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         }
     }
 
-    private void snack(@StringRes int s){
+    private void snack(@StringRes int s) {
         Snackbar.make(findViewById(R.id.activity_content), GetRes.getString(s), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
