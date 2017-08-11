@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,6 +45,15 @@ public class GetRes {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             return sContext.getDrawable(id);
         return sResources.getDrawable(id);
+
+    }
+
+    @Nullable
+    @SuppressWarnings("deprecation")
+    public static int getColor(@ColorRes int id, @Nullable Resources.Theme theme) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            return sResources.getColor(id,theme);
+        return sResources.getColor(id);
 
     }
 
