@@ -53,6 +53,9 @@ android {
                             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                                 def fileName = "MagnetSearch_v${defaultConfig.versionName}.apk"
                                 output.outputFile = new File('/Users/zhangkun/Documents/apk', fileName)
+                                //for windows
+                                output.outputFile = new File('C:/apk', fileName)
+
                             }
 
                     }

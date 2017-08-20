@@ -14,6 +14,8 @@ import org.zky.tool.magnetsearch.search.factory.BtsoSearchSource;
 import org.zky.tool.magnetsearch.search.factory.SearchSource;
 import org.zky.tool.magnetsearch.search.factory.SearchSourceFactory;
 import org.zky.tool.magnetsearch.utils.GetRes;
+import org.zky.tool.magnetsearch.utils.http.exception.ApiException;
+import org.zky.tool.magnetsearch.utils.http.exception.ExceptionEngine;
 
 import java.io.IOException;
 import java.util.List;
@@ -85,43 +87,30 @@ public class RetrofitClient {
      */
     public void getData(Subscriber<List<SearchEntity>> subscriber, String key) {
         Observable<List<SearchEntity>> observable = retrofit.create(SearchService.class)
-                .getHtml(key,mSearchSource.getPage(1));
+                .getHtml(key,mSearchSource.getPage(1))
+                .onErrorResumeNext(new ErrorFunc<List<SearchEntity>>());
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(subscriber);
     }
 
+    /**
+     * 搜索 数据
+     * @param subscriber 订阅 数据 者
+     * @param key 关键词
+     * @param page 分页
+     */
     public void getData(Subscriber<List<SearchEntity>> subscriber, String key,int page) {
         Observable<List<SearchEntity>> observable = retrofit.create(SearchService.class)
-                .getHtml(key,mSearchSource.getPage(page));
+                .getHtml(key,mSearchSource.getPage(page))
+                .onErrorResumeNext(new ErrorFunc<List<SearchEntity>>());
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(subscriber);
     }
 
-    //?do=get_magnet_info&hash={hash}&s=d4da0ccb451650405903afcab318bd55
-    public void getMagnetInfo(Subscriber<List<VideoDataEntity>> subscriber, String hash) {
-        getVideoRetrofit.create(GetVideoService.class).getMagnetInfo("get_magnet_info", hash
-//                ,"d4da0ccb451650405903afcab318bd55"
-        )
-                .map(new HttpResultFunc<List<VideoDataEntity>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
 
-    //api.php?do=parse_xf_magnet&data={data}&s=2f8ac6532a4a07e3d68043d536ff2bfb
-    public void parseXFMagnet(Subscriber<VideoDataEntity> subscriber, String data) {
-        getVideoRetrofit.create(GetVideoService.class).parseXFMagnet("parse_xf_magnet", data
-//                , "d4da0ccb451650405903afcab318bd55"
-        )
-                .map(new HttpResultFunc<VideoDataEntity>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
+
 
 
     public static OkHttpClient getClient() {
@@ -163,16 +152,22 @@ public class RetrofitClient {
                 .build();
     }
 
-    private class HttpResultFunc<T> implements Func1<GetVideoResponseState<T>, T> {
+    private class ErrorFunc<T> implements Func1<Throwable,Observable<T>>{
 
         @Override
-        public T call(GetVideoResponseState<T> httpResult) {
-            //TODO 修改
-            Log.i("network", "call: httpResult:" + httpResult.toString());
-            if (httpResult.getCode() != 1) {
-                throw new ApiException(httpResult.getMsg());
-            }
-            return httpResult.getData();
+        public Observable<T> call(Throwable throwable) {
+            return Observable.error(ExceptionEngine.handleException(throwable));
         }
     }
+
+//    private class HttpResultFunc<T> implements Func1<GetVideoResponseState<T>, T> {
+//
+//        @Override
+//        public T call(GetVideoResponseState<T> httpResult) {
+//            if (httpResult.getCode() != 1) {
+//                throw new ApiException(httpResult.getMsg());
+//            }
+//            return httpResult.getData();
+//        }
+//    }
 }

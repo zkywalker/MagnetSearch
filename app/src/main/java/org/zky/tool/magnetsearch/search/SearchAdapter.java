@@ -42,10 +42,6 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
 
     private QrDialogManager manager;
 
-    private ProgressDialog dialog;
-
-
-
     public SearchAdapter(Context context, List<SearchEntity> datas, int layoutId) {
         super(context, datas, layoutId,R.layout.recycler_view_footer);
         mContext = context;
@@ -117,83 +113,12 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
                 }
             });
 
-            var1.setOnLongClickListener(R.id.ll_item, new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (preferences.getBoolean(GetRes.getString(R.string.key_open_video),false)){
-                        getVideo(hash);
-                    }
-                    return true;
-                }
-            });
         }
 
 
     }
 
-    private void getVideo(final String hash){
-        if (dialog==null){
-            dialog = new ProgressDialog(mContext);
-            dialog.setCancelable(false);
-        }
-        dialog.setTitle(GetRes.getString(R.string.dialog_title_get_video));
-        dialog.show();
-        RetrofitClient.getInstance(mContext).getMagnetInfo(new Subscriber<List<VideoDataEntity>>() {
-            @Override
-            public void onStart() {
-                dialog.setMessage(GetRes.getString(R.string.dialog_message_1));
-            }
 
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                dialog.dismiss();
-                Log.e(TAG, "onError: ", e);
-                snack(e.getMessage());
-            }
-
-            @Override
-            public void onNext(List<VideoDataEntity> videoDataEntities) {
-                final String name = videoDataEntities.get(0).getName();
-                RetrofitClient.getInstance(mContext).parseXFMagnet(new Subscriber<VideoDataEntity>() {
-                    @Override
-                    public void onStart() {
-                        dialog.setMessage(GetRes.getString(R.string.dialog_message_2));
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        dialog.setMessage(GetRes.getString(R.string.dialog_message_3));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        dialog.dismiss();
-                        Log.e(TAG, "onError: ", e);
-                       snack(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(VideoDataEntity entity) {
-
-                        Uri uri = Uri.parse(entity.getPlay_url()+"/"+name);
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        String[] header = new String[]{"Cookie", entity.getPlay_url_cookie()};
-                        intent.putExtra("headers",header);
-                        intent.setPackage("com.mxtech.videoplayer.ad");
-                        intent.setDataAndType(uri, "video/mp4");
-                        Log.i(TAG, "onNext: uri:"+uri+"\n"+entity.getPlay_url_cookie());
-                        dialog.dismiss();
-                        mContext.startActivity(intent);
-                    }
-                },videoDataEntities.get(0).getData());
-            }
-        },hash);
-    }
 
     private void setOpened(SearchEntity searchEntity){
         List<SearchEntity> list = searchEntityDao.queryBuilder().where(SearchEntityDao.Properties.Title.eq(searchEntity.getTitle())).list();

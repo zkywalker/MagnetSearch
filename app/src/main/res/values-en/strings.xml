@@ -48,12 +48,14 @@
         <item>7</item>
     </string-array>
     <string-array name="pref_search_source_titles" >
-        <item>Btso</item>
         <item>torrent kitty</item>
+        <item>Btso</item>
+        <item>BtTit</item>
     </string-array>
     <string-array name="pref_search_source_values" >
-        <item>org.zky.tool.magnetsearch.search.factory.BtsoSearchSource</item>
         <item>org.zky.tool.magnetsearch.search.factory.TorrentKittySearchSource</item>
+        <item>org.zky.tool.magnetsearch.search.factory.BtsoSearchSource</item>
+        <item>org.zky.tool.magnetsearch.search.factory.BtTitSearchSource</item>
     </string-array>
 
     <string name="intro_string_1">input movie,music or other resource</string>

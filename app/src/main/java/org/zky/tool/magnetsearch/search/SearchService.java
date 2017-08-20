@@ -13,7 +13,7 @@ import retrofit2.http.Path;
 
 public interface SearchService {
 
-    @GET("{keyword}/{page}/")
+    @GET("{keyword}{page}")
     rx.Observable<List<SearchEntity>> getHtml(@Path("keyword") String keyword ,@Path("page") String page);
 
 

@@ -13,15 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * https://btso.pw/search/rio/page/2
+ * http://www.bttit.com/torrent/hello_3.html
+ * TODO 分页结构有问题，所以这个网站不能搜 _index 的东西。。。
+ * html结构照抄的btso
  * Created by zhangkun on 2017/4/8.
  */
 
-public class BtsoSearchSource implements SearchSource {
+public class BtTitSearchSource implements SearchSource {
 
     private static final String url = UrlConstants.BTSO_SEARCH_URL;
 
-    private static final String name = "btso";
+    private static final String name = "bttit";
 
     private SearchEntityDao searchEntityDao;
 
@@ -29,7 +31,8 @@ public class BtsoSearchSource implements SearchSource {
     public List<SearchEntity> parse(String html) {
         Document document = Jsoup.parse(html);
         Element element = document.getElementsByClass("data-list").get(0);
-        Elements rows = element.getElementsByClass("row");
+        Element btsowlist = element.getElementsByClass("btsowlist").get(0);
+        Elements rows = btsowlist.getElementsByClass("row");
         List<SearchEntity> list = new ArrayList<>();
         for (Element row : rows) {
             Elements a = row.getElementsByTag("a");
@@ -81,6 +84,6 @@ public class BtsoSearchSource implements SearchSource {
 
     @Override
     public String getPage(int page) {
-        return "/page/"+page+"/";
+        return "_"+page+".html";
     }
 }
