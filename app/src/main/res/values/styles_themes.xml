@@ -49,5 +49,8 @@
         <item name="colorAccent">#F06292</item>
     </style>
 
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar" >
+        <item name="colorAccent">#4CAF50</item>
+    </style>
 
 </resources>

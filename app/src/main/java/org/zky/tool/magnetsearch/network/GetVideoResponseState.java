@@ -1,6 +1,4 @@
-package org.zky.tool.magnetsearch.utils.http;
-
-import java.util.List;
+package org.zky.tool.magnetsearch.network;
 
 /**
  * Created by zhangkun on 2017/3/31.

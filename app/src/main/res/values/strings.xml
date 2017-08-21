@@ -13,7 +13,6 @@
     <string name="key_fast_open">key_fast_open</string>
     <string name="key_clean">key_clean</string>
     <string name="key_todo_list">key_todo_list</string>
-    <string name="key_open_video">key_open_video</string>
 
     <string name="color_default">默认</string>
     <string name="color_blue">蓝色</string>
@@ -24,7 +23,7 @@
     <string name="color_orange">橙色</string>
     <string name="color_pink">粉红色</string>
     <string name="color_teal">青色</string>
-
+    <string name="color_dark">黑色</string>
     <string-array name="pref_theme_titles">
         <item>@string/color_default</item>
         <item>@string/color_blue</item>
@@ -35,6 +34,7 @@
         <item>@string/color_orange</item>
         <item>@string/color_pink</item>
         <item>@string/color_teal</item>
+        <item>@string/color_dark</item>
     </string-array>
     <string-array name="pref_theme_values">
         <item>-1</item>
@@ -46,6 +46,7 @@
         <item>5</item>
         <item>6</item>
         <item>7</item>
+        <item>8</item>
     </string-array>
     <string-array name="pref_search_source_titles" >
         <item>torrent kitty</item>
@@ -78,9 +79,7 @@
     <string name="pref_title_score">评分鼓励(⬇点个广告?|・ω・`))</string>
     <string name="pref_title_clean_history">清除缓存</string>
     <string name="pref_title_todo">todo list</string>
-    <string name="pref_title_open_video">长按播放视频</string>
-    <string name="pref_summary_open_video">尝试播放视频(不稳定，需mxplayer)</string>
-    <string name="pref_summary_close_video">该功能不稳定并消耗大量带宽，建议用其他app下载</string>
+
 
     <string name="activity_not_found_error">没有发现打开磁力链接的程序</string>
     <string name="add_to_clipboard">已复制到剪切板</string>
@@ -94,7 +93,7 @@
     <string name="action_favorites">收藏夹</string>
     <string name="email_subject">MagnetSearch反馈</string>
     <string name="no_email_app">没有发现发送邮件的程序</string>
-    <string name="share_content" >https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch</string>
+    <string name="share_content">https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch</string>
     <string name="i_know">知道了</string>
     <string name="skip">跳过</string>
     <string name="done">完成</string>

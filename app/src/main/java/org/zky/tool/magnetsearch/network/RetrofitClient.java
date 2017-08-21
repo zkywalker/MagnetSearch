@@ -1,9 +1,8 @@
-package org.zky.tool.magnetsearch.utils.http;
+package org.zky.tool.magnetsearch.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
@@ -14,8 +13,7 @@ import org.zky.tool.magnetsearch.search.factory.BtsoSearchSource;
 import org.zky.tool.magnetsearch.search.factory.SearchSource;
 import org.zky.tool.magnetsearch.search.factory.SearchSourceFactory;
 import org.zky.tool.magnetsearch.utils.GetRes;
-import org.zky.tool.magnetsearch.utils.http.exception.ApiException;
-import org.zky.tool.magnetsearch.utils.http.exception.ExceptionEngine;
+import org.zky.tool.magnetsearch.network.exception.ExceptionEngine;
 
 import java.io.IOException;
 import java.util.List;

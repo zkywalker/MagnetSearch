@@ -1,9 +1,8 @@
-package org.zky.tool.magnetsearch.utils.http;
+package org.zky.tool.magnetsearch.network;
 
 import java.util.List;
 
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**

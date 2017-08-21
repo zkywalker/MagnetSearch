@@ -1,4 +1,4 @@
-package org.zky.tool.magnetsearch.utils.http;
+package org.zky.tool.magnetsearch.network;
 
 /**
  * Created by zhangkun on 2017/3/16.

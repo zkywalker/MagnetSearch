@@ -1,4 +1,4 @@
-package org.zky.tool.magnetsearch.utils.http.exception;
+package org.zky.tool.magnetsearch.network.exception;
 
 /**
  *  服务器定义的错误，即code非200的所有状态

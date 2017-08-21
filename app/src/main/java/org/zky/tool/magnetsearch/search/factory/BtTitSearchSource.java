@@ -21,7 +21,7 @@ import java.util.List;
 
 public class BtTitSearchSource implements SearchSource {
 
-    private static final String url = UrlConstants.BTSO_SEARCH_URL;
+    private static final String url = UrlConstants.BTTIT_SEARCH_URL;
 
     private static final String name = "bttit";
 

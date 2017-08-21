@@ -1,6 +1,5 @@
-package org.zky.tool.magnetsearch.utils.http.exception;
+package org.zky.tool.magnetsearch.network.exception;
 
-import android.content.Intent;
 import android.net.ParseException;
 
 import com.google.gson.JsonParseException;

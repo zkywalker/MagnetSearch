@@ -1,9 +1,7 @@
 package org.zky.tool.magnetsearch.search;
 
 import org.zky.tool.magnetsearch.search.factory.SearchSource;
-import org.zky.tool.magnetsearch.utils.http.StringConverterFactory;
-import org.zky.tool.magnetsearch.utils.http.StringRequestBodyConverter;
-import org.zky.tool.magnetsearch.utils.http.StringResponseBodyConverter;
+import org.zky.tool.magnetsearch.network.StringRequestBodyConverter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;

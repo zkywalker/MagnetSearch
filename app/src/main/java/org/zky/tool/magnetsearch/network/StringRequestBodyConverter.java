@@ -1,6 +1,4 @@
-package org.zky.tool.magnetsearch.utils.http;
-
-import android.util.Log;
+package org.zky.tool.magnetsearch.network;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

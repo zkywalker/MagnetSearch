@@ -1,7 +1,6 @@
 package org.zky.tool.magnetsearch.search;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
@@ -17,14 +15,10 @@ import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.QrDialogManager;
-import org.zky.tool.magnetsearch.utils.http.RetrofitClient;
-import org.zky.tool.magnetsearch.utils.http.VideoDataEntity;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
 
 import java.util.List;
-
-import rx.Subscriber;
 
 
 /**

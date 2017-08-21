@@ -16,15 +16,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -39,30 +35,18 @@ import org.zky.tool.magnetsearch.FavoriteActivity;
 import org.zky.tool.magnetsearch.HistoryActivity;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.SettingsActivity;
-import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.utils.AnimUtils;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.MessageUtils;
-import org.zky.tool.magnetsearch.utils.http.RetrofitClient;
+import org.zky.tool.magnetsearch.network.RetrofitClient;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseThemeActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -168,7 +152,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_SEND
-                        || actionId == EditorInfo.IME_ACTION_DONE||actionId ==EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_SEARCH
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
                     String keyword = v.getText().toString();
                     if (validate(keyword))
@@ -244,7 +228,9 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                 if (e instanceof IndexOutOfBoundsException) {
                     snack(R.string.no_data);
                 } else
-                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    snack(e.getMessage());
+                e.printStackTrace();
+//                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -321,6 +307,14 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                 break;
 
         }
+    }
+
+    private void snack(String s) {
+        Snackbar.make(findViewById(R.id.activity_content), s, Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        }).show();
     }
 
     private void snack(@StringRes int s) {

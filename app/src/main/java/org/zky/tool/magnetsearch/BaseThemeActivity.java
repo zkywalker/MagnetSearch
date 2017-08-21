@@ -28,6 +28,7 @@ public class BaseThemeActivity extends AppCompatActivity {
     public final static String THEME_ORANGE = "5";
     public final static String THEME_PINK = "6";
     public final static String THEME_TEAL = "7";
+    public final static String THEME_DARK = "8";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,9 @@ public class BaseThemeActivity extends AppCompatActivity {
                 break;
             case THEME_TEAL:
                 applyTheme(R.style.AppTheme_Teal);
+                break;
+            case THEME_DARK:
+                applyTheme(R.style.AppTheme_Dark);
                 break;
         }
     }

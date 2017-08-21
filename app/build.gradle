@@ -68,6 +68,9 @@ android {
         play {
             versionName "1.3.2.${buildTime()}${gitVersion}-play"
         }
+        kuan{
+            versionName "1.3.2.${buildTime()}${gitVersion}-kuan"
+        }
 
     }
     packagingOptions {

@@ -1,4 +1,4 @@
-package org.zky.tool.magnetsearch.utils.http.exception;
+package org.zky.tool.magnetsearch.network.exception;
 
 /**
  * 被捕获的异常
