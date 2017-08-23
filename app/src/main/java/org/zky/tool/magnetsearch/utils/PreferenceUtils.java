@@ -3,6 +3,7 @@ package org.zky.tool.magnetsearch.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.StringRes;
 
 import org.zky.tool.magnetsearch.BaseThemeActivity;
 import org.zky.tool.magnetsearch.R;
@@ -14,6 +15,11 @@ import org.zky.tool.magnetsearch.R;
  */
 
 public class PreferenceUtils {
+
+    public static String  getValue(Context context, @StringRes int str){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getString(GetRes.getString(str),"");
+    }
 
     public static String getTheme(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);

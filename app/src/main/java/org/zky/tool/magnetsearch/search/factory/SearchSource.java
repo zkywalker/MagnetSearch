@@ -24,4 +24,6 @@ public interface SearchSource {
      */
     String getPage(int page);
 
+    String getKey(String key);
+
 }

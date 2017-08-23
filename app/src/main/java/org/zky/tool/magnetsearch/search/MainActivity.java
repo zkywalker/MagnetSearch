@@ -26,19 +26,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.lzp.floatingactionbuttonplus.FabTagLayout;
+import com.lzp.floatingactionbuttonplus.FloatingActionButtonPlus;
 
 import org.zky.tool.magnetsearch.BaseThemeActivity;
 import org.zky.tool.magnetsearch.FavoriteActivity;
 import org.zky.tool.magnetsearch.HistoryActivity;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.SettingsActivity;
+import org.zky.tool.magnetsearch.network.RetrofitClient;
 import org.zky.tool.magnetsearch.utils.AnimUtils;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.MessageUtils;
-import org.zky.tool.magnetsearch.network.RetrofitClient;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 
 import java.util.ArrayList;
@@ -50,6 +51,14 @@ import rx.Subscriber;
 
 public class MainActivity extends BaseThemeActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static final String TAG = "MainActivity";
+    @BindView(R.id.ftl_search)
+    FabTagLayout ftlSearch;
+    @BindView(R.id.ftl_sort_size)
+    FabTagLayout ftlSortSize;
+    @BindView(R.id.ftl_sort_date)
+    FabTagLayout ftlSortDate;
+    @BindView(R.id.fabPlus)
+    FloatingActionButtonPlus fabPlus;
 
 
     private FirebaseAnalytics analytics;
@@ -121,6 +130,14 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
 
     private void initView() {
+        //fab
+        fabPlus.setRotateValues(90);
+        ftlSearch.setFabOnClickListener(new FabTagLayout.FabOnClickListener() {
+            @Override
+            public void onClick() {
+                snack("search");
+            }
+        });
         //drawer
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

@@ -1,0 +1,51 @@
+<com.lzp.floatingactionbuttonplus.FloatingActionButtonPlus xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fabPlus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_behavior="com.lzp.floatingactionbuttonplus.FabBehavior"
+    app:switchFabColor="?attr/colorPrimary"
+    app:switchFabIcon="@drawable/ic_sort_white_24dp">
+
+    <com.lzp.floatingactionbuttonplus.FabTagLayout
+        android:id="@+id/ftl_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tagText="搜索源">
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_find_in_page_black_24dp"
+            app:backgroundTint="?attr/colorPrimary"
+            app:fabSize="mini" />
+    </com.lzp.floatingactionbuttonplus.FabTagLayout>
+    <com.lzp.floatingactionbuttonplus.FabTagLayout
+        android:id="@+id/ftl_sort_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tagText="按文件大小">
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_data_usage_black_24dp"
+            app:backgroundTint="?attr/colorPrimary"
+            app:fabSize="mini" />
+    </com.lzp.floatingactionbuttonplus.FabTagLayout>
+
+    <com.lzp.floatingactionbuttonplus.FabTagLayout
+        android:id="@+id/ftl_sort_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tagText="按时间排序">
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_access_time_black_24dp"
+            app:backgroundTint="?attr/colorPrimary"
+            app:fabSize="mini" />
+    </com.lzp.floatingactionbuttonplus.FabTagLayout>
+
+</com.lzp.floatingactionbuttonplus.FloatingActionButtonPlus>

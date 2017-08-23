@@ -86,4 +86,9 @@ public class BtTitSearchSource implements SearchSource {
     public String getPage(int page) {
         return "_"+page+".html";
     }
+
+    @Override
+    public String getKey(String key) {
+        return key;
+    }
 }

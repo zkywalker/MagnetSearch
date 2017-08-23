@@ -83,4 +83,9 @@ public class BtsoSearchSource implements SearchSource {
     public String getPage(int page) {
         return "/page/"+page+"/";
     }
+
+    @Override
+    public String getKey(String key) {
+        return key;
+    }
 }

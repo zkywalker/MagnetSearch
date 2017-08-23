@@ -27,6 +27,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.zky.tool.magnetsearch.constants.StorageConstants;
 import org.zky.tool.magnetsearch.search.MainActivity;
+import org.zky.tool.magnetsearch.search.factory.SearchSourceFactory;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
 import org.zky.tool.magnetsearch.utils.StorageUtils;
@@ -105,11 +106,27 @@ public class SettingsActivity extends BaseThemeActivity {
             }).show();
         }
 
+        @Override
+        public void onResume() {
+            super.onResume();
+
+        }
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
+
+            Preference preference1 = findPreference(GetRes.getString(R.string.key_search_source));
+            preference1.setSummary(SearchSourceFactory.getInstance(PreferenceUtils.getValue(getActivity(),R.string.key_search_source)).getName());
+            preference1.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    preference.setSummary(SearchSourceFactory.getInstance((String)newValue).getName());
+                    return true;
+                }
+            });
+
 
             ListPreference preference = (ListPreference) findPreference(GetRes.getString(R.string.key_theme));
             setListPreferenceSummary(preference);

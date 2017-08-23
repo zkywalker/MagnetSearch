@@ -83,4 +83,9 @@ public class TorrentKittySearchSource implements SearchSource {
     public String getPage(int page) {
         return "/"+page;
     }
+
+    @Override
+    public String getKey(String key) {
+        return key;
+    }
 }

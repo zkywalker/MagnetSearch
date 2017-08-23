@@ -96,7 +96,3 @@ limitations under the License.
 [20]:https://play.google.com/store/apps/details?id=org.zky.tool.magnetsearch
 
 [21]:https://github.com/zkywalker/MagnetSearch/issues
-
-
-http://www.cilisou.cn/s.php?q=a~b~&encode_=1
-TODO 完善异常捕捉，更多源

@@ -54,7 +54,7 @@ android {
                                 def fileName = "MagnetSearch_v${defaultConfig.versionName}.apk"
                                 output.outputFile = new File('/Users/zhangkun/Documents/apk', fileName)
                                 //for windows
-                                output.outputFile = new File('C:/apk', fileName)
+//                                output.outputFile = new File('C:/apk', fileName)
 
                             }
 
@@ -105,7 +105,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$supportLibrary"
     compile "com.android.support:cardview-v7:$supportLibrary"
     compile "com.android.support:design:$supportLibrary"
-
+    compile 'com.lzp.floatingactionbutton:floatingactionbuttonplus:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha6'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.google.code.gson:gson:2.8.0'
@@ -120,7 +120,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.google.zxing:core:3.3.0'
     compile 'org.jsoup:jsoup:1.10.2'
-
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-ads:9.6.1'
     compile 'com.google.firebase:firebase-crash:9.6.1'

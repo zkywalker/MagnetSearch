@@ -51,12 +51,13 @@
     <string-array name="pref_search_source_titles" >
         <item>torrent kitty</item>
         <item>Btso</item>
-        <item>BtTit</item>
+        <item>BtWhat</item>
     </string-array>
     <string-array name="pref_search_source_values" >
         <item>org.zky.tool.magnetsearch.search.factory.TorrentKittySearchSource</item>
         <item>org.zky.tool.magnetsearch.search.factory.BtsoSearchSource</item>
-        <item>org.zky.tool.magnetsearch.search.factory.BtTitSearchSource</item>
+        <item>org.zky.tool.magnetsearch.search.factory.BtWhatSearchSource</item>
+
     </string-array>
 
 

@@ -17,4 +17,5 @@ public class UrlConstants {
 
     public static final String GET_XF_SERVER_URL = "http://www.51gdj.com/jiexi/yunbo/";
 
+    public static final String BTWHAT_SEARCH_URL = "http://www.btwhat.net/search/";
 }

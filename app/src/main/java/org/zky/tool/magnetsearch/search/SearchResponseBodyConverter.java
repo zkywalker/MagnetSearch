@@ -26,8 +26,6 @@ import retrofit2.Converter;
 public class SearchResponseBodyConverter implements Converter<ResponseBody, List<SearchEntity>> {
     private static final String TAG = "StringResponseBodyConve";
 
-    private SearchEntityDao searchEntityDao;
-
     private SearchSource mSearchSource;
 
     public SearchResponseBodyConverter(SearchSource searchSource){
@@ -41,50 +39,6 @@ public class SearchResponseBodyConverter implements Converter<ResponseBody, List
         } finally {
             value.close();
         }
-    }
-
-    private List<SearchEntity> parse(String html) {
-        Document document = Jsoup.parse(html);
-        Element element = document.getElementsByClass("data-list").get(0);
-        Elements rows = element.getElementsByClass("row");
-        List<SearchEntity> list = new ArrayList<>();
-        for (Element row : rows) {
-            Elements a = row.getElementsByTag("a");
-            if (!a.toString().equals("")) {
-                String href = a.attr("href");
-                String title = a.attr("title");
-                Elements divSize = row.getElementsByClass("size");
-                String size = divSize.get(0).text();
-                Elements divDate = row.getElementsByClass("date");
-                String convertDate = divDate.get(0).text();
-
-                SearchEntity searchEntity = new SearchEntity(href, title, size, convertDate);
-
-
-                if (searchEntityDao == null) {
-                    searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
-                }
-                List<SearchEntity> searchEntities = searchEntityDao.loadAll();
-                if (searchEntities.size() != 0) {
-                    list.add(searchEntity);
-                    boolean contains = false;
-                    for (SearchEntity s : searchEntities) {
-                        Log.i(TAG, "parse: s" + s);
-                        if (s.equals(searchEntity)) {
-                            list.remove(searchEntity);
-                            list.add(s);
-                            contains = true;
-                            break;
-                        }
-                    }
-                    if (!contains)
-                        searchEntityDao.insert(searchEntity);
-                } else
-                    searchEntityDao.insert(searchEntity);
-            }
-
-        }
-        return list;
     }
 
 
