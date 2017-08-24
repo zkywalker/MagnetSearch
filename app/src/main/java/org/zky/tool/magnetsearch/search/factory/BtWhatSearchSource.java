@@ -1,5 +1,8 @@
 package org.zky.tool.magnetsearch.search.factory;
 
+import android.util.Log;
+
+import org.apache.commons.lang.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,6 +13,8 @@ import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchEntity;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +41,19 @@ public class BtWhatSearchSource implements SearchSource {
         List<SearchEntity> list = new ArrayList<>();
         for (Element row : rows) {
             Elements a = row.getElementsByClass("item-title").get(0).getElementsByTag("h3").get(0).getElementsByTag("a");
-            String title = a.get(0).text();
+            Element script = a.get(0).getElementsByTag("script").get(0);
+            String title = script.data().substring(34, script.data().length() - 3);
+            title = title.replace("\"","");
+            title = title.replace("+","");
+//            title = title.replace("%3cb%3e","<b>");
+//            title = title.replace("%3c%2fb%3e","</b>");
+            try {
+                title = URLDecoder.decode(title,"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+//            String title = a.get(0).text();
 
             String href = a.attr("href");
             href = href.split("/")[2];
