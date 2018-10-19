@@ -175,6 +175,14 @@ public abstract class MyAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
         }
     }
 
+    public void clearAll(){
+        if (mDatas !=null){
+            mDatas.clear();
+        }
+        setCurrentItemCount(0);
+        notifyDataSetChanged();
+    }
+
     public void setDatas(List<T> list) {
         if (this.mDatas != null) {
             if (null != list) {

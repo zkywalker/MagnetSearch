@@ -1,43 +1,21 @@
-package org.zky.tool.magnetsearch;
+package org.zky.tool.magnetsearch.settings;
 
-import android.content.ComponentName;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.Handler;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.IntentCompat;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
-import org.zky.tool.magnetsearch.constants.StorageConstants;
-import org.zky.tool.magnetsearch.search.MainActivity;
-import org.zky.tool.magnetsearch.search.factory.SearchSourceFactory;
+import org.zky.tool.magnetsearch.R;
+import org.zky.tool.magnetsearch.base.BaseThemeActivity;
 import org.zky.tool.magnetsearch.utils.GetRes;
-import org.zky.tool.magnetsearch.utils.PreferenceUtils;
-import org.zky.tool.magnetsearch.utils.StorageUtils;
-
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SettingsActivity extends BaseThemeActivity {
+public class SettingsActivity extends BaseThemeActivity<SettingsPresenter> implements ISettingsUI {
     private static final String TAG = "SettingsActivity";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -48,8 +26,9 @@ public class SettingsActivity extends BaseThemeActivity {
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateExecute(Bundle savedInstanceState) {
+        super.onCreateExecute(savedInstanceState);
+
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
         toolbar.setTitle(GetRes.getString(R.string.action_settings));
@@ -71,8 +50,10 @@ public class SettingsActivity extends BaseThemeActivity {
         analytics.logEvent("sittings",new Bundle());
     }
 
-
-
+    @Override
+    protected SettingsPresenter createPresenter() {
+        return new SettingsPresenter();
+    }
 
 
 }

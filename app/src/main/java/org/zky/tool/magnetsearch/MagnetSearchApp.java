@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import org.zky.tool.magnetsearch.greendao.gen.DaoMaster;
 import org.zky.tool.magnetsearch.greendao.gen.DaoSession;
 import org.zky.tool.magnetsearch.utils.GetRes;
+import org.zky.tool.magnetsearch.utils.MessageUtils;
 
 
 /**
@@ -31,6 +32,7 @@ public class MagnetSearchApp extends Application {
         instance =this;
 
         GetRes.init(this);
+        MessageUtils.init(this);
 
         initData();
     }

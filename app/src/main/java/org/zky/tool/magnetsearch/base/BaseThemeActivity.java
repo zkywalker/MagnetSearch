@@ -1,4 +1,4 @@
-package org.zky.tool.magnetsearch;
+package org.zky.tool.magnetsearch.base;
 
 import android.content.Context;
 import android.os.Build;
@@ -9,15 +9,16 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
 
 
 /**
  * Created by zkywalker on 2017/1/1.
- * package:org.zky.zky
+ *
  */
 
-public class BaseThemeActivity extends AppCompatActivity {
+public abstract class BaseThemeActivity<P extends IPresenter> extends BaseMVPAppcompatActivity<P> implements IThemeUI{
 
     public final static String THEME_DEFAULT = "-1";
     public final static String THEME_BLUE = "0";
@@ -31,10 +32,10 @@ public class BaseThemeActivity extends AppCompatActivity {
     public final static String THEME_DARK = "8";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateExecute(Bundle savedInstanceState) {
         updateTheme();
     }
+
 
     private void updateTheme() {
         Log.e("tag", "updateTheme: ----");
@@ -73,7 +74,9 @@ public class BaseThemeActivity extends AppCompatActivity {
         }
     }
 
-    private void applyTheme(int r){
+
+    @Override
+    public void applyTheme(int r){
         setTheme(r);
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -100,5 +103,10 @@ public class BaseThemeActivity extends AppCompatActivity {
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected IUI getUI() {
+        return this;
     }
 }

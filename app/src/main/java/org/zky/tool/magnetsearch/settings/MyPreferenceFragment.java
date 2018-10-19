@@ -1,4 +1,4 @@
-package org.zky.tool.magnetsearch;
+package org.zky.tool.magnetsearch.settings;
 
 import android.content.ComponentName;
 import android.content.DialogInterface;
@@ -20,15 +20,15 @@ import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
 import org.zky.tool.magnetsearch.utils.StorageUtils;
 
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_BLUE;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_CYAN;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_DEFAULT;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_GREEN;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_ORANGE;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_PINK;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_PURPLE;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_RED;
-import static org.zky.tool.magnetsearch.BaseThemeActivity.THEME_TEAL;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_BLUE;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_CYAN;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_DEFAULT;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_GREEN;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_ORANGE;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_PINK;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_PURPLE;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_RED;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_TEAL;
 
 public class MyPreferenceFragment extends PreferenceFragment {
 

@@ -1,4 +1,4 @@
-package org.zky.tool.magnetsearch;
+package org.zky.tool.magnetsearch.history;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -9,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
 
 import org.greenrobot.greendao.query.QueryBuilder;
+import org.zky.tool.magnetsearch.MagnetSearchApp;
+import org.zky.tool.magnetsearch.R;
+import org.zky.tool.magnetsearch.base.BaseThemeActivity;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchAdapter;
 import org.zky.tool.magnetsearch.search.SearchEntity;
@@ -20,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FavoriteActivity extends BaseThemeActivity {
+public class FavoriteActivity extends BaseThemeActivity<FavoritePresenter> implements IFavoriteUI {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -37,12 +40,17 @@ public class FavoriteActivity extends BaseThemeActivity {
     private SearchAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateExecute(Bundle savedInstanceState) {
+        super.onCreateExecute(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         ButterKnife.bind(this);
         initView();
         query();
+    }
+
+    @Override
+    protected FavoritePresenter createPresenter() {
+        return new FavoritePresenter();
     }
 
     private void query() {

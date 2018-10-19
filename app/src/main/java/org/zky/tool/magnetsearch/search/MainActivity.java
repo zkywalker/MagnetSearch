@@ -31,11 +31,11 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.lzp.floatingactionbuttonplus.FabTagLayout;
 import com.lzp.floatingactionbuttonplus.FloatingActionButtonPlus;
 
-import org.zky.tool.magnetsearch.BaseThemeActivity;
-import org.zky.tool.magnetsearch.FavoriteActivity;
-import org.zky.tool.magnetsearch.HistoryActivity;
+import org.zky.tool.magnetsearch.base.BaseThemeActivity;
+import org.zky.tool.magnetsearch.history.FavoriteActivity;
+import org.zky.tool.magnetsearch.history.HistoryActivity;
 import org.zky.tool.magnetsearch.R;
-import org.zky.tool.magnetsearch.SettingsActivity;
+import org.zky.tool.magnetsearch.settings.SettingsActivity;
 import org.zky.tool.magnetsearch.network.RetrofitClient;
 import org.zky.tool.magnetsearch.utils.AnimUtils;
 import org.zky.tool.magnetsearch.utils.GetRes;
@@ -49,7 +49,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscriber;
 
-public class MainActivity extends BaseThemeActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MainActivity extends BaseThemeActivity<SearchPresenter> implements ISearchUI, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static final String TAG = "MainActivity";
     @BindView(R.id.ftl_search)
     FabTagLayout ftlSearch;
@@ -59,9 +59,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     FabTagLayout ftlSortDate;
     @BindView(R.id.fabPlus)
     FloatingActionButtonPlus fabPlus;
-
-
-    private FirebaseAnalytics analytics;
 
     @BindView(R.id.iv_menu)
     ImageView ivMenu;
@@ -85,8 +82,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
 
     private MyAdapter<SearchEntity> adapter;
 
-    private List<SearchEntity> list = new ArrayList<>();
-
     private int lastRecyclerItem;
 
     private static final String CURRENT_KEYWORD = "currentKeyword";
@@ -94,38 +89,44 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
     private static final String CURRENT_PAGE = "currentPage";
 
 
-    private String currentKeyword;
-
-    private int currentPage;
-
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        outState.putString(CURRENT_KEYWORD, currentKeyword);
-        outState.putInt(CURRENT_PAGE, currentPage);
+        if (getPresenter()==null){
+            return;
+        }
+        outState.putString(CURRENT_KEYWORD, getPresenter().currentKeyword);
+        outState.putInt(CURRENT_PAGE, getPresenter().currentPage);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateExecute(Bundle savedInstanceState) {
+        super.onCreateExecute(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-        analytics = FirebaseAnalytics.getInstance(this);
 
 
         if (savedInstanceState != null) {
-            currentKeyword = savedInstanceState.getString(CURRENT_KEYWORD);
-            currentPage = savedInstanceState.getInt(CURRENT_PAGE, 1);
+            getPresenter().currentKeyword = savedInstanceState.getString(CURRENT_KEYWORD);
+            getPresenter().currentPage = savedInstanceState.getInt(CURRENT_PAGE, 1);
         }
 
+        handleProcessText();
+    }
+
+    @Override
+    protected SearchPresenter createPresenter() {
+        return new SearchPresenter();
+    }
+
+    private void handleProcessText() {
         CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
         if (!TextUtils.isEmpty(text)) {
             etSearch.setText(text);
             etSearch.requestFocus();
         }
-
-
     }
 
 
@@ -173,7 +174,7 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
                     String keyword = v.getText().toString();
                     if (validate(keyword))
-                        query(keyword, 1);
+                        getPresenter().query(keyword, 1);
                     else
                         ivMenu.callOnClick();
                 }
@@ -182,14 +183,14 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         });
 
 
-        recyclerView.setAdapter(adapter = new SearchAdapter(this, list, R.layout.item_recycler_view));
+        recyclerView.setAdapter(adapter = new SearchAdapter(this, new ArrayList<SearchEntity>(), R.layout.item_recycler_view));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastRecyclerItem + 1 == adapter.getItemCount()) {
-                    query(currentKeyword, currentPage + 1);
+                    getPresenter().queryMore();
                 }
             }
 
@@ -212,55 +213,6 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
             return false;
         }
         return true;
-    }
-
-    private void query(String key, final int page) {
-        currentKeyword = key;
-
-        RetrofitClient.getInstance(this).getData(new Subscriber<List<SearchEntity>>() {
-            @Override
-            public void onStart() {
-                //page=1时候加载显示progress bar
-                if (page == 1) {
-                    list.clear();
-                    adapter.setCurrentItemCount(0);
-                    adapter.notifyDataSetChanged();
-                    pbLoading.setVisibility(View.VISIBLE);
-                    ivMenu.callOnClick();
-                }
-
-            }
-
-            @Override
-            public void onCompleted() {
-                currentPage = page;
-                pbLoading.setVisibility(View.GONE);
-
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                pbLoading.setVisibility(View.GONE);
-                if (e instanceof IndexOutOfBoundsException) {
-                    snack(R.string.no_data);
-                } else
-                    snack(e.getMessage());
-                e.printStackTrace();
-//                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNext(List<SearchEntity> searchEntities) {
-                adapter.addDatas(searchEntities);
-
-
-            }
-        }, key, page);
-
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, key);
-        analytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 
     @Override
@@ -326,7 +278,18 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         }
     }
 
-    private void snack(String s) {
+    @Override
+    public void showLoadingView() {
+        pbLoading.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void dismissLoadingView() {
+        pbLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void snack(String s) {
         Snackbar.make(findViewById(R.id.activity_content), s, Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -334,11 +297,37 @@ public class MainActivity extends BaseThemeActivity implements NavigationView.On
         }).show();
     }
 
-    private void snack(@StringRes int s) {
+    @Override
+    public void snack(@StringRes int s) {
         Snackbar.make(findViewById(R.id.activity_content), GetRes.getString(s), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
         }).show();
+    }
+
+    @Override
+    public void loadSearchData(List<SearchEntity> list) {
+        if (list == null || list.size() == 0){
+            return;
+        }
+        if (adapter != null){
+            adapter.addDatas(list);
+        }
+    }
+
+    @Override
+    public void ClearSearchData() {
+        adapter.clearAll();
+    }
+
+    @Override
+    public void clickMenuIcon() {
+        ivMenu.callOnClick();
+    }
+
+    @Override
+    public void setListVisibility(boolean v) {
+        recyclerView.setVisibility(v?View.VISIBLE:View.GONE);
     }
 }
