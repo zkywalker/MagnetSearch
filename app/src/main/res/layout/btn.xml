@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     app:layout_behavior="com.lzp.floatingactionbuttonplus.FabBehavior"
     app:switchFabColor="?attr/colorPrimary"
-    app:switchFabIcon="@drawable/ic_sort_white_24dp">
+    app:switchFabIcon="@drawable/ic_sort_white_24dp"
+    >
 
     <com.lzp.floatingactionbuttonplus.FabTagLayout
         android:id="@+id/ftl_search"

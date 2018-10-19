@@ -1,4 +1,4 @@
-package org.zky.tool.magnetsearch;
+package org.zky.tool.magnetsearch.history;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import org.greenrobot.greendao.query.QueryBuilder;
+import org.zky.tool.magnetsearch.MagnetSearchApp;
+import org.zky.tool.magnetsearch.R;
+import org.zky.tool.magnetsearch.base.BaseThemeActivity;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchAdapter;
 import org.zky.tool.magnetsearch.search.SearchEntity;
@@ -19,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HistoryActivity extends BaseThemeActivity {
+public class HistoryActivity extends BaseThemeActivity<HistoryPresenter> implements IHistoryUI {
     private static final String TAG = "HistoryActivity";
 
     @BindView(R.id.toolbar)
@@ -35,12 +38,17 @@ public class HistoryActivity extends BaseThemeActivity {
     private SearchAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreateExecute(Bundle savedInstanceState) {
+        super.onCreateExecute(savedInstanceState);
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
         initView();
         loadOpened();
+    }
+
+    @Override
+    protected HistoryPresenter createPresenter() {
+        return new HistoryPresenter();
     }
 
     private void loadAllData() {

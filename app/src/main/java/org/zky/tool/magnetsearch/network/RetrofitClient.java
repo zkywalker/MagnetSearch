@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.search.SearchConverterFactory;
@@ -65,8 +66,8 @@ public class RetrofitClient {
                 .build();
     }
 
-    public static RetrofitClient getInstance(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+    public static RetrofitClient getInstance() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MagnetSearchApp.getInstanse());
         String source = preferences.getString(GetRes.getString(R.string.key_search_source), BtsoSearchSource.class.getName());
 
         if (source != mCurrentSearchSource) {

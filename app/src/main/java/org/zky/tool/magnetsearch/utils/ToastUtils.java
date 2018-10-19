@@ -1,11 +1,7 @@
 package org.zky.tool.magnetsearch.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.StringRes;
-import android.support.design.widget.BaseTransientBottomBar;
-import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +10,7 @@ import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.R;
 
-/**
- *
- * Created by zhangkun on 2017/2/23.
- */
-
-public class MessageUtils {
-
+public class ToastUtils {
     public static final String TAG = "ToastUtils";
     public static boolean isShow = true;
 
@@ -183,29 +173,6 @@ public class MessageUtils {
                     result.setView(v);
                     result.show();
                 }
-            }
-        });
-    }
-
-    public static void snack(final View view, @StringRes final int message){
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                Snackbar.make(view, GetRes.getString(message), Snackbar.LENGTH_LONG).setAction(GetRes.getString(R.string.i_know), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                }).show();
-            }
-        });
-    }
-
-    public static void snack(final View view, final String message, final String buttonText, final View.OnClickListener listener) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG).setAction(buttonText, listener).show();
             }
         });
     }

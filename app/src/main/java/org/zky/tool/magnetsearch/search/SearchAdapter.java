@@ -31,7 +31,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
     private static final String TAG = "SearchAdapter";
     private Context mContext;
     private SearchEntityDao searchEntityDao;
-    private List<SearchEntity> list;
+//    private List<SearchEntity> list;
 
     private SharedPreferences preferences;
 
@@ -41,7 +41,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
         super(context, datas, layoutId, R.layout.recycler_view_footer);
         mContext = context;
         searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
-        list = searchEntityDao.loadAll();
+//        list = searchEntityDao.loadAll();
         preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         manager = new QrDialogManager(mContext);
 

@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:name="org.zky.tool.magnetsearch.SettingsActivity$MyPreferenceFragment"
+        android:name="org.zky.tool.magnetsearch.settings.MyPreferenceFragment"
         />
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

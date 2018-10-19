@@ -1,78 +1,36 @@
-package org.zky.tool.magnetsearch;
+package org.zky.tool.magnetsearch.settings;
 
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.Handler;
+import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.IntentCompat;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.firebase.analytics.FirebaseAnalytics;
-
-import org.zky.tool.magnetsearch.constants.StorageConstants;
+import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.search.MainActivity;
 import org.zky.tool.magnetsearch.search.factory.SearchSourceFactory;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.PreferenceUtils;
 import org.zky.tool.magnetsearch.utils.StorageUtils;
 
-import java.io.File;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_BLUE;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_CYAN;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_DEFAULT;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_GREEN;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_ORANGE;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_PINK;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_PURPLE;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_RED;
+import static org.zky.tool.magnetsearch.base.BaseThemeActivity.THEME_TEAL;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class SettingsActivity extends BaseThemeActivity {
-    private static final String TAG = "SettingsActivity";
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.adView)
-    AdView adView;
-
-    private FirebaseAnalytics analytics;
-
-    private static final Handler handler = new Handler();
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-        ButterKnife.bind(this);
-        toolbar.setTitle(GetRes.getString(R.string.action_settings));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //加载广告是个耗时操作，延迟加载提高用户体验
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AdRequest request = new AdRequest.Builder()
-                        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-                adView.loadAd(request);
-            }
-        },1000);
-
-
-        analytics = FirebaseAnalytics.getInstance(this);
-        analytics.logEvent("sittings",new Bundle());
-    }
-
-    public static class MyPreferenceFragment extends PreferenceFragment {
+public class MyPreferenceFragment extends PreferenceFragment {
 
         private void market() {
             try {
@@ -134,7 +92,7 @@ public class SettingsActivity extends BaseThemeActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     PreferenceUtils.setTheme(getActivity(), (String) newValue);
-                    ((SettingsActivity) getActivity()).recreateActivity();
+                    recreateActivity();
                     return false;
                 }
             });
@@ -231,15 +189,11 @@ public class SettingsActivity extends BaseThemeActivity {
                     break;
             }
         }
+
+        public void recreateActivity() {
+            final Intent intent = IntentCompat.makeMainActivity(new ComponentName(getActivity(), MainActivity.class));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
-
-
-    public void recreateActivity() {
-        final Intent intent = IntentCompat.makeMainActivity(new ComponentName(this, MainActivity.class));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
-    }
-
-
-}

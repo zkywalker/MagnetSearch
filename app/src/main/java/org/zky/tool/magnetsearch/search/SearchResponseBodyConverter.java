@@ -24,7 +24,7 @@ import retrofit2.Converter;
  */
 
 public class SearchResponseBodyConverter implements Converter<ResponseBody, List<SearchEntity>> {
-    private static final String TAG = "StringResponseBodyConve";
+    private static final String TAG = "SearchResponseBodyConverter";
 
     private SearchSource mSearchSource;
 
