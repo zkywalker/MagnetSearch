@@ -16,6 +16,7 @@ import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchAdapter;
 import org.zky.tool.magnetsearch.search.SearchEntity;
 import org.zky.tool.magnetsearch.utils.GetRes;
+import org.zky.tool.magnetsearch.utils.GreenDaoManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class FavoriteActivity extends BaseThemeActivity<FavoritePresenter> imple
     }
 
     private void query() {
-        QueryBuilder<SearchEntity> builder = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao().queryBuilder();
+        QueryBuilder<SearchEntity> builder = GreenDaoManager.getInstance().getDaoSession().getSearchEntityDao().queryBuilder();
         List<SearchEntity> list = builder.where(SearchEntityDao.Properties.IsFavorite.eq(true)).list();
         adapter.setDatas(list);
         srlRefresh.setRefreshing(false);

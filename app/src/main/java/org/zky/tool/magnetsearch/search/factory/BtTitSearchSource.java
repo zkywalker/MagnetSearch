@@ -8,6 +8,7 @@ import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchEntity;
+import org.zky.tool.magnetsearch.utils.GreenDaoManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class BtTitSearchSource implements SearchSource {
 
                 //TODO 这里把数据加入到了数据库 不应该这么做
                 if (searchEntityDao == null) {
-                    searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
+                    searchEntityDao = GreenDaoManager.getInstance().getDaoSession().getSearchEntityDao();
                 }
                 List<SearchEntity> searchEntities = searchEntityDao.loadAll();
                 if (searchEntities.size() != 0) {

@@ -15,6 +15,7 @@ import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;
+import org.zky.tool.magnetsearch.utils.GreenDaoManager;
 import org.zky.tool.magnetsearch.utils.QrDialogManager;
 import org.zky.tool.magnetsearch.utils.recycler.MyAdapter;
 import org.zky.tool.magnetsearch.utils.recycler.ViewHolder;
@@ -40,7 +41,7 @@ public class SearchAdapter extends MyAdapter<SearchEntity> {
     public SearchAdapter(Context context, List<SearchEntity> datas, int layoutId) {
         super(context, datas, layoutId, R.layout.recycler_view_footer);
         mContext = context;
-        searchEntityDao = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao();
+        searchEntityDao = GreenDaoManager.getInstance().getDaoSession().getSearchEntityDao();
 //        list = searchEntityDao.loadAll();
         preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         manager = new QrDialogManager(mContext);
