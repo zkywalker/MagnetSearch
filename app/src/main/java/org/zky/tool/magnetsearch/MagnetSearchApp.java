@@ -35,9 +35,4 @@ public class MagnetSearchApp extends Application {
         return instance;
     }
 
-    private void initData(){
-
-    }
-
-
 }

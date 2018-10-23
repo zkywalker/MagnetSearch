@@ -46,7 +46,7 @@ public class BtsoSearchSource implements SearchSource {
 
                 //TODO 这里把数据加入到了数据库 不应该这么做
                 if (searchEntityDao == null) {
-                    searchEntityDao = GreenDaoManager.getInstanse().getDaoSession().getSearchEntityDao();
+                    searchEntityDao = GreenDaoManager.getInstance().getDaoSession().getSearchEntityDao();
                 }
                 List<SearchEntity> searchEntities = searchEntityDao.loadAll();
                 if (searchEntities.size() != 0) {
