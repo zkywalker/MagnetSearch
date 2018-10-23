@@ -103,12 +103,12 @@ public class MyPreferenceFragment extends PreferenceFragment {
                 public boolean onPreferenceClick(Preference preference) {
                     StorageUtils.cleanData();
                     StorageUtils.cleanDatabaseByName("history-db");
-//                    preCache.setSummary(StorageUtils.getSize(MagnetSearchApp.getInstanse()));
+//                    preCache.setSummary(StorageUtils.getSize(MagnetSearchApp.getInstance()));
                     Snackbar.make(getView(),GetRes.getString(R.string.clean_success),Snackbar.LENGTH_LONG).show();
                     return true;
                 }
             });
-//            preCache.setSummary(StorageUtils.getSize(MagnetSearchApp.getInstanse()));
+//            preCache.setSummary(StorageUtils.getSize(MagnetSearchApp.getInstance()));
 
             Preference preScore = findPreference(GetRes.getString(R.string.key_score));
             preScore.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

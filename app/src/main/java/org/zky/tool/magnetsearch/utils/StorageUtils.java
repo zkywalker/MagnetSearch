@@ -4,10 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
-import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.constants.StorageConstants;
 
 import java.io.File;
@@ -123,13 +121,13 @@ public class StorageUtils {
 
     /** * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache) * * @param context */
     public static void cleanInternalCache() {
-        deleteFilesByDirectory(MagnetSearchApp.getInstanse().getCacheDir());
+        deleteFilesByDirectory(MagnetSearchApp.getInstance().getCacheDir());
     }
 
     /** * 清除本应用所有数据库(/data/data/com.xxx.xxx/databases) * * @param context */
     public static void cleanDatabases() {
         deleteFilesByDirectory(new File("/data/data/"
-                + MagnetSearchApp.getInstanse().getPackageName() + "/databases"));
+                + MagnetSearchApp.getInstance().getPackageName() + "/databases"));
     }
 
     /**
@@ -138,17 +136,17 @@ public class StorageUtils {
      */
     public static void cleanSharedPreference() {
         deleteFilesByDirectory(new File("/data/data/"
-                + MagnetSearchApp.getInstanse().getPackageName() + "/shared_prefs"));
+                + MagnetSearchApp.getInstance().getPackageName() + "/shared_prefs"));
     }
 
     /** * 按名字清除本应用数据库 * * @param context * @param dbName */
     public static void cleanDatabaseByName( String dbName) {
-        MagnetSearchApp.getInstanse().deleteDatabase(dbName);
+        MagnetSearchApp.getInstance().deleteDatabase(dbName);
     }
 
     /** * 清除/data/data/com.xxx.xxx/files下的内容 * * @param context */
     public static void cleanFiles() {
-        deleteFilesByDirectory(MagnetSearchApp.getInstanse().getFilesDir());
+        deleteFilesByDirectory(MagnetSearchApp.getInstance().getFilesDir());
     }
 
     /**
@@ -158,7 +156,7 @@ public class StorageUtils {
     public static void cleanExternalCache() {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
-            deleteFilesByDirectory(MagnetSearchApp.getInstanse().getExternalCacheDir());
+            deleteFilesByDirectory(MagnetSearchApp.getInstance().getExternalCacheDir());
         }
     }
 

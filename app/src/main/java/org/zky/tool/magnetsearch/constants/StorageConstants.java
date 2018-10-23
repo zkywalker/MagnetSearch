@@ -10,6 +10,6 @@ import java.io.File;
  */
 
 public class StorageConstants {
-    public static final String QR_DIR= MagnetSearchApp.getInstanse().getExternalCacheDir()+ File.separator;
+    public static final String QR_DIR= MagnetSearchApp.getInstance().getExternalCacheDir()+ File.separator;
 
 }

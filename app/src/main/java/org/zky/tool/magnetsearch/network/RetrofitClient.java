@@ -1,12 +1,10 @@
 package org.zky.tool.magnetsearch.network;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
-import org.zky.tool.magnetsearch.constants.UrlConstants;
 import org.zky.tool.magnetsearch.search.SearchConverterFactory;
 import org.zky.tool.magnetsearch.search.SearchEntity;
 import org.zky.tool.magnetsearch.search.SearchService;
@@ -26,7 +24,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -47,7 +44,7 @@ public class RetrofitClient {
 
     private Retrofit retrofit;
 
-    private Retrofit getVideoRetrofit;
+//    private Retrofit getVideoRetrofit;
 
 
     private RetrofitClient() {
@@ -58,16 +55,16 @@ public class RetrofitClient {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        getVideoRetrofit = new Retrofit.Builder()
-                .client(getClient2())
-                .baseUrl(UrlConstants.GET_XF_SERVER_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
+//        getVideoRetrofit = new Retrofit.Builder()
+//                .client(getClient2())
+//                .baseUrl(UrlConstants.GET_XF_SERVER_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .build();
     }
 
     public static RetrofitClient getInstance() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MagnetSearchApp.getInstanse());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MagnetSearchApp.getInstance());
         String source = preferences.getString(GetRes.getString(R.string.key_search_source), BtsoSearchSource.class.getName());
 
         if (source != mCurrentSearchSource) {
@@ -131,25 +128,25 @@ public class RetrofitClient {
                 .build();
     }
 
-    public static OkHttpClient getClient2() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request()
-                                .newBuilder()
-                                .addHeader("Host", "www.51gdj.com")
-                                .addHeader("Connection","Keep-Alive")
-                                .addHeader("Accept-Encoding", "gzip")
-                                .addHeader("User-Agent", "okhttp/3.6.0")
-                                .build();
-                        return chain.proceed(request);
-                    }
-
-                })
-                .build();
-    }
+//    public static OkHttpClient getClient2() {
+//        return new OkHttpClient.Builder()
+//                .connectTimeout(30, TimeUnit.SECONDS)
+//                .addInterceptor(new Interceptor() {
+//                    @Override
+//                    public Response intercept(Chain chain) throws IOException {
+//                        Request request = chain.request()
+//                                .newBuilder()
+//                                .addHeader("Host", "www.51gdj.com")
+//                                .addHeader("Connection","Keep-Alive")
+//                                .addHeader("Accept-Encoding", "gzip")
+//                                .addHeader("User-Agent", "okhttp/3.6.0")
+//                                .build();
+//                        return chain.proceed(request);
+//                    }
+//
+//                })
+//                .build();
+//    }
 
     private class ErrorFunc<T> implements Func1<Throwable,Observable<T>>{
 

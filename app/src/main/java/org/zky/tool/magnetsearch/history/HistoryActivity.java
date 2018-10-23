@@ -15,6 +15,7 @@ import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.search.SearchAdapter;
 import org.zky.tool.magnetsearch.search.SearchEntity;
 import org.zky.tool.magnetsearch.utils.GetRes;
+import org.zky.tool.magnetsearch.utils.GreenDaoManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +53,13 @@ public class HistoryActivity extends BaseThemeActivity<HistoryPresenter> impleme
     }
 
     private void loadAllData() {
-        List<SearchEntity> searchEntities = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao().loadAll();
+        List<SearchEntity> searchEntities = GreenDaoManager.getInstance().getDaoSession().getSearchEntityDao().loadAll();
         if (searchEntities!= null)
             adapter.setDatas(searchEntities);
     }
 
     private void loadOpened(){
-        QueryBuilder<SearchEntity> searchEntityQueryBuilder = MagnetSearchApp.getInstanse().getDaoSession().getSearchEntityDao().queryBuilder();
+        QueryBuilder<SearchEntity> searchEntityQueryBuilder = GreenDaoManager.getInstance().getDaoSession().getSearchEntityDao().queryBuilder();
         List<SearchEntity> list = searchEntityQueryBuilder.where(SearchEntityDao.Properties.Opened.eq(true)).list();
         if (list!=null)
             adapter.setDatas(list);

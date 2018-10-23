@@ -12,7 +12,7 @@
         android:id="@+id/ll_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="8dp"
         android:orientation="vertical">
 
 
@@ -62,6 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_menu_share"
+                android:layout_marginRight="5dp"
                 />
 
             <ImageView
