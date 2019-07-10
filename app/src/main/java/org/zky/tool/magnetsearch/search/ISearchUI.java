@@ -1,6 +1,6 @@
 package org.zky.tool.magnetsearch.search;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import org.zky.tool.magnetsearch.base.IUI;
 

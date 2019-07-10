@@ -1,11 +1,10 @@
 package org.zky.tool.magnetsearch.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.StringRes;
-import android.support.design.widget.BaseTransientBottomBar;
-import android.support.design.widget.Snackbar;
+import androidx.annotation.StringRes;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;

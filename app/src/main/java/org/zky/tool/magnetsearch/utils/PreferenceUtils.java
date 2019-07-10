@@ -3,7 +3,7 @@ package org.zky.tool.magnetsearch.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import org.zky.tool.magnetsearch.base.BaseThemeActivity;
 import org.zky.tool.magnetsearch.R;

@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.IntentCompat;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.Nullable;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.content.IntentCompat;
+import androidx.appcompat.app.AlertDialog;
 
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.search.MainActivity;
@@ -191,8 +191,8 @@ public class MyPreferenceFragment extends PreferenceFragment {
         }
 
         public void recreateActivity() {
-            final Intent intent = IntentCompat.makeMainActivity(new ComponentName(getActivity(), MainActivity.class));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+            final Intent intent = Intent.makeMainActivity(new ComponentName(getActivity(), MainActivity.class));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             getActivity().finish();
         }

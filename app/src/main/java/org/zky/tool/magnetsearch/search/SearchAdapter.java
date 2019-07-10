@@ -7,11 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.text.Html;
 import android.view.View;
 
-import org.zky.tool.magnetsearch.MagnetSearchApp;
 import org.zky.tool.magnetsearch.R;
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao;
 import org.zky.tool.magnetsearch.utils.GetRes;

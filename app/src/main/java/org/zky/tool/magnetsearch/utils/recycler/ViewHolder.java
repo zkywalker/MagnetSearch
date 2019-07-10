@@ -19,12 +19,14 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by zkywalker on 2016/12/25.
  * package:org.zky.zky.recyclerview
  */
 
-public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder {
+public class ViewHolder extends RecyclerView.ViewHolder {
     private SparseArray<View> mViews = new SparseArray();
     private int mLayoutId;
 
