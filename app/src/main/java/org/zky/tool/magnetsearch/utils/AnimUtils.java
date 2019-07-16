@@ -9,6 +9,7 @@ import android.view.View;
  * Created by zhangkun on 2017/2/27.
  */
 
+@Deprecated
 public class AnimUtils {
 
     public static void zoomIn(final View view){
@@ -28,7 +29,6 @@ public class AnimUtils {
     public static void zoomOut(final View view){
         ObjectAnimator a = ObjectAnimator.ofFloat(view, "scaleX", 1f, 0f)
                 .setDuration(300);
-        a.start();
         a.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -38,5 +38,7 @@ public class AnimUtils {
                     view.setVisibility(View.GONE);
             }
         });
+        a.start();
+
     }
 }

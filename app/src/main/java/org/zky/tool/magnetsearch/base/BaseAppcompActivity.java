@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 
 
-import org.zky.tool.magnetsearch.utils.MessageUtils;
 import org.zky.tool.magnetsearch.utils.ToastUtils;
 
 
@@ -16,14 +15,14 @@ import org.zky.tool.magnetsearch.utils.ToastUtils;
  */
 
 public class BaseAppcompActivity extends AppCompatActivity implements IUI {
-    protected boolean mIsActivityDestoryed = false;
+    protected boolean mIsActivityDestroyed = false;
     private boolean isPaused;
     private boolean isStoped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mIsActivityDestoryed = false;
+        mIsActivityDestroyed = false;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class BaseAppcompActivity extends AppCompatActivity implements IUI {
 
     @Override
     protected void onDestroy() {
-        mIsActivityDestoryed = true;
+        mIsActivityDestroyed = true;
         super.onDestroy();
     }
 
@@ -60,12 +59,12 @@ public class BaseAppcompActivity extends AppCompatActivity implements IUI {
     }
 
     /**
-     * isActivityDestoryed:Activity是否已经Destory了. <br/>
+     * isActivityDestroyed:Activity是否已经Destory了. <br/>
      *
      * @return true, Activity已经销毁了，不要在执行任何Fragment事务、显示Dialog等操作
      */
-    public boolean isActivityDestoryed() {
-        return mIsActivityDestoryed;
+    public boolean isActivityDestroyed() {
+        return mIsActivityDestroyed;
     }
 
     @Override
@@ -94,7 +93,7 @@ public class BaseAppcompActivity extends AppCompatActivity implements IUI {
 
     @Override
     public boolean isDestoryed() {
-        return isActivityDestoryed();
+        return isActivityDestroyed();
     }
 
     @Override
@@ -125,16 +124,6 @@ public class BaseAppcompActivity extends AppCompatActivity implements IUI {
     @Override
     public void showToast(int stringId) {
         showToast(getString(stringId));
-    }
-
-    @Override
-    public void showSnack(int stringId) {
-        showSnack(getString(stringId));
-    }
-
-    @Override
-    public void showSnack(String content) {
-        MessageUtils.showSnackShort(content);
     }
 
     @Override

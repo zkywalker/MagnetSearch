@@ -10,26 +10,22 @@ import org.zky.tool.magnetsearch.utils.GetRes
 
 class SettingsActivity : BaseThemeActivity<SettingsPresenter>(), ISettingsUI {
 
-    private var analytics: FirebaseAnalytics? = null
-
     override fun onCreateExecute(savedInstanceState: Bundle?) {
         super.onCreateExecute(savedInstanceState)
 
         setContentView(R.layout.activity_settings)
-        toolbar!!.title = GetRes.getString(R.string.action_settings)
+        toolbar.title = GetRes.getString(R.string.action_settings)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //加载广告是个耗时操作，延迟加载提高用户体验
-        toolbar!!.postDelayed({
-            val request = AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build()
-            adView!!.loadAd(request)
+        toolbar.postDelayed({
+            adView.loadAd(AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build())
         }, 1000)
 
 
-        analytics = FirebaseAnalytics.getInstance(this)
-        analytics!!.logEvent("sittings", Bundle())
+        FirebaseAnalytics.getInstance(this).logEvent("sittings", Bundle())
     }
 
     override fun createPresenter(): SettingsPresenter {
@@ -39,6 +35,5 @@ class SettingsActivity : BaseThemeActivity<SettingsPresenter>(), ISettingsUI {
     companion object {
         private val TAG = "SettingsActivity"
     }
-
 
 }

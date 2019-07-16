@@ -1,13 +1,9 @@
 package org.zky.tool.magnetsearch.history
 
 import android.os.Bundle
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.tabs.TabLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.widget.Toolbar
-
-import org.greenrobot.greendao.query.QueryBuilder
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_history.*
 import org.zky.tool.magnetsearch.R
 import org.zky.tool.magnetsearch.base.BaseThemeActivity
 import org.zky.tool.magnetsearch.greendao.gen.SearchEntityDao
@@ -15,10 +11,7 @@ import org.zky.tool.magnetsearch.search.SearchAdapter
 import org.zky.tool.magnetsearch.search.SearchEntity
 import org.zky.tool.magnetsearch.utils.GetRes
 import org.zky.tool.magnetsearch.utils.GreenDaoManager
-
-import java.util.ArrayList
-
-import kotlinx.android.synthetic.main.activity_history.*
+import java.util.*
 
 class HistoryActivity : BaseThemeActivity<HistoryPresenter>(), IHistoryUI {
 
@@ -33,9 +26,7 @@ class HistoryActivity : BaseThemeActivity<HistoryPresenter>(), IHistoryUI {
         loadOpened()
     }
 
-    override fun createPresenter(): HistoryPresenter {
-        return HistoryPresenter()
-    }
+    override fun createPresenter(): HistoryPresenter = HistoryPresenter()
 
     private fun loadAllData() {
         val searchEntities = GreenDaoManager.getInstance().daoSession.searchEntityDao.loadAll()
@@ -47,30 +38,36 @@ class HistoryActivity : BaseThemeActivity<HistoryPresenter>(), IHistoryUI {
         val searchEntityQueryBuilder = GreenDaoManager.getInstance().daoSession.searchEntityDao.queryBuilder()
         val list = searchEntityQueryBuilder.where(SearchEntityDao.Properties.Opened.eq(true)).list()
         if (list != null)
-            adapter!!.datas = list
+            adapter?.datas = list
+    }
+
+    val opened = GetRes.getString(R.string.opened)
+
+    val all = GetRes.getString(R.string.all)
+
+    private fun initTab(tabText: String) {
+        tabLayout.newTab().apply {
+            text = tabText
+            tag = tabText
+            tabLayout.addTab(this)
+        }
     }
 
     private fun initView() {
-        toolbar!!.title = GetRes.getString(R.string.history_activity)
+        toolbar.title = GetRes.getString(R.string.history_activity)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         adapter = SearchAdapter(this, list, R.layout.item_recycler_view)
-        rv_history!!.adapter = adapter
-        rv_history!!.layoutManager = LinearLayoutManager(this)
+        rv_history.adapter = adapter
+        rv_history.layoutManager = LinearLayoutManager(this)
 
-        val tab = tabLayout!!.newTab()
-        tab.text = GetRes.getString(R.string.opened)
-        tab.tag = GetRes.getString(R.string.opened)
-        val tab2 = tabLayout!!.newTab()
-        tab2.text = GetRes.getString(R.string.all)
-        tab2.tag = GetRes.getString(R.string.all)
-        tabLayout!!.addTab(tab)
-        tabLayout!!.addTab(tab2)
-        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        initTab(opened)
+        initTab(all)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                if (tab.tag == GetRes.getString(R.string.opened)) {
+                if (tab.tag == opened) {
                     loadOpened()
-                } else if (tab.tag == GetRes.getString(R.string.all)) {
+                } else if (tab.tag == all) {
                     loadAllData()
                 }
             }
@@ -83,7 +80,7 @@ class HistoryActivity : BaseThemeActivity<HistoryPresenter>(), IHistoryUI {
 
             }
         })
-        tab.select()
+        tabLayout.getTabAt(0)?.select()
     }
 
     companion object {

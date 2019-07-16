@@ -25,25 +25,26 @@ class FavoriteActivity : BaseThemeActivity<FavoritePresenter>(), IFavoriteUI {
         query()
     }
 
-    override fun createPresenter(): FavoritePresenter {
-        return FavoritePresenter()
-    }
+    override fun createPresenter(): FavoritePresenter = FavoritePresenter()
 
     private fun query() {
         val builder = GreenDaoManager.getInstance().daoSession.searchEntityDao.queryBuilder()
         val list = builder.where(SearchEntityDao.Properties.IsFavorite.eq(true)).list()
-        adapter!!.datas = list
-        srl_refresh!!.isRefreshing = false
+        adapter?.datas = list
+        srl_refresh.isRefreshing = false
     }
 
     private fun initView() {
-        toolbar!!.title = GetRes.getString(R.string.favorites_activity)
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        setSupportActionBar(toolbar.also {
+            it.title = GetRes.getString(R.string.favorites_activity)
+        })
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         adapter = SearchAdapter(this, list, R.layout.item_recycler_view)
-        rv_favorite!!.adapter = adapter
-        rv_favorite!!.layoutManager = LinearLayoutManager(this)
+        rv_favorite.adapter = adapter
+        rv_favorite.layoutManager = LinearLayoutManager(this)
 
-        srl_refresh!!.setOnRefreshListener { query() }
+        srl_refresh.setOnRefreshListener { query() }
+
     }
+
 }

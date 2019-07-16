@@ -12,8 +12,4 @@ public interface IUI extends IUIState {
 
     void showToast(int stringId);
 
-    void showSnack(int stringId);
-
-    void showSnack(String content);
-
 }

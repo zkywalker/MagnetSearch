@@ -1,13 +1,10 @@
 package org.zky.tool.magnetsearch;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
 
-import org.zky.tool.magnetsearch.greendao.gen.DaoMaster;
-import org.zky.tool.magnetsearch.greendao.gen.DaoSession;
 import org.zky.tool.magnetsearch.utils.GetRes;
 import org.zky.tool.magnetsearch.utils.GreenDaoManager;
-import org.zky.tool.magnetsearch.utils.MessageUtils;
+import org.zky.tool.magnetsearch.utils.ToastUtils;
 
 
 /**
@@ -26,7 +23,7 @@ public class MagnetSearchApp extends Application {
         instance =this;
 
         GetRes.init(this);
-        MessageUtils.init(this);
+        ToastUtils.init(this);
         GreenDaoManager.init(this);
 
     }
